@@ -1,24 +1,56 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
+import { setupListeners } from '@reduxjs/toolkit/query'
+
+// Import API
+import { baseApi } from './api/baseApi'
 
 // Import slices
 import authSlice from './slices/authSlice'
-// import userSlice from './slices/userSlice'
-// import uiSlice from './slices/uiSlice'
+import userSlice from './slices/userSlice'
+import uiSlice from './slices/uiSlice'
+
+// Import middleware
+import errorMiddleware from './middleware/errorMiddleware'
+import loggingMiddleware, {
+  performanceMiddleware,
+} from './middleware/loggingMiddleware'
 
 export const store = configureStore({
   reducer: {
+    // API slice
+    [baseApi.reducerPath]: baseApi.reducer,
+
+    // Feature slices
     auth: authSlice,
-    // user: userSlice,
-    // ui: uiSlice,
+    user: userSlice,
+    ui: uiSlice,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: ['persist/PERSIST'],
+        ignoredActions: [
+          'persist/PERSIST',
+          'persist/REHYDRATE',
+          // Ignore RTK Query actions
+          'api/executeQuery/pending',
+          'api/executeQuery/fulfilled',
+          'api/executeQuery/rejected',
+        ],
+        ignoredActionsPaths: ['meta.arg', 'payload.timestamp'],
+        ignoredPaths: ['api.queries', 'api.mutations'],
       },
-    }),
+    })
+      // Add RTK Query middleware
+      .concat(baseApi.middleware)
+      // Add custom middleware
+      .concat(errorMiddleware)
+      .concat(performanceMiddleware)
+      .concat(import.meta.env.DEV ? [loggingMiddleware] : []),
 })
+
+// Setup listeners for RTK Query
+setupListeners(store.dispatch)
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
