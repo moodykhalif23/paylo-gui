@@ -177,7 +177,7 @@ export const merchantApi = baseApi.injectEndpoints({
     getInvoiceById: builder.query<Invoice, string>({
       query: invoiceId => `/merchant/invoices/${invoiceId}`,
       transformResponse: (response: ApiResponse<Invoice>) => response.data!,
-      providesTags: (result, error, invoiceId) => [
+      providesTags: (_result, _error, invoiceId) => [
         { type: 'Invoice', id: invoiceId },
       ],
     }),
@@ -199,7 +199,7 @@ export const merchantApi = baseApi.injectEndpoints({
         url: `/merchant/invoices/${invoiceId}/cancel`,
         method: 'POST',
       }),
-      invalidatesTags: (result, error, invoiceId) => [
+      invalidatesTags: (_result, _error, invoiceId) => [
         { type: 'Invoice', id: invoiceId },
         'Invoice',
       ],

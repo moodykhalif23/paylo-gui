@@ -120,7 +120,7 @@ export const transactionApi = baseApi.injectEndpoints({
       query: transactionId => `/transactions/${transactionId}`,
       transformResponse: (response: ApiResponse<TransactionDetails>) =>
         response.data!,
-      providesTags: (result, error, transactionId) => [
+      providesTags: (_result, _error, transactionId) => [
         { type: 'Transaction', id: transactionId },
       ],
     }),
@@ -164,7 +164,7 @@ export const transactionApi = baseApi.injectEndpoints({
         url: `/transactions/${transactionId}/cancel`,
         method: 'POST',
       }),
-      invalidatesTags: (result, error, transactionId) => [
+      invalidatesTags: (_result, _error, transactionId) => [
         { type: 'Transaction', id: transactionId },
         'Transaction',
       ],
@@ -177,7 +177,7 @@ export const transactionApi = baseApi.injectEndpoints({
         method: 'POST',
       }),
       transformResponse: (response: ApiResponse<Transaction>) => response.data!,
-      invalidatesTags: (result, error, transactionId) => [
+      invalidatesTags: (_result, _error, transactionId) => [
         { type: 'Transaction', id: transactionId },
         'Transaction',
       ],
@@ -252,7 +252,7 @@ export const transactionApi = baseApi.injectEndpoints({
         `/transactions/by-hash/${txHash}?blockchain=${blockchain}`,
       transformResponse: (response: ApiResponse<TransactionDetails>) =>
         response.data!,
-      providesTags: (result, error, { txHash }) => [
+      providesTags: (_result, _error, { txHash }) => [
         { type: 'Transaction', id: txHash },
       ],
     }),

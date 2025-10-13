@@ -1,5 +1,10 @@
 import { baseApi } from './baseApi'
-import { Wallet, BlockchainType, ApiResponse } from '../../types'
+import {
+  Wallet,
+  BlockchainType,
+  ApiResponse,
+  TransactionFee,
+} from '../../types'
 
 // Wallet API request/response types
 export interface CreateWalletRequest {
@@ -53,7 +58,7 @@ export const walletApi = baseApi.injectEndpoints({
     getWalletById: builder.query<Wallet, string>({
       query: walletId => `/wallets/${walletId}`,
       transformResponse: (response: ApiResponse<Wallet>) => response.data!,
-      providesTags: (result, error, walletId) => [
+      providesTags: (_result, _error, walletId) => [
         { type: 'Wallet', id: walletId },
       ],
     }),
@@ -78,7 +83,7 @@ export const walletApi = baseApi.injectEndpoints({
         `/wallets/balance?address=${address}&blockchain=${blockchain}`,
       transformResponse: (response: ApiResponse<WalletBalance>) =>
         response.data!,
-      providesTags: (result, error, { address }) => [
+      providesTags: (_result, _error, { address }) => [
         { type: 'Wallet', id: address },
       ],
     }),
@@ -111,7 +116,7 @@ export const walletApi = baseApi.injectEndpoints({
       query: walletId => `/wallets/${walletId}/addresses`,
       transformResponse: (response: ApiResponse<AddressInfo[]>) =>
         response.data!,
-      providesTags: (result, error, walletId) => [
+      providesTags: (_result, _error, walletId) => [
         { type: 'Wallet', id: walletId },
       ],
     }),
@@ -135,7 +140,7 @@ export const walletApi = baseApi.injectEndpoints({
         body: { label },
       }),
       transformResponse: (response: ApiResponse<Wallet>) => response.data!,
-      invalidatesTags: (result, error, { walletId }) => [
+      invalidatesTags: (_result, _error, { walletId }) => [
         { type: 'Wallet', id: walletId },
       ],
     }),
@@ -146,7 +151,7 @@ export const walletApi = baseApi.injectEndpoints({
         url: `/wallets/${walletId}/deactivate`,
         method: 'POST',
       }),
-      invalidatesTags: (result, error, walletId) => [
+      invalidatesTags: (_result, _error, walletId) => [
         { type: 'Wallet', id: walletId },
       ],
     }),
@@ -157,7 +162,7 @@ export const walletApi = baseApi.injectEndpoints({
         url: `/wallets/${walletId}/activate`,
         method: 'POST',
       }),
-      invalidatesTags: (result, error, walletId) => [
+      invalidatesTags: (_result, _error, walletId) => [
         { type: 'Wallet', id: walletId },
       ],
     }),
@@ -172,6 +177,13 @@ export const walletApi = baseApi.injectEndpoints({
       transformResponse: (
         response: ApiResponse<{ valid: boolean; blockchain?: BlockchainType }>
       ) => response.data!,
+    }),
+
+    // Get transaction fees for blockchain
+    getTransactionFees: builder.query<TransactionFee, BlockchainType>({
+      query: blockchain => `/wallets/transaction-fees/${blockchain}`,
+      transformResponse: (response: ApiResponse<TransactionFee>) =>
+        response.data!,
     }),
   }),
 })
@@ -190,4 +202,5 @@ export const {
   useDeactivateWalletMutation,
   useActivateWalletMutation,
   useLazyValidateAddressQuery,
+  useGetTransactionFeesQuery,
 } = walletApi

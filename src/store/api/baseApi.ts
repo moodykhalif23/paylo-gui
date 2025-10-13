@@ -1,4 +1,9 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import {
+  createApi,
+  fetchBaseQuery,
+  FetchArgs,
+  BaseQueryApi,
+} from '@reduxjs/toolkit/query/react'
 import { config } from '../../config/environment'
 import { tokenStorage } from '../../services/api/client'
 import { ApiResponse } from '../../types'
@@ -21,9 +26,9 @@ const baseQuery = fetchBaseQuery({
 
 // Enhanced base query with token refresh logic
 const baseQueryWithReauth = async (
-  args: unknown,
-  api: unknown,
-  extraOptions: unknown
+  args: string | FetchArgs,
+  api: BaseQueryApi,
+  extraOptions: Record<string, unknown>
 ) => {
   let result = await baseQuery(args, api, extraOptions)
 

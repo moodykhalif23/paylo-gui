@@ -87,7 +87,17 @@ describe('AuthService', () => {
       const mockResponse = {
         success: true,
         data: {
-          user: { id: '1', email: 'test@example.com', role: 'user' },
+          user: {
+            id: '1',
+            email: 'test@example.com',
+            role: 'user' as const,
+            firstName: 'Test',
+            lastName: 'User',
+            isActive: true,
+            isEmailVerified: true,
+            createdAt: '2023-01-01T00:00:00Z',
+            updatedAt: '2023-01-01T00:00:00Z',
+          },
           accessToken: 'access-token',
           refreshToken: 'refresh-token',
           expiresIn: 3600,
