@@ -1,18 +1,18 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 
-// Import slices (will be created in subsequent tasks)
-// import authSlice from './slices/authSlice'
+// Import slices
+import authSlice from './slices/authSlice'
 // import userSlice from './slices/userSlice'
 // import uiSlice from './slices/uiSlice'
 
 export const store = configureStore({
   reducer: {
-    // auth: authSlice,
+    auth: authSlice,
     // user: userSlice,
     // ui: uiSlice,
   },
-  middleware: (getDefaultMiddleware) =>
+  middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: ['persist/PERSIST'],
