@@ -90,6 +90,8 @@ export const baseApi = createApi({
     'SystemHealth',
     'Analytics',
     'Notification',
+    'SuspiciousActivity',
+    'Investigation',
   ],
   endpoints: () => ({}),
 })

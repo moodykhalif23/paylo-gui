@@ -1,15 +1,11 @@
 import React from 'react'
-import { Typography, Box } from '@mui/material'
+import { Box } from '@mui/material'
+import { SystemConfigurationPanel } from '../../components/admin'
 
 const AdminSettingsPage: React.FC = () => {
   return (
     <Box sx={{ p: 3 }}>
-      <Typography variant="h4" gutterBottom>
-        System Settings
-      </Typography>
-      <Typography variant="body1" color="text.secondary">
-        System configuration will be implemented in task 7.4
-      </Typography>
+      <SystemConfigurationPanel />
     </Box>
   )
 }

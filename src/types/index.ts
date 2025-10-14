@@ -277,6 +277,94 @@ export interface SystemHealth {
   lastUpdated: string
 }
 
+export interface SuspiciousActivity {
+  id: string
+  transactionId: string
+  type:
+    | 'high_frequency'
+    | 'large_amount'
+    | 'unusual_pattern'
+    | 'blacklisted_address'
+    | 'velocity_check'
+  severity: 'low' | 'medium' | 'high' | 'critical'
+  description: string
+  riskScore: number
+  flags: string[]
+  detectedAt: string
+  status: 'pending' | 'investigating' | 'resolved' | 'false_positive'
+  investigatedBy?: string
+  investigatedAt?: string
+  resolution?: string
+  metadata?: Record<string, unknown>
+}
+
+export interface TransactionInvestigation {
+  id: string
+  transactionId: string
+  investigatorId: string
+  status: 'open' | 'in_progress' | 'closed'
+  priority: 'low' | 'medium' | 'high' | 'critical'
+  findings: InvestigationFinding[]
+  notes: InvestigationNote[]
+  actions: InvestigationAction[]
+  createdAt: string
+  updatedAt: string
+  closedAt?: string
+}
+
+export interface InvestigationFinding {
+  id: string
+  type:
+    | 'suspicious_pattern'
+    | 'compliance_issue'
+    | 'fraud_indicator'
+    | 'technical_issue'
+  description: string
+  evidence: string[]
+  severity: 'low' | 'medium' | 'high' | 'critical'
+  createdAt: string
+}
+
+export interface InvestigationNote {
+  id: string
+  content: string
+  authorId: string
+  authorName: string
+  createdAt: string
+}
+
+export interface InvestigationAction {
+  id: string
+  type:
+    | 'freeze_account'
+    | 'flag_transaction'
+    | 'request_documents'
+    | 'escalate'
+    | 'close_case'
+  description: string
+  performedBy: string
+  performedAt: string
+  metadata?: Record<string, unknown>
+}
+
+export interface TransactionAnalytics {
+  riskDistribution: {
+    low: number
+    medium: number
+    high: number
+    critical: number
+  }
+  flaggedTransactions: number
+  investigationsOpen: number
+  investigationsClosed: number
+  averageInvestigationTime: number
+  topRiskFactors: {
+    factor: string
+    count: number
+    percentage: number
+  }[]
+}
+
 export interface ServiceStatus {
   name: string
   status: 'healthy' | 'degraded' | 'down'
@@ -305,6 +393,8 @@ export interface AdminUser extends User {
   failedLoginAttempts: number
   isLocked: boolean
   lockedUntil?: string
+  twoFactorEnabled: boolean
+  kycStatus?: 'pending' | 'approved' | 'rejected' | 'not_submitted'
 }
 
 export interface SystemAlert {
@@ -502,3 +592,4 @@ export interface ThemeConfig {
 
 export * from './api'
 export * from './websocket'
+export * from './systemConfig'

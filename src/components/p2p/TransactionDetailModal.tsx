@@ -22,7 +22,7 @@ import {
 } from '@mui/icons-material'
 import { Transaction, BlockchainType, TransactionStatus } from '../../types'
 import { formatCurrency, formatDate } from '../../utils/formatters'
-import { useGetTransactionByIdQuery } from '../../store/api/transactionApi'
+import { useGetTransactionByIdQuery } from '../../store/api/adminApi'
 
 interface TransactionDetailModalProps {
   open: boolean

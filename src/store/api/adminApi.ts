@@ -5,8 +5,16 @@ import {
   AdminUser,
   MerchantProfile,
   Transaction,
+  SuspiciousActivity,
+  TransactionInvestigation,
+  InvestigationNote,
+  InvestigationAction,
+  TransactionAnalytics,
   ApiResponse,
   PaginatedResponse,
+  SystemConfiguration,
+  ConfigurationValidationResult,
+  ConfigurationTestResult,
 } from '../../types'
 
 // Admin API request/response types
@@ -42,6 +50,16 @@ export interface UpdateUserRequest {
   role?: 'user' | 'merchant' | 'admin'
   isEmailVerified?: boolean
   kycStatus?: 'pending' | 'approved' | 'rejected' | 'not_submitted'
+}
+
+export interface CreateUserRequest {
+  firstName: string
+  lastName: string
+  email: string
+  password: string
+  role: 'user' | 'merchant' | 'admin'
+  isActive: boolean
+  isEmailVerified: boolean
 }
 
 export interface CreateSystemAlertRequest {
@@ -126,6 +144,17 @@ export const adminApi = baseApi.injectEndpoints({
       query: userId => `/admin/users/${userId}`,
       transformResponse: (response: ApiResponse<AdminUser>) => response.data!,
       providesTags: (_result, _error, userId) => [{ type: 'User', id: userId }],
+    }),
+
+    // Create user
+    createUser: builder.mutation<AdminUser, CreateUserRequest>({
+      query: data => ({
+        url: '/admin/users',
+        method: 'POST',
+        body: data,
+      }),
+      transformResponse: (response: ApiResponse<AdminUser>) => response.data!,
+      invalidatesTags: ['User'],
     }),
 
     // Update user
@@ -234,6 +263,9 @@ export const adminApi = baseApi.injectEndpoints({
           minAmount?: string
           maxAmount?: string
           userId?: string
+          isSuspicious?: boolean
+          riskLevel?: 'low' | 'medium' | 'high' | 'critical'
+          hasInvestigation?: boolean
         }
       }
     >({
@@ -248,6 +280,223 @@ export const adminApi = baseApi.injectEndpoints({
         return `/admin/transactions?${params.toString()}`
       },
       transformResponse: (response: PaginatedResponse<Transaction>) => response,
+      providesTags: ['Transaction'],
+    }),
+
+    // Get transaction by ID with investigation details
+    getTransactionById: builder.query<Transaction, string>({
+      query: transactionId => `/admin/transactions/${transactionId}`,
+      transformResponse: (response: ApiResponse<Transaction>) => response.data!,
+      providesTags: (_result, _error, transactionId) => [
+        { type: 'Transaction', id: transactionId },
+      ],
+    }),
+
+    // Suspicious activity monitoring
+    getSuspiciousActivities: builder.query<
+      PaginatedResponse<SuspiciousActivity>,
+      {
+        page?: number
+        limit?: number
+        filters?: {
+          type?:
+            | 'high_frequency'
+            | 'large_amount'
+            | 'unusual_pattern'
+            | 'blacklisted_address'
+            | 'velocity_check'
+          severity?: 'low' | 'medium' | 'high' | 'critical'
+          status?: 'pending' | 'investigating' | 'resolved' | 'false_positive'
+          fromDate?: string
+          toDate?: string
+          minRiskScore?: number
+          maxRiskScore?: number
+        }
+      }
+    >({
+      query: ({ page = 1, limit = 20, filters = {} }) => {
+        const params = new URLSearchParams({
+          page: page.toString(),
+          limit: limit.toString(),
+          ...Object.fromEntries(
+            Object.entries(filters).filter(([_, value]) => value !== undefined)
+          ),
+        })
+        return `/admin/suspicious-activities?${params.toString()}`
+      },
+      transformResponse: (response: PaginatedResponse<SuspiciousActivity>) =>
+        response,
+      providesTags: ['SuspiciousActivity'],
+    }),
+
+    // Update suspicious activity status
+    updateSuspiciousActivityStatus: builder.mutation<
+      SuspiciousActivity,
+      {
+        activityId: string
+        status: 'pending' | 'investigating' | 'resolved' | 'false_positive'
+        resolution?: string
+      }
+    >({
+      query: ({ activityId, status, resolution }) => ({
+        url: `/admin/suspicious-activities/${activityId}/status`,
+        method: 'PUT',
+        body: { status, resolution },
+      }),
+      transformResponse: (response: ApiResponse<SuspiciousActivity>) =>
+        response.data!,
+      invalidatesTags: ['SuspiciousActivity', 'Transaction'],
+    }),
+
+    // Transaction investigations
+    getTransactionInvestigations: builder.query<
+      PaginatedResponse<TransactionInvestigation>,
+      {
+        page?: number
+        limit?: number
+        filters?: {
+          status?: 'open' | 'in_progress' | 'closed'
+          priority?: 'low' | 'medium' | 'high' | 'critical'
+          investigatorId?: string
+          fromDate?: string
+          toDate?: string
+        }
+      }
+    >({
+      query: ({ page = 1, limit = 20, filters = {} }) => {
+        const params = new URLSearchParams({
+          page: page.toString(),
+          limit: limit.toString(),
+          ...Object.fromEntries(
+            Object.entries(filters).filter(([_, value]) => value !== undefined)
+          ),
+        })
+        return `/admin/investigations?${params.toString()}`
+      },
+      transformResponse: (
+        response: PaginatedResponse<TransactionInvestigation>
+      ) => response,
+      providesTags: ['Investigation'],
+    }),
+
+    // Get investigation by ID
+    getInvestigationById: builder.query<TransactionInvestigation, string>({
+      query: investigationId => `/admin/investigations/${investigationId}`,
+      transformResponse: (response: ApiResponse<TransactionInvestigation>) =>
+        response.data!,
+      providesTags: (_result, _error, investigationId) => [
+        { type: 'Investigation', id: investigationId },
+      ],
+    }),
+
+    // Create investigation
+    createInvestigation: builder.mutation<
+      TransactionInvestigation,
+      {
+        transactionId: string
+        priority: 'low' | 'medium' | 'high' | 'critical'
+        initialNote?: string
+      }
+    >({
+      query: data => ({
+        url: '/admin/investigations',
+        method: 'POST',
+        body: data,
+      }),
+      transformResponse: (response: ApiResponse<TransactionInvestigation>) =>
+        response.data!,
+      invalidatesTags: ['Investigation', 'Transaction'],
+    }),
+
+    // Update investigation
+    updateInvestigation: builder.mutation<
+      TransactionInvestigation,
+      {
+        investigationId: string
+        data: {
+          status?: 'open' | 'in_progress' | 'closed'
+          priority?: 'low' | 'medium' | 'high' | 'critical'
+        }
+      }
+    >({
+      query: ({ investigationId, data }) => ({
+        url: `/admin/investigations/${investigationId}`,
+        method: 'PUT',
+        body: data,
+      }),
+      transformResponse: (response: ApiResponse<TransactionInvestigation>) =>
+        response.data!,
+      invalidatesTags: (_result, _error, { investigationId }) => [
+        { type: 'Investigation', id: investigationId },
+        'Investigation',
+      ],
+    }),
+
+    // Add investigation note
+    addInvestigationNote: builder.mutation<
+      InvestigationNote,
+      {
+        investigationId: string
+        content: string
+      }
+    >({
+      query: ({ investigationId, content }) => ({
+        url: `/admin/investigations/${investigationId}/notes`,
+        method: 'POST',
+        body: { content },
+      }),
+      transformResponse: (response: ApiResponse<InvestigationNote>) =>
+        response.data!,
+      invalidatesTags: (_result, _error, { investigationId }) => [
+        { type: 'Investigation', id: investigationId },
+      ],
+    }),
+
+    // Add investigation action
+    addInvestigationAction: builder.mutation<
+      InvestigationAction,
+      {
+        investigationId: string
+        type:
+          | 'freeze_account'
+          | 'flag_transaction'
+          | 'request_documents'
+          | 'escalate'
+          | 'close_case'
+        description: string
+        metadata?: Record<string, unknown>
+      }
+    >({
+      query: ({ investigationId, type, description, metadata }) => ({
+        url: `/admin/investigations/${investigationId}/actions`,
+        method: 'POST',
+        body: { type, description, metadata },
+      }),
+      transformResponse: (response: ApiResponse<InvestigationAction>) =>
+        response.data!,
+      invalidatesTags: (_result, _error, { investigationId }) => [
+        { type: 'Investigation', id: investigationId },
+      ],
+    }),
+
+    // Get transaction analytics
+    getTransactionAnalytics: builder.query<
+      TransactionAnalytics,
+      {
+        fromDate?: string
+        toDate?: string
+      }
+    >({
+      query: (filters = {}) => {
+        const params = new URLSearchParams(
+          Object.fromEntries(
+            Object.entries(filters).filter(([_, value]) => value !== undefined)
+          )
+        )
+        return `/admin/transactions/analytics?${params.toString()}`
+      },
+      transformResponse: (response: ApiResponse<TransactionAnalytics>) =>
+        response.data!,
       providesTags: ['Transaction'],
     }),
 
@@ -299,21 +548,76 @@ export const adminApi = baseApi.injectEndpoints({
     }),
 
     // System configuration
-    getSystemConfig: builder.query<Record<string, unknown>, void>({
+    getSystemConfig: builder.query<SystemConfiguration, void>({
       query: () => '/admin/system/config',
-      transformResponse: (response: ApiResponse<Record<string, unknown>>) =>
+      transformResponse: (response: ApiResponse<SystemConfiguration>) =>
         response.data!,
-      providesTags: ['SystemHealth'],
+      providesTags: ['SystemConfig'],
     }),
 
     // Update system configuration
-    updateSystemConfig: builder.mutation<void, Record<string, unknown>>({
+    updateSystemConfig: builder.mutation<
+      SystemConfiguration,
+      Partial<SystemConfiguration>
+    >({
       query: config => ({
         url: '/admin/system/config',
         method: 'PUT',
         body: config,
       }),
-      invalidatesTags: ['SystemHealth'],
+      transformResponse: (response: ApiResponse<SystemConfiguration>) =>
+        response.data!,
+      invalidatesTags: ['SystemConfig', 'SystemHealth'],
+    }),
+
+    // Validate system configuration
+    validateSystemConfig: builder.mutation<
+      ConfigurationValidationResult,
+      Partial<SystemConfiguration>
+    >({
+      query: config => ({
+        url: '/admin/system/config/validate',
+        method: 'POST',
+        body: config,
+      }),
+      transformResponse: (
+        response: ApiResponse<ConfigurationValidationResult>
+      ) => response.data!,
+    }),
+
+    // Test blockchain RPC connection
+    testBlockchainConnection: builder.mutation<
+      ConfigurationTestResult,
+      {
+        blockchain: 'bitcoin' | 'ethereum' | 'solana'
+        rpcEndpoint: string
+        timeout?: number
+      }
+    >({
+      query: ({ blockchain, rpcEndpoint, timeout = 5000 }) => ({
+        url: '/admin/system/config/test-connection',
+        method: 'POST',
+        body: { blockchain, rpcEndpoint, timeout },
+      }),
+      transformResponse: (response: ApiResponse<ConfigurationTestResult>) =>
+        response.data!,
+    }),
+
+    // Reset configuration to defaults
+    resetSystemConfig: builder.mutation<
+      SystemConfiguration,
+      {
+        section?: 'blockchain' | 'security' | 'rateLimit' | 'system'
+      }
+    >({
+      query: ({ section }) => ({
+        url: '/admin/system/config/reset',
+        method: 'POST',
+        body: { section },
+      }),
+      transformResponse: (response: ApiResponse<SystemConfiguration>) =>
+        response.data!,
+      invalidatesTags: ['SystemConfig', 'SystemHealth'],
     }),
 
     // Export admin data
@@ -364,6 +668,7 @@ export const {
   useGetSystemStatsQuery,
   useGetUsersQuery,
   useGetUserByIdQuery,
+  useCreateUserMutation,
   useUpdateUserMutation,
   useSuspendUserMutation,
   useUnsuspendUserMutation,
@@ -371,11 +676,24 @@ export const {
   useApproveMerchantVerificationMutation,
   useRejectMerchantVerificationMutation,
   useGetAllTransactionsQuery,
+  useGetTransactionByIdQuery,
+  useGetSuspiciousActivitiesQuery,
+  useUpdateSuspiciousActivityStatusMutation,
+  useGetTransactionInvestigationsQuery,
+  useGetInvestigationByIdQuery,
+  useCreateInvestigationMutation,
+  useUpdateInvestigationMutation,
+  useAddInvestigationNoteMutation,
+  useAddInvestigationActionMutation,
+  useGetTransactionAnalyticsQuery,
   useGetSystemAlertsQuery,
   useCreateSystemAlertMutation,
   useResolveSystemAlertMutation,
   useGetSystemConfigQuery,
   useUpdateSystemConfigMutation,
+  useValidateSystemConfigMutation,
+  useTestBlockchainConnectionMutation,
+  useResetSystemConfigMutation,
   useExportAdminDataMutation,
   usePerformSystemMaintenanceMutation,
 } = adminApi
