@@ -1,17 +1,8 @@
 import React from 'react'
-import { Typography, Box } from '@mui/material'
+import { MerchantDashboard as MerchantDashboardComponent } from '../../components/merchant'
 
 const MerchantDashboard: React.FC = () => {
-  return (
-    <Box sx={{ p: 3 }}>
-      <Typography variant="h4" gutterBottom>
-        Merchant Dashboard
-      </Typography>
-      <Typography variant="body1" color="text.secondary">
-        Merchant dashboard will be implemented in task 6.1
-      </Typography>
-    </Box>
-  )
+  return <MerchantDashboardComponent />
 }
 
 export default MerchantDashboard
