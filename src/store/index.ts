@@ -11,6 +11,9 @@ import userSlice from './slices/userSlice'
 import uiSlice from './slices/uiSlice'
 import websocketSlice from './slices/websocketSlice'
 import notificationSlice from './slices/notificationSlice'
+import transactionSlice from './slices/transactionSlice'
+import walletSlice from './slices/walletSlice'
+import systemSlice from './slices/systemSlice'
 
 // Import middleware
 import errorMiddleware from './middleware/errorMiddleware'
@@ -29,6 +32,9 @@ export const store = configureStore({
     ui: uiSlice,
     websocket: websocketSlice,
     notifications: notificationSlice,
+    transactions: transactionSlice,
+    wallets: walletSlice,
+    system: systemSlice,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

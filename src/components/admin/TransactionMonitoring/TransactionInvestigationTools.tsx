@@ -516,9 +516,10 @@ const TransactionInvestigationTools: React.FC<
                                   setNewActionType(
                                     e.target.value as
                                       | 'freeze_account'
-                                      | 'block_transaction'
-                                      | 'flag_suspicious'
-                                      | 'request_kyc'
+                                      | 'flag_transaction'
+                                      | 'request_documents'
+                                      | 'escalate'
+                                      | 'close_case'
                                   )
                                 }
                               >

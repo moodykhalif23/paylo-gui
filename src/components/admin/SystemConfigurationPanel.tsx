@@ -20,7 +20,7 @@ import {
   Settings as SettingsIcon,
   Save as SaveIcon,
   Refresh as RefreshIcon,
-  TestTube as TestIcon,
+  Science as TestIcon,
   Warning as WarningIcon,
   CheckCircle as CheckIcon,
   Error as ErrorIcon,
@@ -262,6 +262,11 @@ const SystemConfigurationPanel: React.FC = () => {
             requireSpecialChars: data.security.requireSpecialChars,
             maxAge: data.security.passwordMaxAge,
           },
+        },
+        encryption: {
+          algorithm: 'AES-256-GCM',
+          keyRotationInterval: 86400000, // 24 hours in milliseconds
+          backupEncryption: true,
         },
         apiSecurity: {
           corsOrigins: data.security.corsOrigins

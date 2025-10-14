@@ -195,24 +195,6 @@ export const useWebSocket = (
     }
   }, [dispatch, channels, user, auth.token])
 
-  // Auto-connect if enabled and user is authenticated
-  useEffect(() => {
-    if (
-      autoConnect &&
-      auth.token &&
-      !isConnected &&
-      !websocketState.isConnecting
-    ) {
-      connect()
-    }
-  }, [
-    autoConnect,
-    auth.token,
-    isConnected,
-    websocketState.isConnecting,
-    connect,
-  ])
-
   // Connect function
   const connect = useCallback(async (): Promise<void> => {
     if (websocketState.isConnected || websocketState.isConnecting) {
@@ -234,6 +216,24 @@ export const useWebSocket = (
       throw error
     }
   }, [dispatch, websocketState.isConnected, websocketState.isConnecting])
+
+  // Auto-connect if enabled and user is authenticated
+  useEffect(() => {
+    if (
+      autoConnect &&
+      auth.token &&
+      !isConnected &&
+      !websocketState.isConnecting
+    ) {
+      connect()
+    }
+  }, [
+    autoConnect,
+    auth.token,
+    isConnected,
+    websocketState.isConnecting,
+    connect,
+  ])
 
   // Disconnect function
   const disconnect = useCallback((): void => {

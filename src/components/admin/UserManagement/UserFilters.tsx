@@ -135,10 +135,11 @@ const UserFilters: React.FC<UserFiltersProps> = ({
                 label="Status"
                 onChange={e => {
                   const value = e.target.value
-                  handleFilterChange(
-                    'isActive',
-                    value === '' ? undefined : value === 'true'
-                  )
+                  if (value === '') {
+                    handleFilterChange('isActive', '')
+                  } else {
+                    handleFilterChange('isActive', value === 'true')
+                  }
                 }}
               >
                 <MenuItem value="">All Status</MenuItem>
@@ -156,10 +157,11 @@ const UserFilters: React.FC<UserFiltersProps> = ({
                 label="Email Verified"
                 onChange={e => {
                   const value = e.target.value
-                  handleFilterChange(
-                    'isEmailVerified',
-                    value === '' ? undefined : value === 'true'
-                  )
+                  if (value === '') {
+                    handleFilterChange('isEmailVerified', '')
+                  } else {
+                    handleFilterChange('isEmailVerified', value === 'true')
+                  }
                 }}
               >
                 <MenuItem value="">All</MenuItem>

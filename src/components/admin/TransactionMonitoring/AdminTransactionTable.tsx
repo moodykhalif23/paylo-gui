@@ -153,7 +153,10 @@ const AdminTransactionTable: React.FC<AdminTransactionTableProps> = ({
 
   const isSuspicious = (transaction: Transaction) => {
     const metadata = transaction.metadata as TransactionMetadata
-    return metadata?.isSuspicious || metadata?.riskScore >= 60
+    return (
+      metadata?.isSuspicious ||
+      (metadata?.riskScore && metadata.riskScore >= 60)
+    )
   }
 
   const hasInvestigation = (transaction: Transaction) => {

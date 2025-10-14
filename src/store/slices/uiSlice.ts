@@ -199,6 +199,7 @@ const uiSlice = createSlice({
         isRead: false,
         priority: 'medium',
         category: 'system',
+        userId: 'system',
         createdAt: new Date().toISOString(),
       }
       state.notifications.unshift(notification)
@@ -214,6 +215,7 @@ const uiSlice = createSlice({
         isRead: false,
         priority: 'high',
         category: 'system',
+        userId: 'system',
         createdAt: new Date().toISOString(),
       }
       state.notifications.unshift(notification)
@@ -229,6 +231,7 @@ const uiSlice = createSlice({
         isRead: false,
         priority: 'low',
         category: 'system',
+        userId: 'system',
         createdAt: new Date().toISOString(),
       }
       state.notifications.unshift(notification)
@@ -244,6 +247,7 @@ const uiSlice = createSlice({
         isRead: false,
         priority: 'medium',
         category: 'system',
+        userId: 'system',
         createdAt: new Date().toISOString(),
       }
       state.notifications.unshift(notification)

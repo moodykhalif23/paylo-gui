@@ -164,7 +164,7 @@ const AnalyticsFilters: React.FC<AnalyticsFiltersProps> = ({
               <Select
                 value={filters.blockchain || ''}
                 onChange={e =>
-                  handleFilterChange('blockchain', e.target.value || undefined)
+                  handleFilterChange('blockchain', e.target.value || '')
                 }
                 label="Blockchain"
                 disabled={isLoading}

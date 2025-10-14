@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState, ReactNode } from 'react'
+import React, { useEffect, useState, ReactNode } from 'react'
 import { useAppDispatch, useAppSelector } from '../../store'
 import {
   addNotification,
@@ -11,34 +11,18 @@ import { notificationManager } from '../../services/notifications/NotificationMa
 import { webSocketNotificationService } from '../../services/notifications/WebSocketNotificationService'
 import { NotificationToast } from '../notifications/NotificationToast'
 import { Notification, WebSocketMessage } from '../../types'
+import {
+  NotificationContext,
+  NotificationContextType,
+} from '../../contexts/NotificationContext'
 
 // ============================================================================
 // Types
 // ============================================================================
 
-export interface NotificationContextType {
-  showNotification: (
-    notification: Omit<Notification, 'id' | 'createdAt' | 'isRead'>
-  ) => void
-  dismissNotification: (id: string) => void
-  acknowledgeNotification: (id: string) => void
-  clearAllNotifications: () => void
-  handleWebSocketMessage: (message: WebSocketMessage) => void
-  unreadCount: number
-  notifications: Notification[]
-}
-
 interface NotificationProviderProps {
   children: ReactNode
 }
-
-// ============================================================================
-// Context
-// ============================================================================
-
-export const NotificationContext = createContext<
-  NotificationContextType | undefined
->(undefined)
 
 // ============================================================================
 // Provider Component

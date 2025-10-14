@@ -228,10 +228,13 @@ export const NotificationPreferences: React.FC<
                 <Switch
                   checked={globalSettings.quietHours.enabled}
                   onChange={e =>
-                    handleGlobalSettingChange('quietHours', {
-                      ...globalSettings.quietHours,
-                      enabled: e.target.checked,
-                    })
+                    setGlobalSettings(prev => ({
+                      ...prev,
+                      quietHours: {
+                        ...prev.quietHours,
+                        enabled: e.target.checked,
+                      },
+                    }))
                   }
                 />
               }

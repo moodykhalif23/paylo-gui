@@ -50,6 +50,7 @@ const SystemHealthPage = React.lazy(
 const AdminSettingsPage = React.lazy(
   () => import('../pages/admin/SettingsPage')
 )
+const CompliancePage = React.lazy(() => import('../pages/admin/CompliancePage'))
 
 // Loading component
 const PageLoader: React.FC = () => (
@@ -224,6 +225,16 @@ const AppRoutes: React.FC = () => {
                 <ProtectedRoute requiredRoles={['admin']}>
                   <LazyWrapper>
                     <SystemHealthPage />
+                  </LazyWrapper>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="compliance"
+              element={
+                <ProtectedRoute requiredRoles={['admin']}>
+                  <LazyWrapper>
+                    <CompliancePage />
                   </LazyWrapper>
                 </ProtectedRoute>
               }

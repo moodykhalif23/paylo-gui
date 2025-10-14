@@ -140,7 +140,7 @@ const MerchantAnalytics: React.FC = () => {
               <RevenueTrendChart
                 data={analytics?.revenueByPeriod}
                 isLoading={isLoading}
-                error={error}
+                error={error ? new Error('Failed to load data') : null}
                 timeRange={filters.groupBy}
                 onTimeRangeChange={handleTimeRangeChange}
               />
@@ -152,7 +152,7 @@ const MerchantAnalytics: React.FC = () => {
                   <CurrencyBreakdownChart
                     data={analytics?.revenueByBlockchain}
                     isLoading={isLoading}
-                    error={error}
+                    error={error ? new Error('Failed to load data') : null}
                   />
                 </Grid>
                 <Grid item xs={12} lg={4}>

@@ -80,16 +80,16 @@ const CurrencyBreakdownChart: React.FC<CurrencyBreakdownChartProps> = ({
           }}
         >
           <Typography variant="body2" fontWeight="medium">
-            {data.name}
+            {data.blockchain}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Revenue: {formatCurrency(data.value)}
+            Revenue: {formatCurrency(data.revenueUSD)}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             Percentage: {data.percentage.toFixed(1)}%
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Transactions: {data.transactions}
+            Transactions: {data.transactionCount}
           </Typography>
         </Box>
       )

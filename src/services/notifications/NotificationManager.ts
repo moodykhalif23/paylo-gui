@@ -420,7 +420,7 @@ export class NotificationManager extends EventEmitter {
       if (stored) {
         const preferences = JSON.parse(stored)
         Object.entries(preferences).forEach(([key, value]) => {
-          this.preferences.set(key, value)
+          this.preferences.set(key, value as Record<string, unknown>)
         })
       }
     } catch (error) {

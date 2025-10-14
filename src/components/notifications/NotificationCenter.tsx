@@ -88,7 +88,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
         type: 'success',
         priority: 'medium',
         category: 'transaction',
-        read: false,
+        isRead: false,
         persistent: false,
         actionRequired: false,
         createdAt: new Date(Date.now() - 5 * 60000).toISOString(), // 5 minutes ago
@@ -102,7 +102,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
         type: 'success',
         priority: 'high',
         category: 'payment',
-        read: false,
+        isRead: false,
         persistent: false,
         actionRequired: false,
         createdAt: new Date(Date.now() - 15 * 60000).toISOString(), // 15 minutes ago
@@ -116,7 +116,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
         type: 'warning',
         priority: 'high',
         category: 'system',
-        read: true,
+        isRead: true,
         persistent: true,
         actionRequired: true,
         createdAt: new Date(Date.now() - 60 * 60000).toISOString(), // 1 hour ago
@@ -130,7 +130,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
         type: 'error',
         priority: 'high',
         category: 'transaction',
-        read: false,
+        isRead: false,
         persistent: false,
         actionRequired: true,
         createdAt: new Date(Date.now() - 2 * 60 * 60000).toISOString(), // 2 hours ago
@@ -143,7 +143,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
   // Filter notifications based on current filters and tab
   const filteredNotifications = notifications.filter(notification => {
     // Tab filtering
-    if (selectedTab === 1 && notification.read) return false // Unread tab
+    if (selectedTab === 1 && notification.isRead) return false // Unread tab
     if (selectedTab === 2 && !notification.actionRequired) return false // Action required tab
 
     // Additional filters
@@ -152,7 +152,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
       return false
     if (filters.category && notification.category !== filters.category)
       return false
-    if (filters.read !== undefined && notification.read !== filters.read)
+    if (filters.read !== undefined && notification.isRead !== filters.read)
       return false
 
     return true
@@ -160,7 +160,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
 
   // Get notification counts for tabs
   const allCount = notifications.length
-  const unreadCount = notifications.filter(n => !n.read).length
+  const unreadCount = notifications.filter(n => !n.isRead).length
   const actionRequiredCount = notifications.filter(n => n.actionRequired).length
 
   // Get notification icon
@@ -195,7 +195,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
   }
 
   // Handle tab change
-  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
     setSelectedTab(newValue)
   }
 
@@ -390,7 +390,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
               <React.Fragment key={notification.id}>
                 <ListItem
                   sx={{
-                    backgroundColor: notification.read
+                    backgroundColor: notification.isRead
                       ? 'transparent'
                       : 'action.hover',
                     '&:hover': {
@@ -415,7 +415,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
                         <Typography
                           variant="subtitle2"
                           sx={{
-                            fontWeight: notification.read ? 'normal' : 'bold',
+                            fontWeight: notification.isRead ? 'normal' : 'bold',
                           }}
                         >
                           {notification.title}
@@ -506,7 +506,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
       >
         {selectedNotification && (
           <>
-            {notifications.find(n => n.id === selectedNotification)?.read ? (
+            {notifications.find(n => n.id === selectedNotification)?.isRead ? (
               <MenuItem
                 onClick={() => handleMarkAsUnread(selectedNotification)}
               >

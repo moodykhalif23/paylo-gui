@@ -90,7 +90,7 @@ const UserManagementPage: React.FC = () => {
         lastName: userData.lastName,
         email: userData.email,
         password: userData.password,
-        role: userData.role,
+        role: userData.role as 'user' | 'merchant' | 'admin',
         isActive: userData.isActive,
         isEmailVerified: userData.isEmailVerified,
       }).unwrap()
