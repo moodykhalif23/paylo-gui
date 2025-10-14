@@ -80,7 +80,10 @@ const SystemMetrics: React.FC<SystemMetricsProps> = ({
     }).format(num)
   }
 
-  const getPerformanceColor = (value: number, threshold: number = 80) => {
+  const getPerformanceColor = (
+    value: number,
+    threshold: number = 80
+  ): 'error' | 'warning' | 'success' => {
     if (value >= threshold) return 'error'
     if (value >= threshold * 0.7) return 'warning'
     return 'success'
@@ -150,7 +153,7 @@ const SystemMetrics: React.FC<SystemMetricsProps> = ({
               <LinearProgress
                 variant="determinate"
                 value={metrics.systemLoad}
-                color={getPerformanceColor(metrics.systemLoad) as any}
+                color={getPerformanceColor(metrics.systemLoad)}
               />
             </Box>
             <Typography variant="body2" color="text.secondary" mt={1}>
@@ -183,7 +186,7 @@ const SystemMetrics: React.FC<SystemMetricsProps> = ({
               <LinearProgress
                 variant="determinate"
                 value={metrics.memoryUsage}
-                color={getPerformanceColor(metrics.memoryUsage) as any}
+                color={getPerformanceColor(metrics.memoryUsage)}
               />
             </Box>
             <Typography variant="body2" color="text.secondary" mt={1}>
@@ -216,7 +219,7 @@ const SystemMetrics: React.FC<SystemMetricsProps> = ({
               <LinearProgress
                 variant="determinate"
                 value={metrics.diskUsage}
-                color={getPerformanceColor(metrics.diskUsage) as any}
+                color={getPerformanceColor(metrics.diskUsage)}
               />
             </Box>
             <Typography variant="body2" color="text.secondary" mt={1}>

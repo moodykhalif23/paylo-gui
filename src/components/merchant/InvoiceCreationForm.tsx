@@ -20,10 +20,10 @@ import { Receipt, QrCode, Timer, Link as LinkIcon } from '@mui/icons-material'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useCreateInvoiceMutation } from '../../store/api/merchantApi'
-import { BlockchainType } from '../../types'
+import { BlockchainType, Invoice } from '../../types'
 
 interface InvoiceCreationFormProps {
-  onInvoiceCreated?: (invoice: any) => void
+  onInvoiceCreated?: (invoice: Invoice) => void
 }
 
 const validationSchema = Yup.object({
@@ -50,7 +50,7 @@ const InvoiceCreationForm: React.FC<InvoiceCreationFormProps> = ({
   onInvoiceCreated,
 }) => {
   const [createInvoice, { isLoading, error }] = useCreateInvoiceMutation()
-  const [createdInvoice, setCreatedInvoice] = useState<any>(null)
+  const [createdInvoice, setCreatedInvoice] = useState<Invoice | null>(null)
 
   const formik = useFormik({
     initialValues: {

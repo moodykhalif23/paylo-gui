@@ -136,7 +136,9 @@ const RealTimeSystemMonitor: React.FC<RealTimeSystemMonitorProps> = ({
     }))
   }
 
-  const getStatusColor = (status: string) => {
+  const getStatusColor = (
+    status: string
+  ): 'success' | 'warning' | 'error' | 'default' => {
     switch (status) {
       case 'healthy':
         return 'success'
@@ -239,7 +241,7 @@ const RealTimeSystemMonitor: React.FC<RealTimeSystemMonitorProps> = ({
                 <Box display="flex" alignItems="center" gap={2} mb={2}>
                   <Chip
                     label={systemData.status.toUpperCase()}
-                    color={getStatusColor(systemData.status) as any}
+                    color={getStatusColor(systemData.status)}
                     size="small"
                   />
                   <Typography variant="body2" color="text.secondary">
@@ -300,7 +302,7 @@ const RealTimeSystemMonitor: React.FC<RealTimeSystemMonitorProps> = ({
                     <Typography variant="subtitle2">{service.name}</Typography>
                     <Chip
                       label={service.status}
-                      color={getStatusColor(service.status) as any}
+                      color={getStatusColor(service.status)}
                       size="small"
                     />
                   </Box>

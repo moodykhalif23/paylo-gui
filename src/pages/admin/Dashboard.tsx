@@ -56,7 +56,9 @@ const AdminDashboard: React.FC = () => {
     }).format(amount)
   }
 
-  const getStatusColor = (status: string) => {
+  const getStatusColor = (
+    status: string
+  ): 'success' | 'warning' | 'error' | 'default' => {
     switch (status) {
       case 'healthy':
         return 'success'
@@ -107,7 +109,7 @@ const AdminDashboard: React.FC = () => {
                 <Box>
                   <Chip
                     label={systemHealth.status.toUpperCase()}
-                    color={getStatusColor(systemHealth.status) as any}
+                    color={getStatusColor(systemHealth.status)}
                     sx={{ mb: 1 }}
                   />
                   <Typography variant="body2" color="text.secondary">

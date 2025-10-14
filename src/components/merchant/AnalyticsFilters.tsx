@@ -57,7 +57,7 @@ const AnalyticsFilters: React.FC<AnalyticsFiltersProps> = ({
   const [exportMerchantData, { isLoading: isExporting }] =
     useExportMerchantDataMutation()
 
-  const handleFilterChange = (key: keyof AnalyticsFilters, value: any) => {
+  const handleFilterChange = (key: keyof AnalyticsFilters, value: string) => {
     const newFilters = { ...filters, [key]: value }
     setFilters(newFilters)
     onFiltersChange?.(newFilters)

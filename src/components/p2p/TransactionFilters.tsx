@@ -30,7 +30,10 @@ const TransactionFilters: React.FC<TransactionFiltersProps> = ({
   onFiltersChange,
   onClearFilters,
 }) => {
-  const handleFilterChange = (field: keyof FilterType, value: any) => {
+  const handleFilterChange = (
+    field: keyof FilterType,
+    value: string | BlockchainType | TransactionStatus | undefined
+  ) => {
     onFiltersChange({
       ...filters,
       [field]: value || undefined,

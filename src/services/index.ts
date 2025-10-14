@@ -2,6 +2,10 @@
 export { default as authService } from './auth/authService'
 export { default as AuthApi } from './api/authApi'
 export { apiClient, api, tokenStorage } from './api/client'
+export {
+  webSocketService,
+  WebSocketService,
+} from './websocket/WebSocketService'
 
 // Export types
 export type {

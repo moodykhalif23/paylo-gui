@@ -28,7 +28,7 @@ import { RevenueDataPoint } from '../../types'
 interface RevenueTrendChartProps {
   data?: RevenueDataPoint[]
   isLoading?: boolean
-  error?: any
+  error?: Error | null
   timeRange?: 'day' | 'week' | 'month'
   onTimeRangeChange?: (range: 'day' | 'week' | 'month') => void
 }
@@ -61,7 +61,7 @@ const RevenueTrendChart: React.FC<RevenueTrendChartProps> = ({
     }).format(value)
   }
 
-  const formatTooltip = (value: any, name: string) => {
+  const formatTooltip = (value: number, name: string) => {
     if (name === 'revenueUSD') {
       return [formatCurrency(value), 'Revenue (USD)']
     }
@@ -107,7 +107,9 @@ const RevenueTrendChart: React.FC<RevenueTrendChartProps> = ({
               <InputLabel>Time Range</InputLabel>
               <Select
                 value={timeRange}
-                onChange={e => onTimeRangeChange(e.target.value as any)}
+                onChange={e =>
+                  onTimeRangeChange(e.target.value as 'day' | 'week' | 'month')
+                }
                 label="Time Range"
               >
                 <MenuItem value="day">Daily</MenuItem>

@@ -8,21 +8,16 @@ import {
   Menu,
   MenuItem,
   Box,
-  Badge,
   Tooltip,
   useTheme,
   useMediaQuery,
 } from '@mui/material'
-import {
-  Menu as MenuIcon,
-  Notifications as NotificationsIcon,
-  Logout,
-  Settings,
-  Person,
-} from '@mui/icons-material'
+import { Menu as MenuIcon, Logout, Settings, Person } from '@mui/icons-material'
 import { useAppSelector, useAppDispatch } from '../../store'
 import { logoutUser } from '../../store/slices/authSlice'
 import { UserRole } from '../../types'
+import ConnectionStatus from '../common/ConnectionStatus'
+import { NotificationBell } from '../notifications'
 
 interface HeaderProps {
   onMenuToggle: () => void
@@ -34,11 +29,8 @@ const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
   const dispatch = useAppDispatch()
 
   const { user, isAuthenticated } = useAppSelector(state => state.auth)
-  const unreadCount = useAppSelector(state => state.ui.unreadNotificationCount)
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-  const [notificationAnchorEl, setNotificationAnchorEl] =
-    useState<null | HTMLElement>(null)
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
@@ -46,14 +38,6 @@ const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
 
   const handleProfileMenuClose = () => {
     setAnchorEl(null)
-  }
-
-  const handleNotificationMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setNotificationAnchorEl(event.currentTarget)
-  }
-
-  const handleNotificationMenuClose = () => {
-    setNotificationAnchorEl(null)
   }
 
   const handleLogout = () => {
@@ -119,18 +103,11 @@ const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
         {/* Right side actions */}
         {isAuthenticated && (
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            {/* Connection Status */}
+            <ConnectionStatus showDetails variant="icon" size="small" />
+
             {/* Notifications */}
-            <Tooltip title="Notifications">
-              <IconButton
-                color="inherit"
-                onClick={handleNotificationMenuOpen}
-                aria-label="notifications"
-              >
-                <Badge badgeContent={unreadCount} color="error">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
-            </Tooltip>
+            <NotificationBell />
 
             {/* User profile */}
             <Tooltip title="Account">
@@ -222,43 +199,6 @@ const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
             <Logout sx={{ mr: 1 }} />
             Logout
           </MenuItem>
-        </Menu>
-
-        {/* Notifications Menu */}
-        <Menu
-          anchorEl={notificationAnchorEl}
-          open={Boolean(notificationAnchorEl)}
-          onClose={handleNotificationMenuClose}
-          PaperProps={{
-            elevation: 3,
-            sx: {
-              mt: 1.5,
-              maxWidth: 360,
-              maxHeight: 400,
-            },
-          }}
-          transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-        >
-          <Box sx={{ px: 2, py: 1, borderBottom: 1, borderColor: 'divider' }}>
-            <Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>
-              Notifications
-            </Typography>
-          </Box>
-
-          {unreadCount === 0 ? (
-            <MenuItem disabled>
-              <Typography variant="body2" color="text.secondary">
-                No new notifications
-              </Typography>
-            </MenuItem>
-          ) : (
-            <MenuItem onClick={handleNotificationMenuClose}>
-              <Typography variant="body2">
-                You have {unreadCount} unread notifications
-              </Typography>
-            </MenuItem>
-          )}
         </Menu>
       </Toolbar>
     </AppBar>

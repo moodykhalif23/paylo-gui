@@ -21,7 +21,7 @@ import { BlockchainRevenue } from '../../types'
 interface CurrencyBreakdownChartProps {
   data?: BlockchainRevenue[]
   isLoading?: boolean
-  error?: any
+  error?: Error | null
 }
 
 const CurrencyBreakdownChart: React.FC<CurrencyBreakdownChartProps> = ({
@@ -59,7 +59,13 @@ const CurrencyBreakdownChart: React.FC<CurrencyBreakdownChartProps> = ({
     }).format(value)
   }
 
-  const CustomTooltip = ({ active, payload }: any) => {
+  const CustomTooltip = ({
+    active,
+    payload,
+  }: {
+    active?: boolean
+    payload?: Array<{ payload: BlockchainRevenue }>
+  }) => {
     if (active && payload && payload.length) {
       const data = payload[0].payload
       return (

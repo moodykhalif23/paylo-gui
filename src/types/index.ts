@@ -426,14 +426,28 @@ export interface Notification {
   title: string
   message: string
   isRead: boolean
-  priority: 'low' | 'medium' | 'high' | 'critical'
-  category: 'transaction' | 'system' | 'security' | 'account' | 'marketing'
+  priority: NotificationPriority
+  category: NotificationCategory
   actionUrl?: string
   actionLabel?: string
+  actionRequired?: boolean
+  persistent?: boolean
+  userId: string
   metadata?: Record<string, unknown>
   createdAt: string
   readAt?: string
+  updatedAt?: string
 }
+
+export type NotificationPriority = 'low' | 'medium' | 'high' | 'critical'
+export type NotificationCategory =
+  | 'transaction'
+  | 'payment'
+  | 'system'
+  | 'security'
+  | 'account'
+  | 'marketing'
+  | 'analytics'
 
 export type NotificationType = 'info' | 'success' | 'warning' | 'error'
 

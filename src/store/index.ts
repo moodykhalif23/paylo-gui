@@ -9,6 +9,8 @@ import { baseApi } from './api/baseApi'
 import authSlice from './slices/authSlice'
 import userSlice from './slices/userSlice'
 import uiSlice from './slices/uiSlice'
+import websocketSlice from './slices/websocketSlice'
+import notificationSlice from './slices/notificationSlice'
 
 // Import middleware
 import errorMiddleware from './middleware/errorMiddleware'
@@ -25,6 +27,8 @@ export const store = configureStore({
     auth: authSlice,
     user: userSlice,
     ui: uiSlice,
+    websocket: websocketSlice,
+    notifications: notificationSlice,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

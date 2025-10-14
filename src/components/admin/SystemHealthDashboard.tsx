@@ -55,7 +55,9 @@ const SystemHealthDashboard: React.FC<SystemHealthDashboardProps> = ({
     )
   }
 
-  const getStatusColor = (status: string) => {
+  const getStatusColor = (
+    status: string
+  ): 'success' | 'warning' | 'error' | 'default' => {
     switch (status) {
       case 'healthy':
         return 'success'
@@ -130,7 +132,7 @@ const SystemHealthDashboard: React.FC<SystemHealthDashboardProps> = ({
             </Box>
             <Chip
               label={systemHealth.status.toUpperCase()}
-              color={getStatusColor(systemHealth.status) as any}
+              color={getStatusColor(systemHealth.status)}
               variant="filled"
             />
           </Box>
@@ -238,7 +240,7 @@ const SystemHealthDashboard: React.FC<SystemHealthDashboardProps> = ({
                       </Typography>
                       <Chip
                         label={service.status}
-                        color={getStatusColor(service.status) as any}
+                        color={getStatusColor(service.status)}
                         size="small"
                       />
                     </Box>

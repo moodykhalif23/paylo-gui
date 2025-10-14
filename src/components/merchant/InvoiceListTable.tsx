@@ -39,7 +39,7 @@ import {
   useGetInvoicesQuery,
   useCancelInvoiceMutation,
 } from '../../store/api/merchantApi'
-import { Invoice, BlockchainType } from '../../types'
+import { Invoice, BlockchainType, InvoiceStatus } from '../../types'
 
 interface InvoiceListTableProps {
   onInvoiceSelect?: (invoice: Invoice) => void
@@ -65,7 +65,7 @@ const InvoiceListTable: React.FC<InvoiceListTableProps> = ({
     page: page + 1,
     limit: rowsPerPage,
     filters: {
-      ...(statusFilter && { status: statusFilter as any }),
+      ...(statusFilter && { status: statusFilter as InvoiceStatus }),
       ...(blockchainFilter && {
         blockchain: blockchainFilter as BlockchainType,
       }),

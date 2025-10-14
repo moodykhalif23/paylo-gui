@@ -64,7 +64,9 @@ const SystemHealthPage: React.FC = () => {
     return systemHealth.status
   }
 
-  const getStatusColor = (status: string) => {
+  const getStatusColor = (
+    status: string
+  ): 'success' | 'warning' | 'error' | 'default' => {
     switch (status) {
       case 'healthy':
         return 'success'
@@ -96,7 +98,7 @@ const SystemHealthPage: React.FC = () => {
             </Typography>
             <Chip
               label={`Status: ${getOverallStatus().toUpperCase()}`}
-              color={getStatusColor(getOverallStatus()) as any}
+              color={getStatusColor(getOverallStatus())}
               size="small"
             />
           </Box>
