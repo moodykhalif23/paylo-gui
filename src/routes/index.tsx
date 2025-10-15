@@ -4,6 +4,7 @@ import { Box, CircularProgress, Typography } from '@mui/material'
 
 // Layout components
 import Layout from '../components/Layout'
+import MainLayout from '../components/Layout/MainLayout'
 import ErrorBoundary from '../components/common/ErrorBoundary'
 import ProtectedRoute from '../components/auth/ProtectedRoute'
 import AuthGuard from '../components/auth/AuthGuard'
@@ -103,7 +104,7 @@ const AppRoutes: React.FC = () => {
   return (
     <AuthGuard>
       <Routes>
-        {/* Public routes */}
+        {/* Public routes - use basic Layout */}
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
 
@@ -128,6 +129,12 @@ const AppRoutes: React.FC = () => {
             }
           />
 
+          {/* 404 page for public routes */}
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+
+        {/* Dashboard routes - use MainLayout with sidebar */}
+        <Route path="/" element={<MainLayout />}>
           {/* P2P User routes */}
           <Route
             path="dashboard"
@@ -281,9 +288,6 @@ const AppRoutes: React.FC = () => {
             {/* Redirect /admin to /admin/dashboard */}
             <Route index element={<Navigate to="dashboard" replace />} />
           </Route>
-
-          {/* 404 page */}
-          <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
     </AuthGuard>

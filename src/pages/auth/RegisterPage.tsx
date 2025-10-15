@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation, useSearchParams } from 'react-router-dom'
 import { AuthLayout } from '../../components/auth'
 import { useAuth } from '../../hooks/useAuth'
 
 export const RegisterPage: React.FC = () => {
   const navigate = useNavigate()
   const location = useLocation()
+  const [searchParams] = useSearchParams()
   const { isAuthenticated, user } = useAuth()
 
   // Redirect authenticated users to appropriate dashboard
@@ -35,10 +36,13 @@ export const RegisterPage: React.FC = () => {
     return null
   }
 
+  const role = searchParams.get('role') as 'user' | 'merchant' | null
+
   return (
     <AuthLayout
       initialMode="register"
       redirectTo={(location.state as { from?: string })?.from}
+      initialRole={role || undefined}
     />
   )
 }

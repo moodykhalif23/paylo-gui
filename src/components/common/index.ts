@@ -18,10 +18,6 @@ export { AccessibleButton } from './AccessibleButton'
 export { AccessibleModal } from './AccessibleModal'
 export { AccessibleTable } from './AccessibleTable'
 export { AriaLiveRegion } from './AriaLiveRegion'
-export {
-  KeyboardNavigationProvider,
-  useKeyboardNavigationContext,
-  useFocusableElement,
-} from './KeyboardNavigationProvider'
+export { KeyboardNavigationProvider } from './KeyboardNavigationProvider'
 export { AccessibilityTester } from './AccessibilityTester'
 export { SkipLinks } from './SkipLinks'

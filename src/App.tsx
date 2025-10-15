@@ -1,11 +1,5 @@
-import { Routes, Route } from 'react-router-dom'
 import { Box, ThemeProvider, CssBaseline } from '@mui/material'
 import { useEffect } from 'react'
-
-// Import components
-import Layout from './components/Layout'
-import HomePage from './pages/HomePage'
-import NotFoundPage from './pages/NotFoundPage'
 import WebSocketProvider from './components/providers/WebSocketProvider'
 import NotificationProvider from './components/providers/NotificationProvider'
 import {
@@ -29,6 +23,7 @@ import { OfflineFallback } from './components/common/FallbackUI'
 import { workflowOrchestrator } from './services/integration/workflowOrchestrator'
 import { useAppDispatch, useAppSelector } from './store'
 import { initializeAuth } from './store/slices/authSlice'
+import AppRoutes from './routes'
 
 // Theme wrapper component to access accessibility context
 function ThemedApp() {
@@ -135,12 +130,7 @@ function ThemedApp() {
           .join(' ')}
       >
         <RouteErrorBoundary>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<HomePage />} />
-              <Route path="*" element={<NotFoundPage />} />
-            </Route>
-          </Routes>
+          <AppRoutes />
         </RouteErrorBoundary>
 
         {/* Performance monitoring overlay (development only) */}

@@ -9,11 +9,13 @@ type AuthMode = 'login' | 'register' | 'forgot-password'
 interface AuthLayoutProps {
   initialMode?: AuthMode
   redirectTo?: string
+  initialRole?: 'user' | 'merchant'
 }
 
 export const AuthLayout: React.FC<AuthLayoutProps> = ({
   initialMode = 'login',
   redirectTo,
+  initialRole,
 }) => {
   const [mode, setMode] = useState<AuthMode>(initialMode)
 
@@ -76,6 +78,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
                 <RegisterForm
                   onSwitchToLogin={handleSwitchToLogin}
                   redirectTo={redirectTo}
+                  initialRole={initialRole}
                 />
               )}
             </Box>

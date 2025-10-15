@@ -31,6 +31,7 @@ import { RegisterRequest } from '../../services/auth/authService'
 interface RegisterFormProps {
   onSwitchToLogin?: () => void
   redirectTo?: string
+  initialRole?: 'user' | 'merchant'
 }
 
 const validationSchema = yup.object({
@@ -69,6 +70,7 @@ const validationSchema = yup.object({
 export const RegisterForm: React.FC<RegisterFormProps> = ({
   onSwitchToLogin,
   redirectTo: _redirectTo,
+  initialRole = 'user',
 }) => {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
@@ -81,7 +83,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
       email: '',
       password: '',
       confirmPassword: '',
-      role: 'user' as 'user' | 'merchant',
+      role: initialRole as 'user' | 'merchant',
     },
     validationSchema,
     onSubmit: async (values: RegisterRequest & { confirmPassword: string }) => {

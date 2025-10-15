@@ -1,6 +1,6 @@
 import { Typography, Box, Card, CardContent, Grid, Button } from '@mui/material'
 import { Link as RouterLink } from 'react-router-dom'
-import { Accessibility } from '@mui/icons-material'
+import { Accessibility, Login, PersonAdd } from '@mui/icons-material'
 
 const HomePage = () => {
   return (
@@ -25,6 +25,26 @@ const HomePage = () => {
                 Send and receive Bitcoin, Ethereum, and Solana directly between
                 wallets
               </Typography>
+              <Box sx={{ mt: 2, display: 'flex', gap: 1 }}>
+                <Button
+                  component={RouterLink}
+                  to="/auth/login"
+                  variant="outlined"
+                  size="small"
+                  startIcon={<Login />}
+                >
+                  Login
+                </Button>
+                <Button
+                  component={RouterLink}
+                  to="/auth/register?role=user"
+                  variant="contained"
+                  size="small"
+                  startIcon={<PersonAdd />}
+                >
+                  Register
+                </Button>
+              </Box>
             </CardContent>
           </Card>
         </Grid>
@@ -39,6 +59,26 @@ const HomePage = () => {
                 Accept cryptocurrency payments and manage your business
                 transactions
               </Typography>
+              <Box sx={{ mt: 2, display: 'flex', gap: 1 }}>
+                <Button
+                  component={RouterLink}
+                  to="/auth/login"
+                  variant="outlined"
+                  size="small"
+                  startIcon={<Login />}
+                >
+                  Login
+                </Button>
+                <Button
+                  component={RouterLink}
+                  to="/auth/register?role=merchant"
+                  variant="contained"
+                  size="small"
+                  startIcon={<PersonAdd />}
+                >
+                  Register
+                </Button>
+              </Box>
             </CardContent>
           </Card>
         </Grid>
@@ -53,6 +93,18 @@ const HomePage = () => {
                 Monitor system health and manage users with comprehensive admin
                 tools
               </Typography>
+              <Box sx={{ mt: 2 }}>
+                <Button
+                  component={RouterLink}
+                  to="/auth/login"
+                  variant="outlined"
+                  size="small"
+                  startIcon={<Login />}
+                  fullWidth
+                >
+                  Login
+                </Button>
+              </Box>
             </CardContent>
           </Card>
         </Grid>
