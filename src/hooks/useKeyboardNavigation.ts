@@ -1,5 +1,5 @@
 import { useEffect, useCallback, useRef } from 'react'
-import { useAccessibility } from '../contexts/AccessibilityContext'
+import { useAccessibility } from '../contexts/AccessibilityContext.tsx'
 
 interface KeyboardNavigationOptions {
   onEscape?: () => void

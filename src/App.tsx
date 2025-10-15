@@ -11,7 +11,7 @@ import NotificationProvider from './components/providers/NotificationProvider'
 import {
   AccessibilityProvider,
   useAccessibility,
-} from './contexts/AccessibilityContext'
+} from './contexts/AccessibilityContext.tsx'
 import { createAccessibleTheme } from './theme'
 import SkipLinks from './components/common/SkipLinks'
 import PerformanceMonitor from './components/common/PerformanceMonitor'

@@ -1,4 +1,3 @@
-import { EventEmitter } from 'events'
 import {
   WebSocketConfig,
   WebSocketState,
@@ -14,6 +13,43 @@ import {
   ConnectionStatusMessage,
 } from '../../types/websocket'
 import { config } from '../../config/environment'
+
+// Simple EventEmitter for browser compatibility
+class EventEmitter {
+  private listeners: Map<string, ((...args: unknown[]) => void)[]> = new Map()
+
+  on(event: string, listener: (...args: unknown[]) => void): void {
+    if (!this.listeners.has(event)) {
+      this.listeners.set(event, [])
+    }
+    this.listeners.get(event)!.push(listener)
+  }
+
+  off(event: string, listener: (...args: unknown[]) => void): void {
+    const listeners = this.listeners.get(event)
+    if (listeners) {
+      const index = listeners.indexOf(listener)
+      if (index > -1) {
+        listeners.splice(index, 1)
+      }
+    }
+  }
+
+  emit(event: string, ...args: unknown[]): void {
+    const listeners = this.listeners.get(event)
+    if (listeners) {
+      listeners.forEach(listener => listener(...args))
+    }
+  }
+
+  removeAllListeners(event?: string): void {
+    if (event) {
+      this.listeners.delete(event)
+    } else {
+      this.listeners.clear()
+    }
+  }
+}
 
 /**
  * WebSocket service implementation with auto-reconnection and message handling
