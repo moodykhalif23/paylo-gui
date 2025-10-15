@@ -11,8 +11,17 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family:
+    'Roboto',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    'Oxygen',
+    'Ubuntu',
+    'Cantarell',
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -25,8 +34,8 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family:
+    source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 /* Scrollbar styling */
@@ -45,4 +54,408 @@ code {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #a8a8a8;
+}
+
+/* Accessibility Styles */
+
+/* Screen reader only content */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Focus visible styles for keyboard navigation */
+.keyboard-navigation *:focus-visible {
+  outline: 2px solid #1976d2 !important;
+  outline-offset: 2px !important;
+  border-radius: 4px !important;
+}
+
+/* High contrast mode styles */
+.high-contrast {
+  filter: contrast(150%) !important;
+}
+
+.high-contrast * {
+  border-color: currentColor !important;
+}
+
+.high-contrast button,
+.high-contrast input,
+.high-contrast select,
+.high-contrast textarea {
+  border: 2px solid currentColor !important;
+  background-color: white !important;
+  color: black !important;
+}
+
+.high-contrast a {
+  text-decoration: underline !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 2px !important;
+  font-weight: 600 !important;
+}
+
+/* Reduced motion styles */
+.reduced-motion *,
+.reduced-motion *::before,
+.reduced-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Screen reader mode optimizations */
+.screen-reader-mode {
+  /* Ensure sufficient spacing for screen readers */
+}
+
+.screen-reader-mode * {
+  line-height: 1.6 !important;
+}
+
+.screen-reader-mode button,
+.screen-reader-mode input,
+.screen-reader-mode select {
+  min-height: 44px !important; /* WCAG minimum touch target */
+}
+
+/* Font size scaling */
+:root {
+  --accessibility-font-scale: 1;
+}
+
+.accessibility-font-small {
+  --accessibility-font-scale: 0.875;
+}
+
+.accessibility-font-large {
+  --accessibility-font-scale: 1.125;
+}
+
+/* Apply font scaling */
+body {
+  font-size: calc(1rem * var(--accessibility-font-scale));
+}
+
+/* Skip links styling */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: #1976d2;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 0 0 4px 4px;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 9999;
+  transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+  outline: 2px solid #dc004e;
+  outline-offset: 2px;
+}
+
+/* Ensure minimum color contrast ratios */
+@media (prefers-contrast: high) {
+  :root {
+    --text-primary: #000000;
+    --text-secondary: #333333;
+    --background-primary: #ffffff;
+    --background-secondary: #f5f5f5;
+    --border-color: #000000;
+  }
+
+  * {
+    border-color: var(--border-color) !important;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    border: 2px solid var(--border-color) !important;
+    background-color: var(--background-primary) !important;
+    color: var(--text-primary) !important;
+  }
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Ensure focus is visible for keyboard users */
+@media (prefers-reduced-motion: no-preference) {
+  :focus-visible {
+    transition: outline 0.2s ease;
+  }
+}
+
+/* Enhanced focus management */
+.focus-trap {
+  /* Ensure focus stays within trapped elements */
+}
+
+.focus-trap *:focus {
+  outline: 2px solid #1976d2;
+  outline-offset: 2px;
+}
+
+/* Live region styles */
+[aria-live] {
+  /* Ensure live regions are positioned for screen readers */
+}
+
+/* Table accessibility enhancements */
+table {
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f5f5f5;
+  font-weight: 600;
+}
+
+/* Sortable table headers */
+th[aria-sort] {
+  cursor: pointer;
+  user-select: none;
+}
+
+th[aria-sort]:hover {
+  background-color: #e0e0e0;
+}
+
+th[aria-sort]:focus {
+  outline: 2px solid #1976d2;
+  outline-offset: -2px;
+}
+
+/* Form accessibility enhancements */
+label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+input,
+select,
+textarea {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: inherit;
+  line-height: 1.5;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #1976d2;
+  outline: 2px solid #1976d2;
+  outline-offset: 2px;
+}
+
+input[aria-invalid='true'],
+select[aria-invalid='true'],
+textarea[aria-invalid='true'] {
+  border-color: #d32f2f;
+}
+
+/* Error message styling */
+[role='alert'] {
+  color: #d32f2f;
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+/* Button accessibility */
+button {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #1976d2;
+  color: white;
+  font-size: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #1565c0;
+}
+
+button:focus {
+  outline: 2px solid #1976d2;
+  outline-offset: 2px;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Link accessibility */
+a {
+  color: #1976d2;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+a:focus {
+  outline: 2px solid #1976d2;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Modal and dialog accessibility */
+[role='dialog'] {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+[role='dialog']:focus {
+  outline: none;
+}
+
+/* Backdrop for modals */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+/* Progress indicators */
+[role='progressbar'] {
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+  height: 8px;
+}
+
+[role='progressbar']::before {
+  content: '';
+  display: block;
+  height: 100%;
+  background-color: #1976d2;
+  width: var(--progress-value, 0%);
+  transition: width 0.3s ease;
+}
+
+/* Status indicators */
+[role='status'] {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+[role='status'][aria-label*='success'] {
+  background-color: #e8f5e8;
+  color: #2e7d32;
+}
+
+[role='status'][aria-label*='error'] {
+  background-color: #ffebee;
+  color: #d32f2f;
+}
+
+[role='status'][aria-label*='warning'] {
+  background-color: #fff3e0;
+  color: #ed6c02;
+}
+
+[role='status'][aria-label*='info'] {
+  background-color: #e3f2fd;
+  color: #0288d1;
+}
+
+/* Tooltip accessibility */
+[role='tooltip'] {
+  position: absolute;
+  background: #333;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  z-index: 1001;
+  max-width: 200px;
+  word-wrap: break-word;
+}
+
+/* Print styles for accessibility */
+@media print {
+  .sr-only {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    clip: auto !important;
+    white-space: normal !important;
+  }
+
+  /* Ensure links are visible in print */
+  a[href]:after {
+    content: ' (' attr(href) ')';
+    font-size: 0.8em;
+    color: #666;
+  }
+
+  /* Hide decorative elements in print */
+  .no-print {
+    display: none !important;
+  }
+
+  /* Ensure sufficient contrast in print */
+  * {
+    color: black !important;
+    background: white !important;
+  }
 }

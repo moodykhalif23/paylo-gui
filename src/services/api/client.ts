@@ -6,27 +6,62 @@ import axios, {
 } from 'axios'
 import { config } from '../../config/environment'
 import { ApiResponse, ApiError } from '../../types'
+import { SecurityUtils } from '../../utils/security'
 
 // Token storage keys
 const ACCESS_TOKEN_KEY = 'paylo_access_token'
 const REFRESH_TOKEN_KEY = 'paylo_refresh_token'
 
-// Token storage utilities
+// Encryption key for token storage (in production, this should be derived from user session)
+const ENCRYPTION_KEY = 'paylo_secure_key_2024'
+
+// Rate limiter for API requests
+const rateLimiter = SecurityUtils.createRateLimiter(100, 60000) // 100 requests per minute
+
+// Token storage utilities with encryption
 export const tokenStorage = {
   getAccessToken: (): string | null => {
-    return localStorage.getItem(ACCESS_TOKEN_KEY)
+    const encryptedToken = localStorage.getItem(ACCESS_TOKEN_KEY)
+    if (!encryptedToken) return null
+
+    try {
+      return SecurityUtils.decryptData(encryptedToken, ENCRYPTION_KEY)
+    } catch (error) {
+      console.error('Failed to decrypt access token:', error)
+      localStorage.removeItem(ACCESS_TOKEN_KEY)
+      return null
+    }
   },
 
   setAccessToken: (token: string): void => {
-    localStorage.setItem(ACCESS_TOKEN_KEY, token)
+    try {
+      const encryptedToken = SecurityUtils.encryptData(token, ENCRYPTION_KEY)
+      localStorage.setItem(ACCESS_TOKEN_KEY, encryptedToken)
+    } catch (error) {
+      console.error('Failed to encrypt access token:', error)
+    }
   },
 
   getRefreshToken: (): string | null => {
-    return localStorage.getItem(REFRESH_TOKEN_KEY)
+    const encryptedToken = localStorage.getItem(REFRESH_TOKEN_KEY)
+    if (!encryptedToken) return null
+
+    try {
+      return SecurityUtils.decryptData(encryptedToken, ENCRYPTION_KEY)
+    } catch (error) {
+      console.error('Failed to decrypt refresh token:', error)
+      localStorage.removeItem(REFRESH_TOKEN_KEY)
+      return null
+    }
   },
 
   setRefreshToken: (token: string): void => {
-    localStorage.setItem(REFRESH_TOKEN_KEY, token)
+    try {
+      const encryptedToken = SecurityUtils.encryptData(token, ENCRYPTION_KEY)
+      localStorage.setItem(REFRESH_TOKEN_KEY, encryptedToken)
+    } catch (error) {
+      console.error('Failed to encrypt refresh token:', error)
+    }
   },
 
   clearTokens: (): void => {
@@ -45,13 +80,53 @@ const createApiClient = (): AxiosInstance => {
     },
   })
 
-  // Request interceptor to add auth token
+  // Request interceptor to add auth token and security headers
   client.interceptors.request.use(
     config => {
+      // Rate limiting check
+      const clientId = 'api_client' // In production, use user ID or session ID
+      if (!rateLimiter(clientId)) {
+        return Promise.reject(
+          new Error('Rate limit exceeded. Please try again later.')
+        )
+      }
+
+      // Add authentication token
       const token = tokenStorage.getAccessToken()
       if (token) {
         config.headers.Authorization = `Bearer ${token}`
       }
+
+      // Add CSRF token for state-changing requests
+      if (
+        ['post', 'put', 'patch', 'delete'].includes(
+          config.method?.toLowerCase() || ''
+        )
+      ) {
+        const csrfToken = sessionStorage.getItem('csrf_token')
+        if (csrfToken) {
+          config.headers['X-CSRF-Token'] = csrfToken
+        }
+      }
+
+      // Add security headers
+      config.headers['X-Requested-With'] = 'XMLHttpRequest'
+      config.headers['Cache-Control'] = 'no-cache'
+
+      // Sanitize request data if it's a string
+      if (typeof config.data === 'string') {
+        config.data = SecurityUtils.sanitizeInput(config.data)
+      } else if (config.data && typeof config.data === 'object') {
+        // Sanitize object properties that are strings
+        const sanitizedData = { ...config.data }
+        Object.keys(sanitizedData).forEach(key => {
+          if (typeof sanitizedData[key] === 'string') {
+            sanitizedData[key] = SecurityUtils.sanitizeInput(sanitizedData[key])
+          }
+        })
+        config.data = sanitizedData
+      }
+
       return config
     },
     error => {

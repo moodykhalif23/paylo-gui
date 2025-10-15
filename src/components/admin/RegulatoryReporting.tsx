@@ -323,7 +323,9 @@ export const RegulatoryReporting: React.FC<RegulatoryReportingProps> = ({
                     <Select
                       value={format}
                       label="Export Format"
-                      onChange={e => setFormat(e.target.value as string)}
+                      onChange={e =>
+                        setFormat(e.target.value as 'csv' | 'json' | 'excel')
+                      }
                     >
                       <MenuItem value="excel">Excel (.xlsx)</MenuItem>
                       <MenuItem value="csv">CSV (.csv)</MenuItem>

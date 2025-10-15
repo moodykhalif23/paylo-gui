@@ -117,6 +117,27 @@ const notificationSlice = createSlice({
       state.notifications.unshift(...newNotifications)
       state.unreadCount += newNotifications.filter(n => !n.isRead).length
     },
+
+    // Show notification (alias for addNotification for compatibility)
+    showNotification: (
+      state,
+      action: PayloadAction<
+        Partial<Omit<Notification, 'id' | 'createdAt' | 'isRead'>> &
+          Pick<Notification, 'type' | 'title' | 'message'>
+      >
+    ) => {
+      const notification: Notification = {
+        priority: 'medium',
+        userId: 'system',
+        category: 'system',
+        ...action.payload,
+        id: `notification-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        createdAt: new Date().toISOString(),
+        isRead: false,
+      }
+      state.notifications.unshift(notification)
+      state.unreadCount += 1
+    },
   },
 })
 
@@ -135,6 +156,7 @@ export const {
   updateNotification,
   setNotifications,
   addNotifications,
+  showNotification,
 } = notificationSlice.actions
 
 // ============================================================================

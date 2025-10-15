@@ -206,6 +206,33 @@ const websocketSlice = createSlice({
 
     // Reset state
     resetWebSocketState: () => initialState,
+
+    // Update connection status (alias for compatibility)
+    updateConnectionStatus: (
+      state,
+      action: PayloadAction<{
+        isConnected: boolean
+        timestamp: string
+        error?: string
+      }>
+    ) => {
+      const { isConnected, timestamp, error } = action.payload
+
+      if (error) {
+        state.error = error
+        state.isConnected = false
+        state.isConnecting = false
+      } else if (isConnected) {
+        state.isConnected = true
+        state.isConnecting = false
+        state.lastConnectedAt = timestamp
+        state.error = undefined
+      } else {
+        state.isConnected = false
+        state.isConnecting = false
+        state.lastDisconnectedAt = timestamp
+      }
+    },
   },
 })
 
@@ -231,6 +258,7 @@ export const {
   clearSubscriptions,
   setLastMessage,
   resetWebSocketState,
+  updateConnectionStatus,
 } = websocketSlice.actions
 
 // ============================================================================

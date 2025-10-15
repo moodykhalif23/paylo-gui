@@ -16,6 +16,10 @@ import {
   NotificationContextType,
 } from '../../contexts/NotificationContext'
 
+// Re-export for convenience
+export { NotificationContext }
+export type { NotificationContextType }
+
 // ============================================================================
 // Types
 // ============================================================================

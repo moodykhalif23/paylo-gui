@@ -1,16 +1,18 @@
 import React, { Suspense } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
-import { Box, CircularProgress } from '@mui/material'
+import { Box, CircularProgress, Typography } from '@mui/material'
 
 // Layout components
 import Layout from '../components/Layout'
 import ErrorBoundary from '../components/common/ErrorBoundary'
 import ProtectedRoute from '../components/auth/ProtectedRoute'
 import AuthGuard from '../components/auth/AuthGuard'
+import { usePerformanceMonitoring } from '../hooks/usePerformanceMonitoring'
 
-// Pages
+// Pages - only import non-lazy loaded pages
 import HomePage from '../pages/HomePage'
 import NotFoundPage from '../pages/NotFoundPage'
+import AccessibilityDemo from '../pages/AccessibilityDemo'
 
 // Lazy load page components for better performance
 const LoginPage = React.lazy(() => import('../pages/auth/LoginPage'))
@@ -52,26 +54,50 @@ const AdminSettingsPage = React.lazy(
 )
 const CompliancePage = React.lazy(() => import('../pages/admin/CompliancePage'))
 
-// Loading component
-const PageLoader: React.FC = () => (
-  <Box
-    sx={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      minHeight: '50vh',
-    }}
-  >
-    <CircularProgress />
-  </Box>
-)
+// Enhanced loading component with performance monitoring
+const PageLoader: React.FC<{ pageName?: string }> = ({ pageName = 'Page' }) => {
+  usePerformanceMonitoring(`${pageName}Loader`, {
+    enabled: process.env.NODE_ENV === 'development',
+    threshold: 100,
+  })
 
-// Wrapper for lazy-loaded components
-const LazyWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <ErrorBoundary>
-    <Suspense fallback={<PageLoader />}>{children}</Suspense>
-  </ErrorBoundary>
-)
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '50vh',
+        gap: 2,
+      }}
+    >
+      <CircularProgress />
+      <Typography variant="body2" color="text.secondary">
+        Loading {pageName}...
+      </Typography>
+    </Box>
+  )
+}
+
+// Enhanced wrapper for lazy-loaded components with performance monitoring
+const LazyWrapper: React.FC<{
+  children: React.ReactNode
+  pageName?: string
+}> = ({ children, pageName = 'Component' }) => {
+  usePerformanceMonitoring(`LazyWrapper-${pageName}`, {
+    enabled: process.env.NODE_ENV === 'development',
+    threshold: 16,
+  })
+
+  return (
+    <ErrorBoundary>
+      <Suspense fallback={<PageLoader pageName={pageName} />}>
+        {children}
+      </Suspense>
+    </ErrorBoundary>
+  )
+}
 
 const AppRoutes: React.FC = () => {
   return (
@@ -81,11 +107,14 @@ const AppRoutes: React.FC = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
 
+          {/* Accessibility Demo */}
+          <Route path="accessibility-demo" element={<AccessibilityDemo />} />
+
           {/* Authentication routes */}
           <Route
             path="auth/login"
             element={
-              <LazyWrapper>
+              <LazyWrapper pageName="Login">
                 <LoginPage />
               </LazyWrapper>
             }
@@ -93,7 +122,7 @@ const AppRoutes: React.FC = () => {
           <Route
             path="auth/register"
             element={
-              <LazyWrapper>
+              <LazyWrapper pageName="Register">
                 <RegisterPage />
               </LazyWrapper>
             }
@@ -104,7 +133,7 @@ const AppRoutes: React.FC = () => {
             path="dashboard"
             element={
               <ProtectedRoute requiredRoles={['user']}>
-                <LazyWrapper>
+                <LazyWrapper pageName="P2P Dashboard">
                   <P2PDashboard />
                 </LazyWrapper>
               </ProtectedRoute>

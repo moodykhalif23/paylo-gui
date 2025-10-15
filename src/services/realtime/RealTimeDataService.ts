@@ -265,12 +265,14 @@ export class RealTimeDataService extends EventEmitter {
 
     // System health updates
     this.messageHandlers.set('system_health', (message: WebSocketMessage) => {
-      const payload = message.payload as Record<string, unknown> // System health payload
+      const payload = message.payload as { type?: string; data?: unknown } // System health payload
 
       if (payload.type === 'metrics') {
-        store.dispatch(updateSystemMetrics(payload.data))
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        store.dispatch(updateSystemMetrics(payload.data as any))
       } else if (payload.type === 'service_status') {
-        store.dispatch(updateServiceStatus(payload.data))
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        store.dispatch(updateServiceStatus(payload.data as any))
       }
 
       this.emit('system_health', payload)
@@ -353,7 +355,8 @@ export class RealTimeDataService extends EventEmitter {
       return
     }
 
-    webSocketService.send(type as string, payload)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    webSocketService.send(type as any, payload as any)
   }
 }
 

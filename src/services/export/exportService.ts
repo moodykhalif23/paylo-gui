@@ -1,5 +1,11 @@
 import { apiClient } from '../api/client'
-import { ExportRequest, ExportResult, ExportJob, ExportProgress } from './types'
+import {
+  ExportRequest,
+  ExportResult,
+  ExportJob,
+  ExportProgress,
+  ExportOptions,
+} from './types'
 
 class ExportService {
   private activeJobs = new Map<string, ExportJob>()
@@ -166,7 +172,7 @@ class ExportService {
   private exportToCSV(
     data: unknown[],
     fileName: string,
-    options?: Record<string, unknown>
+    options?: ExportOptions
   ): void {
     const delimiter = options?.delimiter || ','
     const includeHeaders = options?.includeHeaders !== false
@@ -175,7 +181,7 @@ class ExportService {
       throw new Error('No data to export')
     }
 
-    const headers = Object.keys(data[0])
+    const headers = Object.keys(data[0] as Record<string, unknown>)
     let csvContent = ''
 
     if (includeHeaders) {
@@ -183,8 +189,9 @@ class ExportService {
     }
 
     data.forEach(row => {
+      const rowData = row as Record<string, unknown>
       const values = headers.map(header => {
-        const value = row[header]
+        const value = rowData[header]
         // Escape values that contain delimiter, quotes, or newlines
         if (
           typeof value === 'string' &&
@@ -210,7 +217,7 @@ class ExportService {
   private async exportToExcel(
     data: unknown[],
     fileName: string,
-    options?: Record<string, unknown>
+    options?: ExportOptions
   ): Promise<void> {
     try {
       // Dynamic import to avoid bundling xlsx if not used

@@ -223,7 +223,7 @@ export const ComplianceReporting: React.FC<ComplianceReportingProps> = ({
       )
     }
 
-    const columns = Object.keys(previewData[0])
+    const columns = Object.keys(previewData[0] as Record<string, unknown>)
 
     return (
       <TableContainer component={Paper} sx={{ maxHeight: 400 }}>
@@ -238,17 +238,20 @@ export const ComplianceReporting: React.FC<ComplianceReportingProps> = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {previewData.slice(0, 50).map((row, index) => (
-              <TableRow key={index}>
-                {columns.map(column => (
-                  <TableCell key={column}>
-                    {typeof row[column] === 'object'
-                      ? JSON.stringify(row[column])
-                      : String(row[column] || '-')}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))}
+            {previewData.slice(0, 50).map((row, index) => {
+              const rowData = row as Record<string, unknown>
+              return (
+                <TableRow key={index}>
+                  {columns.map(column => (
+                    <TableCell key={column}>
+                      {typeof rowData[column] === 'object'
+                        ? JSON.stringify(rowData[column])
+                        : String(rowData[column] || '-')}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              )
+            })}
           </TableBody>
         </Table>
       </TableContainer>
@@ -313,7 +316,9 @@ export const ComplianceReporting: React.FC<ComplianceReportingProps> = ({
                 <Select
                   value={format}
                   label="Export Format"
-                  onChange={e => setFormat(e.target.value as string)}
+                  onChange={e =>
+                    setFormat(e.target.value as 'csv' | 'json' | 'excel')
+                  }
                 >
                   <MenuItem value="excel">Excel (.xlsx)</MenuItem>
                   <MenuItem value="csv">CSV (.csv)</MenuItem>
