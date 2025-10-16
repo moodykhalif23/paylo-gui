@@ -110,7 +110,7 @@ const LandingPage: React.FC = () => {
             mx: 'auto',
           }}
         >
-          The most secure and accessible cryptocurrency payment gateway
+          The secure and accessible cryptocurrency payment gateway in Africa
         </Typography>
 
         <Box sx={{ mb: 4, display: 'flex', justifyContent: 'center' }}>
