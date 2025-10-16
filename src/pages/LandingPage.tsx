@@ -11,8 +11,6 @@ import {
 } from '@mui/material'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import {
-  Login,
-  PersonAdd,
   Security,
   Speed,
   Accessibility,
@@ -27,10 +25,6 @@ const LandingPage: React.FC = () => {
     navigate(`/auth/register?role=${role}`)
   }
 
-  const handleLogin = () => {
-    navigate('/auth/login')
-  }
-
   const features = [
     {
       icon: <Security color="primary" sx={{ fontSize: 40 }} />,
@@ -42,7 +36,7 @@ const LandingPage: React.FC = () => {
       icon: <Speed color="primary" sx={{ fontSize: 40 }} />,
       title: 'Lightning Fast',
       description:
-        'Sub-second transaction confirmations across Bitcoin, Ethereum, and Solana networks',
+        'Sub-second transaction confirmations across Bitcoin, Ethereum,USDT and Solana networks',
     },
     {
       icon: <Accessibility color="primary" sx={{ fontSize: 40 }} />,
@@ -71,6 +65,12 @@ const LandingPage: React.FC = () => {
       logo: '/solana-sol-logo.svg',
       color: '#9945ff',
     },
+    {
+      name: 'Tether',
+      symbol: 'usdt',
+      logo: '/tether-usdt-logo.svg',
+      color: '#2f98c9ff',
+    },
   ]
 
   return (
@@ -90,7 +90,7 @@ const LandingPage: React.FC = () => {
             fontSize: { xs: '2.5rem', md: '3.5rem' },
             fontWeight: 700,
             mb: 3,
-            background: 'linear-gradient(45deg, #1976d2 30%, #42a5f5 90%)',
+            background: 'linear-gradient(45deg, #0d4074ff 30%, #42a5f5 90%)',
             backgroundClip: 'text',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
@@ -113,41 +113,22 @@ const LandingPage: React.FC = () => {
           The most secure and accessible cryptocurrency payment gateway
         </Typography>
 
-        <Stack
-          direction={{ xs: 'column', sm: 'row' }}
-          spacing={2}
-          justifyContent="center"
-          sx={{ mb: 4 }}
-        >
+        <Box sx={{ mb: 4, display: 'flex', justifyContent: 'center' }}>
           <Button
             variant="contained"
             size="large"
             onClick={() => handleGetStarted('user')}
             endIcon={<ArrowForward />}
             sx={{
-              px: 4,
-              py: 1.5,
-              fontSize: '1.1rem',
+              px: 6,
+              py: 2,
+              fontSize: '1.2rem',
               borderRadius: 2,
             }}
           >
             Get Started
           </Button>
-          <Button
-            variant="outlined"
-            size="large"
-            onClick={handleLogin}
-            startIcon={<Login />}
-            sx={{
-              px: 4,
-              py: 1.5,
-              fontSize: '1.1rem',
-              borderRadius: 2,
-            }}
-          >
-            Sign In
-          </Button>
-        </Stack>
+        </Box>
 
         {/* Supported Currencies */}
         <Box
@@ -307,22 +288,15 @@ const LandingPage: React.FC = () => {
                     <Typography variant="body2">Transaction history</Typography>
                   </Box>
                 </Stack>
-                <Box sx={{ mt: 4, display: 'flex', gap: 2 }}>
-                  <Button
-                    variant="outlined"
-                    onClick={handleLogin}
-                    startIcon={<Login />}
-                    sx={{ flex: 1 }}
-                  >
-                    Login
-                  </Button>
+                <Box sx={{ mt: 4 }}>
                   <Button
                     variant="contained"
                     onClick={() => handleGetStarted('user')}
-                    startIcon={<PersonAdd />}
-                    sx={{ flex: 1 }}
+                    startIcon={<ArrowForward />}
+                    fullWidth
+                    size="large"
                   >
-                    Register
+                    Get Started
                   </Button>
                 </Box>
               </CardContent>
@@ -362,22 +336,15 @@ const LandingPage: React.FC = () => {
                     <Typography variant="body2">Revenue analytics</Typography>
                   </Box>
                 </Stack>
-                <Box sx={{ display: 'flex', gap: 2 }}>
-                  <Button
-                    variant="outlined"
-                    onClick={handleLogin}
-                    startIcon={<Login />}
-                    sx={{ flex: 1 }}
-                  >
-                    Login
-                  </Button>
+                <Box sx={{ mt: 4 }}>
                   <Button
                     variant="contained"
                     onClick={() => handleGetStarted('merchant')}
-                    startIcon={<PersonAdd />}
-                    sx={{ flex: 1 }}
+                    startIcon={<ArrowForward />}
+                    fullWidth
+                    size="large"
                   >
-                    Register
+                    Get Started
                   </Button>
                 </Box>
               </CardContent>
@@ -418,12 +385,13 @@ const LandingPage: React.FC = () => {
                   </Box>
                 </Stack>
                 <Button
-                  variant="outlined"
-                  onClick={handleLogin}
-                  startIcon={<Login />}
+                  variant="contained"
+                  onClick={() => handleGetStarted('admin')}
+                  startIcon={<ArrowForward />}
                   fullWidth
+                  size="large"
                 >
-                  Admin Login
+                  Get Started
                 </Button>
               </CardContent>
             </Card>
