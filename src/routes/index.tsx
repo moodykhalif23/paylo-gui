@@ -3,15 +3,14 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import { Box, CircularProgress, Typography } from '@mui/material'
 
 // Layout components
-import Layout from '../components/Layout'
+import LandingLayout from '../components/Layout/LandingLayout'
 import MainLayout from '../components/Layout/MainLayout'
 import ErrorBoundary from '../components/common/ErrorBoundary'
 import ProtectedRoute from '../components/auth/ProtectedRoute'
 import AuthGuard from '../components/auth/AuthGuard'
-import { usePerformanceMonitoring } from '../hooks/usePerformanceMonitoring'
 
 // Pages - only import non-lazy loaded pages
-import HomePage from '../pages/HomePage'
+import LandingPage from '../pages/LandingPage'
 import NotFoundPage from '../pages/NotFoundPage'
 import AccessibilityDemo from '../pages/AccessibilityDemo'
 
@@ -55,13 +54,8 @@ const AdminSettingsPage = React.lazy(
 )
 const CompliancePage = React.lazy(() => import('../pages/admin/CompliancePage'))
 
-// Enhanced loading component with performance monitoring
+// Enhanced loading component
 const PageLoader: React.FC<{ pageName?: string }> = ({ pageName = 'Page' }) => {
-  usePerformanceMonitoring(`${pageName}Loader`, {
-    enabled: process.env.NODE_ENV === 'development',
-    threshold: 100,
-  })
-
   return (
     <Box
       sx={{
@@ -81,16 +75,11 @@ const PageLoader: React.FC<{ pageName?: string }> = ({ pageName = 'Page' }) => {
   )
 }
 
-// Enhanced wrapper for lazy-loaded components with performance monitoring
+// Enhanced wrapper for lazy-loaded components
 const LazyWrapper: React.FC<{
   children: React.ReactNode
   pageName?: string
 }> = ({ children, pageName = 'Component' }) => {
-  usePerformanceMonitoring(`LazyWrapper-${pageName}`, {
-    enabled: process.env.NODE_ENV === 'development',
-    threshold: 16,
-  })
-
   return (
     <ErrorBoundary>
       <Suspense fallback={<PageLoader pageName={pageName} />}>
@@ -104,9 +93,9 @@ const AppRoutes: React.FC = () => {
   return (
     <AuthGuard>
       <Routes>
-        {/* Public routes - use basic Layout */}
-        <Route path="/" element={<Layout />}>
-          <Route index element={<HomePage />} />
+        {/* Public routes - use LandingLayout for clean landing page */}
+        <Route path="/" element={<LandingLayout />}>
+          <Route index element={<LandingPage />} />
 
           {/* Accessibility Demo */}
           <Route path="accessibility-demo" element={<AccessibilityDemo />} />

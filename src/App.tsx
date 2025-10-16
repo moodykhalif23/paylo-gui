@@ -8,18 +8,11 @@ import {
 } from './contexts/AccessibilityContext.tsx'
 import { createAccessibleTheme } from './theme'
 import SkipLinks from './components/common/SkipLinks'
-import PerformanceMonitor from './components/common/PerformanceMonitor'
-import {
-  usePerformanceMonitoring,
-  useWebVitals,
-  useMemoryMonitoring,
-} from './hooks/usePerformanceMonitoring'
 
 // Import enhanced error boundaries and workflow integration
 import EnhancedErrorBoundary, {
   RouteErrorBoundary,
 } from './components/common/EnhancedErrorBoundary'
-import { OfflineFallback } from './components/common/FallbackUI'
 import { workflowOrchestrator } from './services/integration/workflowOrchestrator'
 import { useAppDispatch, useAppSelector } from './store'
 import { initializeAuth } from './store/slices/authSlice'
@@ -30,22 +23,6 @@ function ThemedApp() {
   const { settings } = useAccessibility()
   const dispatch = useAppDispatch()
   const { isAuthenticated, user } = useAppSelector(state => state.auth)
-  const { isConnected } = useAppSelector(state => state.websocket)
-
-  // Performance monitoring for the main app
-  usePerformanceMonitoring('ThemedApp', {
-    enabled: process.env.NODE_ENV === 'development',
-    threshold: 16,
-    onSlowRender: metrics => {
-      console.warn('Main app slow render:', metrics)
-    },
-  })
-
-  // Monitor Web Vitals
-  useWebVitals()
-
-  // Monitor memory usage every 5 seconds
-  useMemoryMonitoring(5000)
 
   // Initialize application on mount
   useEffect(() => {
@@ -54,23 +31,9 @@ function ThemedApp() {
         // Initialize authentication state
         dispatch(initializeAuth())
 
-        // Set up connection monitoring
-        const handleOnline = () =>
-          workflowOrchestrator.handleConnectionStatusChange(true)
-        const handleOffline = () =>
-          workflowOrchestrator.handleConnectionStatusChange(false)
-
-        window.addEventListener('online', handleOnline)
-        window.addEventListener('offline', handleOffline)
-
         // Start system health monitoring for admin users
         if (user?.role === 'admin') {
           workflowOrchestrator.monitorSystemHealth()
-        }
-
-        return () => {
-          window.removeEventListener('online', handleOnline)
-          window.removeEventListener('offline', handleOffline)
         }
       } catch (error) {
         console.error('App initialization error:', error)
@@ -98,9 +61,6 @@ function ThemedApp() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <SkipLinks />
-
-      {/* Show offline indicator when disconnected */}
-      {!isConnected && <OfflineFallback />}
 
       <Box
         sx={{
@@ -132,12 +92,6 @@ function ThemedApp() {
         <RouteErrorBoundary>
           <AppRoutes />
         </RouteErrorBoundary>
-
-        {/* Performance monitoring overlay (development only) */}
-        <PerformanceMonitor
-          enabled={process.env.NODE_ENV === 'development'}
-          position="bottom-right"
-        />
       </Box>
     </ThemeProvider>
   )

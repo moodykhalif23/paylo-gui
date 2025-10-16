@@ -4,7 +4,6 @@ import {
   useVirtualization,
   useInfiniteVirtualization,
 } from '../../hooks/useVirtualization'
-import { usePerformanceMonitoring } from '../../hooks/usePerformanceMonitoring'
 
 interface VirtualizedListProps<T> {
   items: T[]
@@ -52,14 +51,6 @@ export const VirtualizedList = forwardRef(
     } = props
 
     const containerRef = useRef<HTMLDivElement>(null)
-
-    // Performance monitoring
-    usePerformanceMonitoring('VirtualizedList', {
-      threshold: 16,
-      onSlowRender: metrics => {
-        console.warn('VirtualizedList slow render:', metrics)
-      },
-    })
 
     const { virtualizedItems, totalHeight, handleScroll, isScrolling } =
       useVirtualization(items, {
@@ -166,14 +157,6 @@ export const InfiniteVirtualizedList = forwardRef(
     } = props
 
     const containerRef = useRef<HTMLDivElement>(null)
-
-    // Performance monitoring
-    usePerformanceMonitoring('InfiniteVirtualizedList', {
-      threshold: 16,
-      onSlowRender: metrics => {
-        console.warn('InfiniteVirtualizedList slow render:', metrics)
-      },
-    })
 
     const { virtualizedItems, totalHeight, handleScroll, isScrolling } =
       useInfiniteVirtualization(items, {
