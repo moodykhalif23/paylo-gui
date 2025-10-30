@@ -5,7 +5,6 @@ import {
   TextField,
   Typography,
   Alert,
-  Paper,
   Link,
   InputAdornment,
   IconButton,
@@ -78,7 +77,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
   const isLocked = shouldLimitLogin()
 
   return (
-    <Paper elevation={3} sx={{ p: 4, maxWidth: 400, mx: 'auto' }}>
+    <Box sx={{ p: 4, maxWidth: 400, mx: 'auto' }}>
       <Box component="form" onSubmit={formik.handleSubmit} noValidate>
         <Typography variant="h4" component="h1" gutterBottom align="center">
           Sign In
@@ -208,7 +207,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
           </Box>
         )}
       </Box>
-    </Paper>
+    </Box>
   )
 }
 

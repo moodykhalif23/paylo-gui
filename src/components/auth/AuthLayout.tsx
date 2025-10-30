@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, Container, Paper, Tabs, Tab } from '@mui/material'
+import { Box, Container, Tabs, Tab } from '@mui/material'
 import { LoginForm } from './LoginForm'
 import { RegisterForm } from './RegisterForm'
 import { ForgotPasswordForm } from './ForgotPasswordForm'
@@ -47,7 +47,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
         {mode === 'forgot-password' ? (
           <ForgotPasswordForm onBackToLogin={handleSwitchToLogin} />
         ) : (
-          <Paper elevation={3} sx={{ overflow: 'hidden' }}>
+          <Box>
             <Tabs
               value={mode}
               onChange={handleTabChange}
@@ -82,7 +82,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
                 />
               )}
             </Box>
-          </Paper>
+          </Box>
         )}
       </Container>
     </Box>

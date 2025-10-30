@@ -5,7 +5,6 @@ import {
   TextField,
   Typography,
   Alert,
-  Paper,
   Link,
   InputAdornment,
   IconButton,
@@ -108,7 +107,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
   }
 
   return (
-    <Paper elevation={3} sx={{ p: 4, maxWidth: 500, mx: 'auto' }}>
+    <Box sx={{ p: 4, maxWidth: 500, mx: 'auto' }}>
       <Box component="form" onSubmit={formik.handleSubmit} noValidate>
         <Typography variant="h4" component="h1" gutterBottom align="center">
           Create Account
@@ -315,7 +314,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
           </Box>
         )}
       </Box>
-    </Paper>
+    </Box>
   )
 }
 

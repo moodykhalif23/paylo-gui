@@ -5,7 +5,6 @@ import {
   TextField,
   Typography,
   Alert,
-  Paper,
   Link,
   InputAdornment,
   CircularProgress,
@@ -57,7 +56,7 @@ export const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({
 
   if (success) {
     return (
-      <Paper elevation={3} sx={{ p: 4, maxWidth: 400, mx: 'auto' }}>
+      <Box sx={{ p: 4, maxWidth: 400, mx: 'auto' }}>
         <Box sx={{ textAlign: 'center' }}>
           <Typography
             variant="h5"
@@ -89,12 +88,12 @@ export const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({
             </Button>
           )}
         </Box>
-      </Paper>
+      </Box>
     )
   }
 
   return (
-    <Paper elevation={3} sx={{ p: 4, maxWidth: 400, mx: 'auto' }}>
+    <Box sx={{ p: 4, maxWidth: 400, mx: 'auto' }}>
       <Box component="form" onSubmit={formik.handleSubmit} noValidate>
         <Typography variant="h4" component="h1" gutterBottom align="center">
           Reset Password
@@ -174,7 +173,7 @@ export const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({
           </Box>
         )}
       </Box>
-    </Paper>
+    </Box>
   )
 }
 
