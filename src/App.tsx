@@ -7,9 +7,6 @@ import {
   useAccessibility,
 } from './contexts/AccessibilityContext.tsx'
 import { createAccessibleTheme } from './theme'
-import SkipLinks from './components/common/SkipLinks'
-
-// Import enhanced error boundaries and workflow integration
 import EnhancedErrorBoundary, {
   RouteErrorBoundary,
 } from './components/common/EnhancedErrorBoundary'
@@ -60,7 +57,7 @@ function ThemedApp() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <SkipLinks />
+      {/* SkipLinks removed as per request */}
 
       <Box
         sx={{

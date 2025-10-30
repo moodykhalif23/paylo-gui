@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, Container, Tabs, Tab } from '@mui/material'
+import { Box, Container } from '@mui/material'
 import { LoginForm } from './LoginForm'
 import { RegisterForm } from './RegisterForm'
 import { ForgotPasswordForm } from './ForgotPasswordForm'
@@ -18,15 +18,6 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
   initialRole,
 }) => {
   const [mode, setMode] = useState<AuthMode>(initialMode)
-
-  const handleTabChange = (
-    _event: React.SyntheticEvent,
-    newValue: AuthMode
-  ) => {
-    if (newValue !== 'forgot-password') {
-      setMode(newValue)
-    }
-  }
 
   const handleSwitchToLogin = () => setMode('login')
   const handleSwitchToRegister = () => setMode('register')
@@ -48,40 +39,20 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
           <ForgotPasswordForm onBackToLogin={handleSwitchToLogin} />
         ) : (
           <Box>
-            <Tabs
-              value={mode}
-              onChange={handleTabChange}
-              variant="fullWidth"
-              sx={{
-                borderBottom: 1,
-                borderColor: 'divider',
-                '& .MuiTab-root': {
-                  textTransform: 'none',
-                  fontSize: '1rem',
-                  fontWeight: 500,
-                },
-              }}
-            >
-              <Tab label="Sign In" value="login" />
-              <Tab label="Sign Up" value="register" />
-            </Tabs>
-
-            <Box sx={{ p: 0 }}>
-              {mode === 'login' && (
-                <LoginForm
-                  onSwitchToRegister={handleSwitchToRegister}
-                  onForgotPassword={handleSwitchToForgotPassword}
-                  redirectTo={redirectTo}
-                />
-              )}
-              {mode === 'register' && (
-                <RegisterForm
-                  onSwitchToLogin={handleSwitchToLogin}
-                  redirectTo={redirectTo}
-                  initialRole={initialRole}
-                />
-              )}
-            </Box>
+            {mode === 'login' && (
+              <LoginForm
+                onSwitchToRegister={handleSwitchToRegister}
+                onForgotPassword={handleSwitchToForgotPassword}
+                redirectTo={redirectTo}
+              />
+            )}
+            {mode === 'register' && (
+              <RegisterForm
+                onSwitchToLogin={handleSwitchToLogin}
+                redirectTo={redirectTo}
+                initialRole={initialRole}
+              />
+            )}
           </Box>
         )}
       </Container>

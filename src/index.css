@@ -459,3 +459,15 @@ a:focus {
     background: white !important;
   }
 }
+
+/* Remove Material UI ripple/active highlight overlay for a cleaner auth UI */
+.MuiButtonBase-root .MuiTouchRipple-root,
+.MuiTabs-root .MuiTabs-indicator {
+  display: none !important;
+  background: none !important;
+}
+
+/* Remove blue selection background for auth area */
+.auth-layout *::selection {
+  background: transparent !important;
+}
