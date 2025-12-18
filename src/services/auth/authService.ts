@@ -23,9 +23,12 @@ export class AuthService {
   async login(credentials: LoginRequest): Promise<AuthResponse> {
     const response = await AuthApi.login(credentials)
 
-    // The API client now wraps responses, so we can safely access data
-    if (response.success && response.data) {
-      const { accessToken, refreshToken } = response.data
+    // Handle both wrapped and direct response formats
+    const data = (response as any).success ? (response as any).data : response
+
+    if (data && (data as AuthResponse).accessToken) {
+      const authData = data as AuthResponse
+      const { accessToken, refreshToken } = authData
 
       // Store tokens securely
       tokenStorage.setAccessToken(accessToken)
@@ -33,10 +36,10 @@ export class AuthService {
         tokenStorage.setRefreshToken(refreshToken)
       }
 
-      return response.data
+      return authData
     }
 
-    throw new Error(response.message || 'Login failed')
+    throw new Error((response as any).message || 'Login failed')
   }
 
   /**
@@ -45,8 +48,12 @@ export class AuthService {
   async register(userData: RegisterRequest): Promise<AuthResponse> {
     const response = await AuthApi.register(userData)
 
-    if (response.success && response.data) {
-      const { accessToken, refreshToken } = response.data
+    // Handle both wrapped and direct response formats
+    const data = (response as any).success ? (response as any).data : response
+
+    if (data && (data as AuthResponse).accessToken) {
+      const authData = data as AuthResponse
+      const { accessToken, refreshToken } = authData
 
       // Store tokens securely
       tokenStorage.setAccessToken(accessToken)
@@ -54,10 +61,10 @@ export class AuthService {
         tokenStorage.setRefreshToken(refreshToken)
       }
 
-      return response.data
+      return authData
     }
 
-    throw new Error(response.message || 'Registration failed')
+    throw new Error((response as any).message || 'Registration failed')
   }
 
   /**
