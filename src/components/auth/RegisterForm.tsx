@@ -147,6 +147,16 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
                 </InputAdornment>
               ),
             }}
+            sx={{
+              '& .MuiInputBase-root': {
+                '&:focus-within': {
+                  outline: 'none !important',
+                },
+                '&.Mui-focused': {
+                  outline: 'none !important',
+                },
+              },
+            }}
           />
 
           <TextField
@@ -160,6 +170,16 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
             error={formik.touched.lastName && Boolean(formik.errors.lastName)}
             helperText={formik.touched.lastName && formik.errors.lastName}
             disabled={isLoading}
+            sx={{
+              '& .MuiInputBase-root': {
+                '&:focus-within': {
+                  outline: 'none !important',
+                },
+                '&.Mui-focused': {
+                  outline: 'none !important',
+                },
+              },
+            }}
           />
         </Box>
 
@@ -182,7 +202,17 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
               </InputAdornment>
             ),
           }}
-          sx={{ mb: 2 }}
+          sx={{
+            mb: 2,
+            '& .MuiInputBase-root': {
+              '&:focus-within': {
+                outline: 'none !important',
+              },
+              '&.Mui-focused': {
+                outline: 'none !important',
+              },
+            },
+          }}
         />
 
         <FormControl
@@ -240,7 +270,17 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
               </InputAdornment>
             ),
           }}
-          sx={{ mb: 2 }}
+          sx={{
+            mb: 2,
+            '& .MuiInputBase-root': {
+              '&:focus-within': {
+                outline: 'none !important',
+              },
+              '&.Mui-focused': {
+                outline: 'none !important',
+              },
+            },
+          }}
         />
 
         <TextField
@@ -279,7 +319,17 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
               </InputAdornment>
             ),
           }}
-          sx={{ mb: 3 }}
+          sx={{
+            mb: 3,
+            '& .MuiInputBase-root': {
+              '&:focus-within': {
+                outline: 'none !important',
+              },
+              '&.Mui-focused': {
+                outline: 'none !important',
+              },
+            },
+          }}
         />
 
         <Button

@@ -85,6 +85,26 @@ code {
   outline: none !important;
 }
 
+/* Remove all focus outlines from Material-UI TextField components */
+.MuiTextField-root .MuiInputBase-root:focus-within,
+.MuiTextField-root .MuiInputBase-root.Mui-focused,
+.MuiOutlinedInput-root:focus-within,
+.MuiOutlinedInput-root.Mui-focused,
+.MuiInputBase-root:focus-within,
+.MuiInputBase-root.Mui-focused {
+  outline: none !important;
+}
+
+/* Remove browser default focus outline from all input elements */
+input:focus,
+input:focus-visible,
+textarea:focus,
+textarea:focus-visible,
+select:focus,
+select:focus-visible {
+  outline: none !important;
+}
+
 /* High contrast mode styles */
 .high-contrast {
   filter: contrast(150%) !important;

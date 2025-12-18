@@ -223,6 +223,25 @@ export const createAccessibleTheme = (
         },
       },
 
+      // Remove default browser focus outlines
+      MuiOutlinedInput: {
+        styleOverrides: {
+          root: {
+            '&:focus-within': {
+              outline: 'none',
+            },
+            '&.Mui-focused': {
+              outline: 'none',
+            },
+            '& .MuiOutlinedInput-notchedOutline': {
+              '&:focus': {
+                outline: 'none',
+              },
+            },
+          },
+        },
+      },
+
       // Enhanced input accessibility
       MuiTextField: {
         styleOverrides: {
@@ -230,8 +249,15 @@ export const createAccessibleTheme = (
             '& .MuiInputBase-root': {
               minHeight: '44px', // WCAG minimum touch target
               '&:focus-within': {
-                outline: `2px solid ${theme.palette.primary.main}`,
-                outlineOffset: '2px',
+                outline: 'none',
+              },
+              '&.Mui-focused': {
+                outline: 'none',
+              },
+              '& fieldset': {
+                '&:focus': {
+                  outline: 'none',
+                },
               },
               ...(highContrast && {
                 border: `2px solid ${theme.palette.text.primary}`,
