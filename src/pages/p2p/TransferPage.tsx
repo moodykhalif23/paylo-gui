@@ -102,15 +102,17 @@ const TransferPage: React.FC = () => {
         />
 
         {/* Transaction Confirmation Dialog */}
-        <TransactionConfirmationDialog
-          open={showConfirmDialog}
-          onClose={handleCloseConfirmDialog}
-          onConfirm={handleConfirmTransaction}
-          transferData={transferData!}
-          selectedWallet={selectedWallet}
-          feeData={feeData}
-          isLoading={isCreatingTransaction}
-        />
+        {transferData && (
+          <TransactionConfirmationDialog
+            open={showConfirmDialog}
+            onClose={handleCloseConfirmDialog}
+            onConfirm={handleConfirmTransaction}
+            transferData={transferData}
+            selectedWallet={selectedWallet}
+            feeData={feeData}
+            isLoading={isCreatingTransaction}
+          />
+        )}
 
         {/* Success/Error Messages */}
         <Snackbar
