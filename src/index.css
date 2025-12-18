@@ -73,7 +73,7 @@ code {
 
 /* Focus visible styles for keyboard navigation */
 .keyboard-navigation *:focus-visible {
-  outline: 2px solid #1976d2 !important;
+  outline: 2px solid #7dcd85 !important;
   outline-offset: 2px !important;
   border-radius: 4px !important;
 }
@@ -178,7 +178,7 @@ body {
   position: absolute;
   top: -40px;
   left: 6px;
-  background: #1976d2;
+  background: #7dcd85;
   color: white;
   padding: 8px 16px;
   text-decoration: none;
@@ -191,7 +191,7 @@ body {
 
 .skip-link:focus {
   top: 0;
-  outline: 2px solid #dc004e;
+  outline: 2px solid #bac7be;
   outline-offset: 2px;
 }
 
@@ -244,7 +244,7 @@ body {
 }
 
 .focus-trap *:focus {
-  outline: 2px solid #1976d2;
+  outline: 2px solid #7dcd85;
   outline-offset: 2px;
 }
 
@@ -281,7 +281,7 @@ th[aria-sort]:hover {
 }
 
 th[aria-sort]:focus {
-  outline: 2px solid #1976d2;
+  outline: 2px solid #7dcd85;
   outline-offset: -2px;
 }
 
@@ -322,7 +322,7 @@ button {
   padding: 8px 16px;
   border: none;
   border-radius: 4px;
-  background-color: #1976d2;
+  background-color: #7dcd85;
   color: white;
   font-size: inherit;
   font-weight: 500;
@@ -331,7 +331,7 @@ button {
 }
 
 button:focus {
-  outline: 2px solid #1976d2;
+  outline: 2px solid #7dcd85;
   outline-offset: 2px;
 }
 
@@ -343,7 +343,7 @@ button:disabled {
 
 /* Link accessibility */
 a {
-  color: #1976d2;
+  color: #7dcd85;
   text-decoration: underline;
   text-underline-offset: 2px;
 }
@@ -353,7 +353,7 @@ a:hover {
 }
 
 a:focus {
-  outline: 2px solid #1976d2;
+  outline: 2px solid #7dcd85;
   outline-offset: 2px;
   border-radius: 2px;
 }
@@ -397,7 +397,7 @@ a:focus {
   content: '';
   display: block;
   height: 100%;
-  background-color: #1976d2;
+  background-color: #7dcd85;
   width: var(--progress-value, 0%);
   transition: width 0.3s ease;
 }
@@ -485,4 +485,92 @@ a:focus {
 /* Remove blue selection background for auth area */
 .auth-layout *::selection {
   background: transparent !important;
+}
+
+/* Layout stability improvements */
+.layout-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Prevent horizontal scrolling on mobile */
+body {
+  overflow-x: hidden;
+}
+
+/* Ensure fixed positioning works correctly */
+.fixed-header {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1100;
+}
+
+.fixed-sidebar {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 1000;
+}
+
+/* Content area adjustments */
+.main-content {
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 64px; /* AppBar height */
+  transition:
+    margin-left 0.3s ease,
+    width 0.3s ease;
+}
+
+/* Mobile-specific layout fixes */
+@media (max-width: 899px) {
+  .main-content {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
+  .fixed-sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .fixed-sidebar.open {
+    transform: translateX(0);
+  }
+}
+
+/* Desktop layout */
+@media (min-width: 900px) {
+  .main-content.sidebar-open {
+    margin-left: 280px;
+    width: calc(100% - 280px);
+  }
+}
+
+/* Prevent content jumping */
+* {
+  box-sizing: border-box;
+}
+
+/* Smooth transitions for layout changes */
+.layout-transition {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Ensure proper viewport handling */
+@viewport {
+  width: device-width;
+  initial-scale: 1;
+}
+
+/* Fix for iOS Safari viewport issues */
+@supports (-webkit-touch-callout: none) {
+  .main-content {
+    min-height: -webkit-fill-available;
+  }
 }

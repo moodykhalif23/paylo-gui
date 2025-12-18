@@ -217,9 +217,9 @@ const RevenueTrendChart: React.FC<RevenueTrendChartProps> = ({
                     yAxisId="revenue"
                     type="monotone"
                     dataKey="revenueUSD"
-                    stroke="#1976d2"
+                    stroke="#7dcd85"
                     strokeWidth={2}
-                    dot={{ fill: '#1976d2', strokeWidth: 2, r: 4 }}
+                    dot={{ fill: '#7dcd85', strokeWidth: 2, r: 4 }}
                     activeDot={{ r: 6 }}
                     name="Revenue (USD)"
                   />

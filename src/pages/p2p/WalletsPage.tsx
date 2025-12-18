@@ -139,12 +139,21 @@ const WalletsPage: React.FC = () => {
   }
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Box
+      sx={{
+        p: { xs: 2, sm: 3 },
+        width: '100%',
+        maxWidth: '100%',
+        overflow: 'hidden',
+      }}
+    >
       {/* Header */}
       <Box
         display="flex"
         justifyContent="space-between"
-        alignItems="center"
+        alignItems={{ xs: 'flex-start', sm: 'center' }}
+        flexDirection={{ xs: 'column', sm: 'row' }}
+        gap={{ xs: 2, sm: 0 }}
         mb={3}
       >
         <Box>
@@ -155,11 +164,16 @@ const WalletsPage: React.FC = () => {
             Manage your cryptocurrency wallets and addresses
           </Typography>
         </Box>
-        <Stack direction="row" spacing={1}>
+        <Stack
+          direction={{ xs: 'column', sm: 'row' }}
+          spacing={1}
+          width={{ xs: '100%', sm: 'auto' }}
+        >
           <Button
             variant="outlined"
             startIcon={<RefreshIcon />}
             onClick={handleRefresh}
+            sx={{ width: { xs: '100%', sm: 'auto' } }}
           >
             Refresh
           </Button>
@@ -167,6 +181,7 @@ const WalletsPage: React.FC = () => {
             variant="contained"
             startIcon={<AddIcon />}
             onClick={() => setCreateDialogOpen(true)}
+            sx={{ width: { xs: '100%', sm: 'auto' } }}
           >
             Create Wallet
           </Button>

@@ -10,16 +10,16 @@ declare module '@mui/material/Typography' {
 // Custom color palette with accessibility considerations
 const palette = {
   primary: {
-    main: '#1976d2',
-    light: '#42a5f5',
-    dark: '#1565c0',
+    main: '#7dcd85',
+    light: '#c2e1c2',
+    dark: '#5ba663',
     contrastText: '#ffffff',
   },
   secondary: {
-    main: '#dc004e',
-    light: '#ff5983',
-    dark: '#9a0036',
-    contrastText: '#ffffff',
+    main: '#bac7be',
+    light: '#d4ddd6',
+    dark: '#9aaa9e',
+    contrastText: '#000000',
   },
   success: {
     main: '#2e7d32',

@@ -69,6 +69,9 @@ const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
       sx={{
         zIndex: theme.zIndex.drawer + 1,
         backgroundColor: theme.palette.primary.main,
+        width: '100%',
+        left: 0,
+        right: 0,
       }}
     >
       <Toolbar>

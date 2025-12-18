@@ -90,7 +90,7 @@ const LandingPage: React.FC = () => {
             fontSize: { xs: '2.5rem', md: '3.5rem' },
             fontWeight: 700,
             mb: 3,
-            background: 'linear-gradient(45deg, #0d4074ff 30%, #42a5f5 90%)',
+            background: 'linear-gradient(45deg, #5ba663 30%, #7dcd85 90%)',
             backgroundClip: 'text',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',

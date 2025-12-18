@@ -14,6 +14,9 @@ const MainLayout: React.FC = () => {
 
   const [sidebarOpen, setSidebarOpen] = useState(!isMobile)
 
+  // Sidebar width constant
+  const sidebarWidth = 280
+
   // Close sidebar on mobile when screen size changes
   useEffect(() => {
     if (isMobile) {
@@ -33,7 +36,7 @@ const MainLayout: React.FC = () => {
 
   return (
     <Box sx={{ display: 'flex', minHeight: '100vh' }}>
-      {/* Header */}
+      {/* Header - Fixed position */}
       <Header onMenuToggle={handleSidebarToggle} />
 
       {/* Sidebar - only show when authenticated */}
@@ -49,10 +52,20 @@ const MainLayout: React.FC = () => {
           display: 'flex',
           flexDirection: 'column',
           minHeight: '100vh',
-          marginLeft: isAuthenticated && !isMobile && sidebarOpen ? 0 : 0,
-          transition: theme.transitions.create(['margin'], {
+          width: {
+            xs: '100%',
+            md:
+              isAuthenticated && sidebarOpen
+                ? `calc(100% - ${sidebarWidth}px)`
+                : '100%',
+          },
+          marginLeft: {
+            xs: 0,
+            md: isAuthenticated && sidebarOpen ? `${sidebarWidth}px` : 0,
+          },
+          transition: theme.transitions.create(['margin-left', 'width'], {
             easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
+            duration: theme.transitions.duration.enteringScreen,
           }),
         }}
       >
@@ -66,8 +79,10 @@ const MainLayout: React.FC = () => {
             flex: 1,
             display: 'flex',
             flexDirection: 'column',
-            py: 3,
-            px: { xs: 2, sm: 3 },
+            py: { xs: 2, sm: 3 },
+            px: { xs: 1, sm: 2, md: 3 },
+            width: '100%',
+            maxWidth: '100%',
           }}
         >
           {/* Breadcrumbs - only show when authenticated */}

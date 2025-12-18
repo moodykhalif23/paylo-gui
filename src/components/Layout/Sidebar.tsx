@@ -184,6 +184,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
   const { user } = useAppSelector(state => state.auth)
   const [expandedItems, setExpandedItems] = React.useState<string[]>([])
 
+  // Keep consistent with MainLayout
   const drawerWidth = 280
 
   const handleItemClick = (item: NavigationItem) => {
@@ -356,9 +357,11 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
             keepMounted: true, // Better open performance on mobile
           }}
           sx={{
+            display: { xs: 'block', md: 'none' },
             '& .MuiDrawer-paper': {
               boxSizing: 'border-box',
               width: drawerWidth,
+              zIndex: theme.zIndex.drawer,
             },
           }}
         >
@@ -370,15 +373,24 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
           variant="persistent"
           open={open}
           sx={{
+            display: { xs: 'none', md: 'block' },
             width: open ? drawerWidth : 0,
             flexShrink: 0,
             '& .MuiDrawer-paper': {
               width: drawerWidth,
               boxSizing: 'border-box',
-              transition: theme.transitions.create('width', {
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              height: '100vh',
+              overflowX: 'hidden',
+              transition: theme.transitions.create(['transform', 'width'], {
                 easing: theme.transitions.easing.sharp,
                 duration: theme.transitions.duration.enteringScreen,
               }),
+              transform: open
+                ? 'translateX(0)'
+                : `translateX(-${drawerWidth}px)`,
             },
           }}
         >
