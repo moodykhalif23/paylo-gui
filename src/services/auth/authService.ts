@@ -23,12 +23,15 @@ export class AuthService {
   async login(credentials: LoginRequest): Promise<AuthResponse> {
     const response = await AuthApi.login(credentials)
 
+    // The API client now wraps responses, so we can safely access data
     if (response.success && response.data) {
       const { accessToken, refreshToken } = response.data
 
       // Store tokens securely
       tokenStorage.setAccessToken(accessToken)
-      tokenStorage.setRefreshToken(refreshToken)
+      if (refreshToken) {
+        tokenStorage.setRefreshToken(refreshToken)
+      }
 
       return response.data
     }
@@ -47,7 +50,9 @@ export class AuthService {
 
       // Store tokens securely
       tokenStorage.setAccessToken(accessToken)
-      tokenStorage.setRefreshToken(refreshToken)
+      if (refreshToken) {
+        tokenStorage.setRefreshToken(refreshToken)
+      }
 
       return response.data
     }

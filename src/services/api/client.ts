@@ -16,7 +16,7 @@ const REFRESH_TOKEN_KEY = 'paylo_refresh_token'
 const ENCRYPTION_KEY = 'paylo_secure_key_2024'
 
 // Rate limiter for API requests
-const rateLimiter = SecurityUtils.createRateLimiter(100, 60000) // 100 requests per minute
+const rateLimiter = SecurityUtils.createRateLimiter(100, 60000)
 
 // Token storage utilities with encryption
 export const tokenStorage = {
@@ -207,7 +207,22 @@ export const apiRequest = async <T>(
 ): Promise<ApiResponse<T>> => {
   try {
     const response = await apiClient(config)
-    return response.data
+
+    // If the response data has a 'success' field, it's already wrapped
+    if (
+      response.data &&
+      typeof response.data === 'object' &&
+      'success' in response.data
+    ) {
+      return response.data as ApiResponse<T>
+    }
+
+    // Otherwise, wrap the response data
+    return {
+      success: true,
+      data: response.data as T,
+      message: 'Success',
+    }
   } catch (error) {
     throw error as ApiError
   }

@@ -18,7 +18,7 @@ export interface RegisterRequest {
 export interface AuthResponse {
   user: User
   accessToken: string
-  refreshToken: string
+  refreshToken?: string // Make refreshToken optional since backend doesn't provide it yet
   expiresIn: number
 }
 
