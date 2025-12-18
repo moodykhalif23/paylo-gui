@@ -78,6 +78,13 @@ code {
   border-radius: 4px !important;
 }
 
+/* Remove blue outline specifically on form elements */
+.keyboard-navigation input:focus-visible,
+.keyboard-navigation select:focus-visible,
+.keyboard-navigation textarea:focus-visible {
+  outline: none !important;
+}
+
 /* High contrast mode styles */
 .high-contrast {
   filter: contrast(150%) !important;
@@ -275,14 +282,6 @@ textarea {
   line-height: 1.5;
 }
 
-input:focus,
-select:focus,
-textarea:focus {
-  border-color: #1976d2;
-  outline: 2px solid #1976d2;
-  outline-offset: 2px;
-}
-
 input[aria-invalid='true'],
 select[aria-invalid='true'],
 textarea[aria-invalid='true'] {
@@ -309,10 +308,6 @@ button {
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s ease;
-}
-
-button:hover {
-  background-color: #1565c0;
 }
 
 button:focus {
