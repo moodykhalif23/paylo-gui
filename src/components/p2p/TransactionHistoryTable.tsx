@@ -15,6 +15,12 @@ import {
   TablePagination,
   CircularProgress,
   Alert,
+  Card,
+  CardContent,
+  Stack,
+  Divider,
+  useTheme,
+  useMediaQuery,
 } from '@mui/material'
 import {
   Visibility as VisibilityIcon,
@@ -50,6 +56,8 @@ const TransactionHistoryTable: React.FC<TransactionHistoryTableProps> = ({
   onRowsPerPageChange,
   onViewDetails,
 }) => {
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
   const getStatusColor = (status: TransactionStatus) => {
     switch (status) {
       case 'confirmed':
@@ -116,7 +124,178 @@ const TransactionHistoryTable: React.FC<TransactionHistoryTableProps> = ({
     )
   }
 
-  return (
+  // Mobile Card View
+  const renderMobileView = () => (
+    <Box>
+      {loading ? (
+        <Box display="flex" justifyContent="center" py={4}>
+          <CircularProgress size={40} />
+        </Box>
+      ) : transactions.length === 0 ? (
+        <Card>
+          <CardContent sx={{ textAlign: 'center', py: 4 }}>
+            <Typography variant="body2" color="text.secondary">
+              No transactions found
+            </Typography>
+          </CardContent>
+        </Card>
+      ) : (
+        <Stack spacing={2}>
+          {transactions.map(transaction => (
+            <Card key={transaction.id}>
+              <CardContent>
+                <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="flex-start"
+                  mb={2}
+                >
+                  <Box>
+                    <Typography variant="body2" color="text.secondary">
+                      {formatDate(transaction.createdAt)}
+                    </Typography>
+                    <Box display="flex" alignItems="center" gap={1} mt={0.5}>
+                      <Box
+                        sx={{
+                          width: 12,
+                          height: 12,
+                          borderRadius: '50%',
+                          backgroundColor: getBlockchainColor(
+                            transaction.blockchain
+                          ),
+                        }}
+                      />
+                      <Typography variant="body2" fontWeight="medium">
+                        {getBlockchainSymbol(transaction.blockchain)}
+                      </Typography>
+                      <Chip
+                        label={transaction.type.toUpperCase()}
+                        size="small"
+                        variant="outlined"
+                      />
+                    </Box>
+                  </Box>
+                  <Chip
+                    label={transaction.status.toUpperCase()}
+                    size="small"
+                    color={getStatusColor(transaction.status)}
+                    variant={
+                      transaction.status === 'confirmed' ? 'filled' : 'outlined'
+                    }
+                  />
+                </Box>
+
+                <Box mb={2}>
+                  <Typography variant="h6" fontWeight="bold">
+                    {formatCurrency(
+                      transaction.amount,
+                      getBlockchainSymbol(transaction.blockchain)
+                    )}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Fee:{' '}
+                    {formatCurrency(
+                      transaction.fee,
+                      getBlockchainSymbol(transaction.blockchain)
+                    )}
+                  </Typography>
+                </Box>
+
+                <Box mb={2}>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    gutterBottom
+                  >
+                    From
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    fontFamily="monospace"
+                    fontSize="0.75rem"
+                  >
+                    {transaction.fromAddress}
+                  </Typography>
+                </Box>
+
+                <Box mb={2}>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    gutterBottom
+                  >
+                    To
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    fontFamily="monospace"
+                    fontSize="0.75rem"
+                  >
+                    {transaction.toAddress}
+                  </Typography>
+                </Box>
+
+                <Divider sx={{ my: 2 }} />
+
+                <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                  <Box display="flex" gap={1}>
+                    <Tooltip title="View Details">
+                      <IconButton
+                        size="small"
+                        onClick={() => onViewDetails(transaction)}
+                      >
+                        <VisibilityIcon fontSize="small" />
+                      </IconButton>
+                    </Tooltip>
+                    {transaction.txHash && (
+                      <Tooltip title="View on Explorer">
+                        <IconButton
+                          size="small"
+                          component="a"
+                          href={getExplorerUrl(transaction) || '#'}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          disabled={!getExplorerUrl(transaction)}
+                        >
+                          <LaunchIcon fontSize="small" />
+                        </IconButton>
+                      </Tooltip>
+                    )}
+                  </Box>
+                  {transaction.txHash && (
+                    <Typography variant="caption" color="text.secondary">
+                      Hash: {truncateAddress(transaction.txHash)}
+                    </Typography>
+                  )}
+                </Box>
+              </CardContent>
+            </Card>
+          ))}
+        </Stack>
+      )}
+
+      <Box mt={2}>
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 50, 100]}
+          component="div"
+          count={totalCount}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={(_, newPage) => onPageChange(newPage)}
+          onRowsPerPageChange={event =>
+            onRowsPerPageChange(parseInt(event.target.value, 10))
+          }
+        />
+      </Box>
+    </Box>
+  )
+
+  // Desktop Table View
+  const renderDesktopView = () => (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       <TableContainer sx={{ maxHeight: 600 }}>
         <Table stickyHeader>
@@ -271,6 +450,8 @@ const TransactionHistoryTable: React.FC<TransactionHistoryTableProps> = ({
       />
     </Paper>
   )
+
+  return isMobile ? renderMobileView() : renderDesktopView()
 }
 
 export default TransactionHistoryTable

@@ -89,23 +89,42 @@ const TransactionsPage: React.FC = () => {
   }, [refetch])
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Box sx={{ p: { xs: 2, sm: 3 } }}>
       <Box
         sx={{
           display: 'flex',
+          flexDirection: { xs: 'column', sm: 'row' },
           justifyContent: 'space-between',
-          alignItems: 'center',
+          alignItems: { xs: 'stretch', sm: 'center' },
+          gap: { xs: 2, sm: 0 },
           mb: 3,
         }}
       >
-        <Typography variant="h4" gutterBottom>
-          Transaction History
-        </Typography>
-        <Box sx={{ display: 'flex', gap: 1 }}>
+        <Box>
+          <Typography variant="h4" gutterBottom>
+            Transaction History
+          </Typography>
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ display: { xs: 'block', sm: 'none' } }}
+          >
+            View and manage your transaction history
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: { xs: 'column', sm: 'row' },
+            gap: 1,
+            width: { xs: '100%', sm: 'auto' },
+          }}
+        >
           <Button
             startIcon={<RefreshIcon />}
             onClick={handleRefresh}
             disabled={isLoading}
+            sx={{ width: { xs: '100%', sm: 'auto' } }}
           >
             Refresh
           </Button>
@@ -116,6 +135,7 @@ const TransactionsPage: React.FC = () => {
             onClick={() => handleExport('csv')}
             disabled={isExporting}
             variant="outlined"
+            sx={{ width: { xs: '100%', sm: 'auto' } }}
           >
             Export CSV
           </Button>
@@ -126,6 +146,10 @@ const TransactionsPage: React.FC = () => {
             onClick={() => handleExport('excel')}
             disabled={isExporting}
             variant="outlined"
+            sx={{
+              width: { xs: '100%', sm: 'auto' },
+              display: { xs: 'none', sm: 'flex' },
+            }}
           >
             Export Excel
           </Button>
