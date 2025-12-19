@@ -154,7 +154,7 @@ const MerchantSettingsPage: React.FC = () => {
           : undefined,
       }).unwrap()
 
-      setGeneratedApiKey(result.keyPrefix) // In real implementation, this would be the full key
+      setGeneratedApiKey(result.keyPrefix)
       setNewApiKeyName('')
       setNewApiKeyScopes([])
       setNewApiKeyExpiry('')

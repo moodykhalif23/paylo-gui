@@ -87,9 +87,11 @@ const MainLayout: React.FC = () => {
             display: 'flex',
             flexDirection: 'column',
             py: { xs: 2, sm: 3 },
-            px: { xs: 1, sm: 2, md: 3 },
+            px: { xs: 1, sm: 2, md: isAuthenticated && sidebarOpen ? 2 : 3 },
             width: '100%',
             maxWidth: '100%',
+            ml: { xs: 0, md: isAuthenticated && sidebarOpen ? 0 : 'auto' },
+            mr: { xs: 0, md: 'auto' },
           }}
         >
           {/* Breadcrumbs - only show when authenticated */}

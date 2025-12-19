@@ -75,13 +75,16 @@ const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
       }}
     >
       <Toolbar>
-        {/* Menu toggle button */}
+        {/* Menu toggle button - only show on mobile or when sidebar is closed */}
         <IconButton
           color="inherit"
           aria-label="toggle sidebar"
           onClick={onMenuToggle}
           edge="start"
-          sx={{ mr: 2 }}
+          sx={{
+            mr: 2,
+            display: { xs: 'block', md: 'none' },
+          }}
         >
           <MenuIcon />
         </IconButton>
