@@ -132,6 +132,7 @@ const LandingPage: React.FC = () => {
 
         {/* Supported Currencies */}
         <Box
+          id="currencies"
           sx={{
             display: 'flex',
             justifyContent: 'center',
@@ -175,7 +176,7 @@ const LandingPage: React.FC = () => {
       </Box>
 
       {/* Features Section */}
-      <Box sx={{ mb: 8 }}>
+      <Box id="features" sx={{ mb: 8 }}>
         <Typography
           variant="h3"
           component="h2"
@@ -223,7 +224,7 @@ const LandingPage: React.FC = () => {
       </Box>
 
       {/* User Types Section */}
-      <Box sx={{ mb: 8 }}>
+      <Box id="how-it-works" sx={{ mb: 8 }}>
         <Typography
           variant="h3"
           component="h2"
@@ -233,8 +234,8 @@ const LandingPage: React.FC = () => {
           Choose Your Experience
         </Typography>
 
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={4}>
+        <Grid container spacing={4} justifyContent="center">
+          <Grid item xs={12} md={5}>
             <Card
               sx={{
                 height: '100%',
@@ -303,7 +304,7 @@ const LandingPage: React.FC = () => {
             </Card>
           </Grid>
 
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={5}>
             <Card sx={{ height: '100%' }}>
               <CardContent sx={{ p: 4, textAlign: 'center' }}>
                 <Typography
@@ -347,52 +348,6 @@ const LandingPage: React.FC = () => {
                     Get Started
                   </Button>
                 </Box>
-              </CardContent>
-            </Card>
-          </Grid>
-
-          <Grid item xs={12} md={4}>
-            <Card sx={{ height: '100%' }}>
-              <CardContent sx={{ p: 4, textAlign: 'center' }}>
-                <Typography
-                  variant="h5"
-                  component="h3"
-                  gutterBottom
-                  fontWeight={600}
-                >
-                  Administrator
-                </Typography>
-                <Typography
-                  variant="body1"
-                  color="text.secondary"
-                  sx={{ mb: 3 }}
-                >
-                  Monitor system health, manage users, and ensure platform
-                  security and compliance
-                </Typography>
-                <Stack spacing={2} sx={{ mb: 4 }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    <CheckCircle color="success" fontSize="small" />
-                    <Typography variant="body2">System monitoring</Typography>
-                  </Box>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    <CheckCircle color="success" fontSize="small" />
-                    <Typography variant="body2">User management</Typography>
-                  </Box>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    <CheckCircle color="success" fontSize="small" />
-                    <Typography variant="body2">Compliance tools</Typography>
-                  </Box>
-                </Stack>
-                <Button
-                  variant="contained"
-                  onClick={() => handleGetStarted('admin')}
-                  startIcon={<ArrowForward />}
-                  fullWidth
-                  size="large"
-                >
-                  Get Started
-                </Button>
               </CardContent>
             </Card>
           </Grid>

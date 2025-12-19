@@ -2,6 +2,8 @@ import React from 'react'
 import { Box, Container } from '@mui/material'
 import { Outlet } from 'react-router-dom'
 import { useAccessibility } from '../../contexts/AccessibilityContext'
+import LandingNavbar from './LandingNavbar'
+import LandingFooter from './LandingFooter'
 
 const LandingLayout: React.FC = () => {
   const { settings } = useAccessibility()
@@ -33,6 +35,9 @@ const LandingLayout: React.FC = () => {
         .filter(Boolean)
         .join(' ')}
     >
+      {/* Navigation */}
+      <LandingNavbar />
+
       {/* Main content - full width, centered */}
       <Box
         component="main"
@@ -62,6 +67,9 @@ const LandingLayout: React.FC = () => {
           <Outlet />
         </Container>
       </Box>
+
+      {/* Footer - only on landing pages */}
+      <LandingFooter />
     </Box>
   )
 }

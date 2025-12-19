@@ -8,6 +8,7 @@ import MainLayout from '../components/Layout/MainLayout'
 import ErrorBoundary from '../components/common/ErrorBoundary'
 import ProtectedRoute from '../components/auth/ProtectedRoute'
 import AuthGuard from '../components/auth/AuthGuard'
+import AdminRoute from '../components/auth/AdminRoute'
 
 // Pages - only import non-lazy loaded pages
 import LandingPage from '../pages/LandingPage'
@@ -17,6 +18,7 @@ import AccessibilityDemo from '../pages/AccessibilityDemo'
 // Lazy load page components for better performance
 const LoginPage = React.lazy(() => import('../pages/auth/LoginPage'))
 const RegisterPage = React.lazy(() => import('../pages/auth/RegisterPage'))
+const AdminLoginPage = React.lazy(() => import('../pages/auth/AdminLoginPage'))
 
 // P2P User pages
 const P2PDashboard = React.lazy(() => import('../pages/p2p/Dashboard'))
@@ -118,6 +120,16 @@ const AppRoutes: React.FC = () => {
             }
           />
 
+          {/* Admin login route - separate from main navigation */}
+          <Route
+            path="admin/login"
+            element={
+              <LazyWrapper pageName="Admin Login">
+                <AdminLoginPage />
+              </LazyWrapper>
+            }
+          />
+
           {/* 404 page for public routes */}
           <Route path="*" element={<NotFoundPage />} />
         </Route>
@@ -212,66 +224,66 @@ const AppRoutes: React.FC = () => {
             <Route index element={<Navigate to="dashboard" replace />} />
           </Route>
 
-          {/* Admin routes */}
+          {/* Admin routes - protected with AdminRoute */}
           <Route path="admin">
             <Route
               path="dashboard"
               element={
-                <ProtectedRoute requiredRoles={['admin']}>
+                <AdminRoute>
                   <LazyWrapper>
                     <AdminDashboard />
                   </LazyWrapper>
-                </ProtectedRoute>
+                </AdminRoute>
               }
             />
             <Route
               path="users"
               element={
-                <ProtectedRoute requiredRoles={['admin']}>
+                <AdminRoute>
                   <LazyWrapper>
                     <UserManagementPage />
                   </LazyWrapper>
-                </ProtectedRoute>
+                </AdminRoute>
               }
             />
             <Route
               path="transactions"
               element={
-                <ProtectedRoute requiredRoles={['admin']}>
+                <AdminRoute>
                   <LazyWrapper>
                     <TransactionMonitorPage />
                   </LazyWrapper>
-                </ProtectedRoute>
+                </AdminRoute>
               }
             />
             <Route
               path="system"
               element={
-                <ProtectedRoute requiredRoles={['admin']}>
+                <AdminRoute>
                   <LazyWrapper>
                     <SystemHealthPage />
                   </LazyWrapper>
-                </ProtectedRoute>
+                </AdminRoute>
               }
             />
             <Route
               path="compliance"
               element={
-                <ProtectedRoute requiredRoles={['admin']}>
+                <AdminRoute>
                   <LazyWrapper>
                     <CompliancePage />
                   </LazyWrapper>
-                </ProtectedRoute>
+                </AdminRoute>
               }
             />
             <Route
               path="settings/*"
               element={
-                <ProtectedRoute requiredRoles={['admin']}>
+                <AdminRoute>
                   <LazyWrapper>
                     <AdminSettingsPage />
                   </LazyWrapper>
-                </ProtectedRoute>
+                </AdminRoute>
               }
             />
             {/* Redirect /admin to /admin/dashboard */}
