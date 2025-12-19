@@ -195,7 +195,7 @@ export class RealTimeDataService extends EventEmitter {
       this.emit('connected')
     })
 
-    webSocketService.on('disconnect', (reason: string) => {
+    webSocketService.on('disconnect', ((reason: string) => {
       store.dispatch(
         setDisconnected({
           timestamp: new Date().toISOString(),
@@ -204,9 +204,9 @@ export class RealTimeDataService extends EventEmitter {
       )
       store.dispatch(setConnectionStatus('disconnected'))
       this.emit('disconnected', reason)
-    })
+    }) as (...args: unknown[]) => void)
 
-    webSocketService.on('error', (error: Error) => {
+    webSocketService.on('error', ((error: Error) => {
       store.dispatch(
         setError({
           error: error.message,
@@ -214,25 +214,25 @@ export class RealTimeDataService extends EventEmitter {
         })
       )
       this.emit('error', error)
-    })
+    }) as (...args: unknown[]) => void)
 
-    webSocketService.on('reconnect', (attempt: number) => {
+    webSocketService.on('reconnect', ((attempt: number) => {
       store.dispatch(setConnectionStatus('reconnecting'))
       this.emit('reconnecting', attempt)
-    })
+    }) as (...args: unknown[]) => void)
 
     // Message handling
-    webSocketService.on('message', (message: WebSocketMessage) => {
+    webSocketService.on('message', ((message: WebSocketMessage) => {
       store.dispatch(incrementMessagesReceived())
       store.dispatch(setLastMessage(message))
 
       this.handleMessage(message)
-    })
+    }) as (...args: unknown[]) => void)
 
     // Authentication events
-    webSocketService.on('authenticated', (userId: string) => {
+    webSocketService.on('authenticated', ((userId: string) => {
       this.emit('authenticated', userId)
-    })
+    }) as (...args: unknown[]) => void)
   }
 
   /**

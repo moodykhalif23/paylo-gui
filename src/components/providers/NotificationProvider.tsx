@@ -20,17 +20,9 @@ import {
 export { NotificationContext }
 export type { NotificationContextType }
 
-// ============================================================================
-// Types
-// ============================================================================
-
 interface NotificationProviderProps {
   children: ReactNode
 }
-
-// ============================================================================
-// Provider Component
-// ============================================================================
 
 export const NotificationProvider: React.FC<NotificationProviderProps> = ({
   children,
@@ -79,15 +71,33 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({
       })
     }
 
-    // Register event listeners
-    notificationManager.on('notification', handleNotification)
-    notificationManager.on('acknowledged', handleAcknowledged)
-    notificationManager.on('dismissed', handleDismissed)
+    // Register event listeners with proper type casting
+    notificationManager.on(
+      'notification',
+      handleNotification as (...args: unknown[]) => void
+    )
+    notificationManager.on(
+      'acknowledged',
+      handleAcknowledged as (...args: unknown[]) => void
+    )
+    notificationManager.on(
+      'dismissed',
+      handleDismissed as (...args: unknown[]) => void
+    )
 
     return () => {
-      notificationManager.off('notification', handleNotification)
-      notificationManager.off('acknowledged', handleAcknowledged)
-      notificationManager.off('dismissed', handleDismissed)
+      notificationManager.off(
+        'notification',
+        handleNotification as (...args: unknown[]) => void
+      )
+      notificationManager.off(
+        'acknowledged',
+        handleAcknowledged as (...args: unknown[]) => void
+      )
+      notificationManager.off(
+        'dismissed',
+        handleDismissed as (...args: unknown[]) => void
+      )
     }
   }, [dispatch])
 

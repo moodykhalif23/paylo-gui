@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { KeyboardNavigationContext } from './KeyboardNavigationProvider'
+import { KeyboardNavigationContext } from './keyboardNavigationContext'
 
 export const useKeyboardNavigationContext = () => {
   const context = useContext(KeyboardNavigationContext)

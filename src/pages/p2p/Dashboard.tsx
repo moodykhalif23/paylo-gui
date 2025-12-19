@@ -26,6 +26,7 @@ import {
   VisibilityOff,
   ContentCopy,
   QrCode,
+  Home,
 } from '@mui/icons-material'
 import {
   useGetUserWalletsQuery,
@@ -197,42 +198,49 @@ const P2PDashboard: React.FC = () => {
             Manage your cryptocurrency wallets and addresses
           </Typography>
         </Box>
-        <Button
-          variant="outlined"
-          startIcon={<Refresh />}
-          onClick={handleRefresh}
-        >
-          Refresh
-        </Button>
+        <Stack direction="row" spacing={1}>
+          <Button
+            variant="outlined"
+            startIcon={<Refresh />}
+            onClick={handleRefresh}
+          >
+            Refresh
+          </Button>
+          <Button
+            variant="contained"
+            startIcon={<Add />}
+            onClick={() => setCreateDialogOpen(true)}
+          >
+            Create Wallet
+          </Button>
+        </Stack>
       </Box>
 
       {/* Enhanced Summary Cards */}
-      {walletSummary && (
-        <Grid container spacing={3} sx={{ mb: 3 }}>
-          {/* Portfolio Overview Card */}
-          <Grid item xs={12} lg={8}>
-            <Card>
-              <CardContent>
-                <Box
-                  display="flex"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  mb={2}
+      <Grid container spacing={3} sx={{ mb: 3 }}>
+        {/* Portfolio Overview Card */}
+        <Grid item xs={12} lg={8}>
+          <Card>
+            <CardContent>
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+                mb={2}
+              >
+                <Typography variant="h6">
+                  <Home sx={{ mr: 1, verticalAlign: 'middle' }} />
+                  Portfolio Overview
+                </Typography>
+                <IconButton
+                  onClick={() => setShowBalances(!showBalances)}
+                  size="small"
                 >
-                  <Typography variant="h6">
-                    <AccountBalanceWallet
-                      sx={{ mr: 1, verticalAlign: 'middle' }}
-                    />
-                    Portfolio Overview
-                  </Typography>
-                  <IconButton
-                    onClick={() => setShowBalances(!showBalances)}
-                    size="small"
-                  >
-                    {showBalances ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </Box>
+                  {showBalances ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </Box>
 
+              {walletSummary ? (
                 <Grid container spacing={3}>
                   <Grid item xs={12} sm={6} md={3}>
                     <Box textAlign="center">
@@ -293,62 +301,78 @@ const P2PDashboard: React.FC = () => {
                     </Box>
                   </Grid>
                 </Grid>
-              </CardContent>
-            </Card>
-          </Grid>
-
-          {/* Portfolio Distribution Pie Chart */}
-          <Grid item xs={12} lg={4}>
-            <Card>
-              <CardContent>
-                <Typography variant="h6" gutterBottom>
-                  Portfolio Distribution
-                </Typography>
-                {pieChartData.length > 0 ? (
-                  <Box sx={{ height: 200 }}>
-                    <ResponsiveContainer width="100%" height="100%">
-                      <PieChart>
-                        <Pie
-                          data={pieChartData}
-                          cx="50%"
-                          cy="50%"
-                          innerRadius={40}
-                          outerRadius={80}
-                          paddingAngle={2}
-                          dataKey="value"
-                        >
-                          {pieChartData.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={entry.color} />
-                          ))}
-                        </Pie>
-                        <Tooltip
-                          formatter={(value: number) => [
-                            showBalances ? formatUSD(value) : '****',
-                            'Value',
-                          ]}
-                        />
-                        <Legend />
-                      </PieChart>
-                    </ResponsiveContainer>
-                  </Box>
-                ) : (
-                  <Box
-                    sx={{
-                      height: 200,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: 'text.secondary',
-                    }}
-                  >
-                    No data available
-                  </Box>
-                )}
-              </CardContent>
-            </Card>
-          </Grid>
+              ) : (
+                <Box
+                  sx={{
+                    py: 4,
+                    textAlign: 'center',
+                    color: 'text.secondary',
+                  }}
+                >
+                  <Typography variant="body2">
+                    {summaryLoading
+                      ? 'Loading portfolio data...'
+                      : 'No portfolio data available'}
+                  </Typography>
+                </Box>
+              )}
+            </CardContent>
+          </Card>
         </Grid>
-      )}
+
+        {/* Portfolio Distribution Pie Chart */}
+        <Grid item xs={12} lg={4}>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" gutterBottom>
+                Portfolio Distribution
+              </Typography>
+              {walletSummary && pieChartData.length > 0 ? (
+                <Box sx={{ height: 200 }}>
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={pieChartData}
+                        cx="50%"
+                        cy="50%"
+                        innerRadius={40}
+                        outerRadius={80}
+                        paddingAngle={2}
+                        dataKey="value"
+                      >
+                        {pieChartData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.color} />
+                        ))}
+                      </Pie>
+                      <Tooltip
+                        formatter={(value: number) => [
+                          showBalances ? formatUSD(value) : '****',
+                          'Value',
+                        ]}
+                      />
+                      <Legend />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </Box>
+              ) : (
+                <Box
+                  sx={{
+                    height: 200,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'text.secondary',
+                  }}
+                >
+                  <Typography variant="body2">
+                    {summaryLoading ? 'Loading...' : 'No data available'}
+                  </Typography>
+                </Box>
+              )}
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
 
       {/* Wallet Balance Cards */}
       <Typography variant="h6" gutterBottom>
@@ -506,6 +530,15 @@ const P2PDashboard: React.FC = () => {
         onClose={() => setCreateDialogOpen(false)}
         maxWidth="sm"
         fullWidth
+        PaperProps={{
+          sx: {
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            m: 0,
+          },
+        }}
       >
         <DialogTitle>Create New Wallet</DialogTitle>
         <DialogContent>

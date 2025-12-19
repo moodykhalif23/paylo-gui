@@ -215,12 +215,24 @@ export const useNotifications = (
       dispatch(markAsRead(notificationId))
     }
 
-    notificationManager.on('acknowledged', handleNotificationAcknowledged)
-    notificationManager.on('dismissed', handleNotificationDismissed)
+    notificationManager.on(
+      'acknowledged',
+      handleNotificationAcknowledged as (...args: unknown[]) => void
+    )
+    notificationManager.on(
+      'dismissed',
+      handleNotificationDismissed as (...args: unknown[]) => void
+    )
 
     return () => {
-      notificationManager.off('acknowledged', handleNotificationAcknowledged)
-      notificationManager.off('dismissed', handleNotificationDismissed)
+      notificationManager.off(
+        'acknowledged',
+        handleNotificationAcknowledged as (...args: unknown[]) => void
+      )
+      notificationManager.off(
+        'dismissed',
+        handleNotificationDismissed as (...args: unknown[]) => void
+      )
     }
   }, [dispatch])
 

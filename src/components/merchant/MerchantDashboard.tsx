@@ -8,7 +8,7 @@ import {
   CardContent,
   IconButton,
 } from '@mui/material'
-import { Visibility, VisibilityOff } from '@mui/icons-material'
+import { Visibility, VisibilityOff, Home } from '@mui/icons-material'
 import {
   useGetMerchantAnalyticsQuery,
   useGetRecentInvoicesQuery,
@@ -57,14 +57,6 @@ const MerchantDashboard: React.FC = () => {
   const isLoading =
     analyticsLoading || recentInvoicesLoading || pendingInvoicesLoading
 
-  // Prepare pie chart data for revenue by blockchain
-  const revenueChartData =
-    analytics?.revenueByBlockchain.map(item => ({
-      name: item.blockchain.toUpperCase(),
-      value: item.revenueUSD,
-      color: getBlockchainColor(item.blockchain),
-    })) || []
-
   const getBlockchainColor = (blockchain: string) => {
     switch (blockchain.toLowerCase()) {
       case 'bitcoin':
@@ -77,6 +69,14 @@ const MerchantDashboard: React.FC = () => {
         return '#666'
     }
   }
+
+  // Prepare pie chart data for revenue by blockchain
+  const revenueChartData =
+    analytics?.revenueByBlockchain.map(item => ({
+      name: item.blockchain.toUpperCase(),
+      value: item.revenueUSD,
+      color: getBlockchainColor(item.blockchain),
+    })) || []
 
   const formatUSD = (value: number) => {
     return new Intl.NumberFormat('en-US', {
@@ -95,6 +95,7 @@ const MerchantDashboard: React.FC = () => {
       >
         <Box>
           <Typography variant="h4" gutterBottom>
+            <Home sx={{ mr: 1, verticalAlign: 'middle' }} />
             Merchant Dashboard
           </Typography>
           <Typography variant="body1" color="text.secondary">
@@ -123,13 +124,13 @@ const MerchantDashboard: React.FC = () => {
         </Grid>
 
         {/* Revenue Distribution Chart */}
-        {analytics && revenueChartData.length > 0 && (
-          <Grid item xs={12} md={6}>
-            <Card>
-              <CardContent>
-                <Typography variant="h6" gutterBottom>
-                  Revenue by Blockchain
-                </Typography>
+        <Grid item xs={12} md={6}>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" gutterBottom>
+                Revenue by Blockchain
+              </Typography>
+              {analytics && revenueChartData.length > 0 ? (
                 <Box sx={{ height: 300 }}>
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
@@ -156,10 +157,26 @@ const MerchantDashboard: React.FC = () => {
                     </PieChart>
                   </ResponsiveContainer>
                 </Box>
-              </CardContent>
-            </Card>
-          </Grid>
-        )}
+              ) : (
+                <Box
+                  sx={{
+                    height: 300,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'text.secondary',
+                  }}
+                >
+                  <Typography variant="body2">
+                    {analyticsLoading
+                      ? 'Loading...'
+                      : 'No revenue data available'}
+                  </Typography>
+                </Box>
+              )}
+            </CardContent>
+          </Card>
+        </Grid>
 
         {/* Quick Stats Widget */}
         <Grid item xs={12} md={6}>

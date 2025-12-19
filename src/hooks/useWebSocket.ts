@@ -172,26 +172,68 @@ export const useWebSocket = (
       )
     }
 
-    // Register event listeners
-    webSocketService.on('connect', handleConnect)
-    webSocketService.on('disconnect', handleDisconnect)
-    webSocketService.on('error', handleError)
-    webSocketService.on('reconnect', handleReconnect)
-    webSocketService.on('message', handleMessage)
-    webSocketService.on('authenticated', handleAuthenticated)
-    webSocketService.on('subscribed', handleSubscribed)
-    webSocketService.on('unsubscribed', handleUnsubscribed)
+    // Register event listeners with proper type casting
+    webSocketService.on(
+      'connect',
+      handleConnect as (...args: unknown[]) => void
+    )
+    webSocketService.on(
+      'disconnect',
+      handleDisconnect as (...args: unknown[]) => void
+    )
+    webSocketService.on('error', handleError as (...args: unknown[]) => void)
+    webSocketService.on(
+      'reconnect',
+      handleReconnect as (...args: unknown[]) => void
+    )
+    webSocketService.on(
+      'message',
+      handleMessage as (...args: unknown[]) => void
+    )
+    webSocketService.on(
+      'authenticated',
+      handleAuthenticated as (...args: unknown[]) => void
+    )
+    webSocketService.on(
+      'subscribed',
+      handleSubscribed as (...args: unknown[]) => void
+    )
+    webSocketService.on(
+      'unsubscribed',
+      handleUnsubscribed as (...args: unknown[]) => void
+    )
 
     // Cleanup listeners on unmount
     return () => {
-      webSocketService.off('connect', handleConnect)
-      webSocketService.off('disconnect', handleDisconnect)
-      webSocketService.off('error', handleError)
-      webSocketService.off('reconnect', handleReconnect)
-      webSocketService.off('message', handleMessage)
-      webSocketService.off('authenticated', handleAuthenticated)
-      webSocketService.off('subscribed', handleSubscribed)
-      webSocketService.off('unsubscribed', handleUnsubscribed)
+      webSocketService.off(
+        'connect',
+        handleConnect as (...args: unknown[]) => void
+      )
+      webSocketService.off(
+        'disconnect',
+        handleDisconnect as (...args: unknown[]) => void
+      )
+      webSocketService.off('error', handleError as (...args: unknown[]) => void)
+      webSocketService.off(
+        'reconnect',
+        handleReconnect as (...args: unknown[]) => void
+      )
+      webSocketService.off(
+        'message',
+        handleMessage as (...args: unknown[]) => void
+      )
+      webSocketService.off(
+        'authenticated',
+        handleAuthenticated as (...args: unknown[]) => void
+      )
+      webSocketService.off(
+        'subscribed',
+        handleSubscribed as (...args: unknown[]) => void
+      )
+      webSocketService.off(
+        'unsubscribed',
+        handleUnsubscribed as (...args: unknown[]) => void
+      )
     }
   }, [dispatch, channels, user, auth.token])
 
