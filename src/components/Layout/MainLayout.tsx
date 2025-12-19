@@ -1,23 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import { Box, Container, useTheme, useMediaQuery, Toolbar } from '@mui/material'
-import { Outlet, useLocation } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import { useAppSelector } from '../../store'
 
 import Header from './Header'
 import Sidebar from './Sidebar'
-import Breadcrumbs from './Breadcrumbs'
 
 const MainLayout: React.FC = () => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
   const { isAuthenticated } = useAppSelector(state => state.auth)
-  const location = useLocation()
 
-  // Hide footer on dashboard pages
-  const isDashboardPage =
-    location.pathname.includes('/dashboard') ||
-    location.pathname.includes('/wallets') ||
-    location.pathname.includes('/analytics')
+  // Hide footer on all authenticated pages (MainLayout is only used for authenticated pages)
+  const isAuthenticatedPage = isAuthenticated
 
   const [sidebarOpen, setSidebarOpen] = useState(!isMobile)
 
@@ -94,8 +89,7 @@ const MainLayout: React.FC = () => {
             mr: { xs: 0, md: 'auto' },
           }}
         >
-          {/* Breadcrumbs - only show when authenticated */}
-          {isAuthenticated && <Breadcrumbs />}
+          {/* Breadcrumbs removed from all pages */}
 
           {/* Page content */}
           <Box sx={{ flex: 1 }}>
@@ -103,8 +97,8 @@ const MainLayout: React.FC = () => {
           </Box>
         </Container>
 
-        {/* Footer - Hidden on dashboard pages */}
-        {!isDashboardPage && (
+        {/* Footer - Hidden on all authenticated pages */}
+        {!isAuthenticatedPage && (
           <Box
             component="footer"
             sx={{
