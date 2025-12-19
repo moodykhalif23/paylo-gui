@@ -34,7 +34,10 @@ const validationSchema = Yup.object({
   currency: Yup.string().required('Currency is required'),
   blockchain: Yup.string()
     .required('Blockchain is required')
-    .oneOf(['bitcoin', 'ethereum', 'solana'], 'Invalid blockchain'),
+    .oneOf(
+      ['bitcoin', 'ethereum', 'solana', 'erc20', 'trc20'],
+      'Invalid blockchain'
+    ),
   description: Yup.string().max(
     500,
     'Description must be less than 500 characters'
@@ -90,6 +93,10 @@ const InvoiceCreationForm: React.FC<InvoiceCreationFormProps> = ({
         return ['ETH', 'USDT', 'USDC', 'DAI']
       case 'solana':
         return ['SOL', 'USDC']
+      case 'erc20':
+        return ['USDT']
+      case 'trc20':
+        return ['USDT']
       default:
         return []
     }
@@ -247,14 +254,31 @@ const InvoiceCreationForm: React.FC<InvoiceCreationFormProps> = ({
               <Typography variant="body2" color="text.secondary" gutterBottom>
                 Blockchain Network
               </Typography>
-              <Box display="flex" gap={1}>
-                {(['bitcoin', 'ethereum', 'solana'] as BlockchainType[]).map(
-                  blockchain => (
+              <Box display="flex" gap={1} flexWrap="wrap">
+                {(
+                  [
+                    'bitcoin',
+                    'ethereum',
+                    'solana',
+                    'erc20',
+                    'trc20',
+                  ] as BlockchainType[]
+                ).map(blockchain => {
+                  const getBlockchainLabel = (bc: BlockchainType) => {
+                    switch (bc) {
+                      case 'erc20':
+                        return 'USDT (ERC-20)'
+                      case 'trc20':
+                        return 'USDT (TRC-20)'
+                      default:
+                        return bc.charAt(0).toUpperCase() + bc.slice(1)
+                    }
+                  }
+
+                  return (
                     <Chip
                       key={blockchain}
-                      label={
-                        blockchain.charAt(0).toUpperCase() + blockchain.slice(1)
-                      }
+                      label={getBlockchainLabel(blockchain)}
                       onClick={() => handleBlockchainChange(blockchain)}
                       color={
                         formik.values.blockchain === blockchain
@@ -268,7 +292,7 @@ const InvoiceCreationForm: React.FC<InvoiceCreationFormProps> = ({
                       }
                     />
                   )
-                )}
+                })}
               </Box>
               {formik.touched.blockchain && formik.errors.blockchain && (
                 <Typography variant="caption" color="error">

@@ -152,6 +152,8 @@ const P2PTransferForm: React.FC<P2PTransferFormProps> = ({
     bitcoin: { name: 'Bitcoin', symbol: 'BTC', color: '#f7931a' },
     ethereum: { name: 'Ethereum', symbol: 'ETH', color: '#627eea' },
     solana: { name: 'Solana', symbol: 'SOL', color: '#9945ff' },
+    erc20: { name: 'USDT (ERC-20)', symbol: 'USDT', color: '#26a17b' },
+    trc20: { name: 'USDT (TRC-20)', symbol: 'USDT', color: '#26a17b' },
   }
 
   const formatBalance = (balance: string) => {

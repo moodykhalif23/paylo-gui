@@ -93,7 +93,7 @@ const TransferPage: React.FC = () => {
         </Typography>
         <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
           Send cryptocurrency to any wallet address across Bitcoin, Ethereum,
-          and Solana networks.
+          Solana, and USDT networks.
         </Typography>
 
         <P2PTransferForm

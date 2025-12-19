@@ -88,7 +88,12 @@ export interface ApiError {
 // Blockchain and Wallet Types
 // ============================================================================
 
-export type BlockchainType = 'bitcoin' | 'ethereum' | 'solana'
+export type BlockchainType =
+  | 'bitcoin'
+  | 'ethereum'
+  | 'solana'
+  | 'erc20'
+  | 'trc20'
 
 export interface Wallet {
   id: string

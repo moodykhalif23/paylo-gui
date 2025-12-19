@@ -58,6 +58,18 @@ const blockchainConfig: Record<
     color: '#9945ff',
     icon: '◎',
   },
+  erc20: {
+    name: 'USDT (ERC-20)',
+    symbol: 'USDT',
+    color: '#26a17b',
+    icon: '₮',
+  },
+  trc20: {
+    name: 'USDT (TRC-20)',
+    symbol: 'USDT',
+    color: '#26a17b',
+    icon: '₮',
+  },
 }
 
 const WalletBalanceCard: React.FC<WalletBalanceCardProps> = ({
