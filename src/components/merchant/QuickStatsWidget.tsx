@@ -15,12 +15,14 @@ interface QuickStatsWidgetProps {
   analytics?: MerchantAnalytics
   pendingInvoices?: Invoice[]
   isLoading?: boolean
+  showValues?: boolean
 }
 
 const QuickStatsWidget: React.FC<QuickStatsWidgetProps> = ({
   analytics,
   pendingInvoices = [],
   isLoading = false,
+  showValues = true,
 }) => {
   if (isLoading) {
     return (
@@ -104,7 +106,9 @@ const QuickStatsWidget: React.FC<QuickStatsWidgetProps> = ({
                 {pendingInvoicesCount}
               </Typography>
               <Typography variant="caption" color="text.secondary">
-                ${pendingAmount.toFixed(2)} pending
+                {showValues
+                  ? `$${pendingAmount.toFixed(2)} pending`
+                  : '**** pending'}
               </Typography>
             </Box>
           </Grid>
@@ -155,7 +159,7 @@ const QuickStatsWidget: React.FC<QuickStatsWidgetProps> = ({
                   </Typography>
                 </Box>
                 <Typography variant="h6" gutterBottom>
-                  {formatCurrency(blockchain.revenueUSD)}
+                  {showValues ? formatCurrency(blockchain.revenueUSD) : '****'}
                 </Typography>
                 <Box display="flex" alignItems="center" gap={1}>
                   <LinearProgress

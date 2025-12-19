@@ -14,11 +14,13 @@ import { MerchantAnalytics } from '../../types'
 interface MerchantSummaryCardProps {
   analytics?: MerchantAnalytics
   isLoading?: boolean
+  showValues?: boolean
 }
 
 const MerchantSummaryCard: React.FC<MerchantSummaryCardProps> = ({
   analytics,
   isLoading = false,
+  showValues = true,
 }) => {
   if (isLoading) {
     return (
@@ -77,11 +79,15 @@ const MerchantSummaryCard: React.FC<MerchantSummaryCardProps> = ({
                 Total Revenue
               </Typography>
               <Typography variant="h4" color="primary" gutterBottom>
-                {formatCurrency(analytics.totalRevenueUSD)}
+                {showValues
+                  ? formatCurrency(analytics.totalRevenueUSD)
+                  : '****'}
               </Typography>
               <Box display="flex" alignItems="center" gap={1}>
                 <Typography variant="body2" color="text.secondary">
-                  {analytics.totalRevenue} {analytics.topCurrency.toUpperCase()}
+                  {showValues
+                    ? `${analytics.totalRevenue} ${analytics.topCurrency.toUpperCase()}`
+                    : '****'}
                 </Typography>
               </Box>
             </Box>
@@ -130,11 +136,14 @@ const MerchantSummaryCard: React.FC<MerchantSummaryCardProps> = ({
                 Avg. Transaction
               </Typography>
               <Typography variant="h4" gutterBottom>
-                {formatCurrency(analytics.averageTransactionValueUSD)}
+                {showValues
+                  ? formatCurrency(analytics.averageTransactionValueUSD)
+                  : '****'}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                {analytics.averageTransactionValue}{' '}
-                {analytics.topCurrency.toUpperCase()}
+                {showValues
+                  ? `${analytics.averageTransactionValue} ${analytics.topCurrency.toUpperCase()}`
+                  : '****'}
               </Typography>
             </Box>
           </Grid>

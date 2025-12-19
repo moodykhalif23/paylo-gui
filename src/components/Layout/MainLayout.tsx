@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Box, Container, useTheme, useMediaQuery, Toolbar } from '@mui/material'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import { useAppSelector } from '../../store'
 
 import Header from './Header'
@@ -11,6 +11,13 @@ const MainLayout: React.FC = () => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
   const { isAuthenticated } = useAppSelector(state => state.auth)
+  const location = useLocation()
+
+  // Hide footer on dashboard pages
+  const isDashboardPage =
+    location.pathname.includes('/dashboard') ||
+    location.pathname.includes('/wallets') ||
+    location.pathname.includes('/analytics')
 
   const [sidebarOpen, setSidebarOpen] = useState(!isMobile)
 
@@ -94,48 +101,50 @@ const MainLayout: React.FC = () => {
           </Box>
         </Container>
 
-        {/* Footer */}
-        <Box
-          component="footer"
-          sx={{
-            mt: 'auto',
-            py: 2,
-            px: 3,
-            backgroundColor: theme.palette.grey[50],
-            borderTop: 1,
-            borderColor: 'divider',
-          }}
-        >
-          <Container maxWidth="xl">
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                flexWrap: 'wrap',
-                gap: 2,
-              }}
-            >
-              <Box sx={{ fontSize: '0.875rem', color: 'text.secondary' }}>
-                © 2024 Paylo. All rights reserved.
-              </Box>
-
+        {/* Footer - Hidden on dashboard pages */}
+        {!isDashboardPage && (
+          <Box
+            component="footer"
+            sx={{
+              mt: 'auto',
+              py: 2,
+              px: 3,
+              backgroundColor: theme.palette.grey[50],
+              borderTop: 1,
+              borderColor: 'divider',
+            }}
+          >
+            <Container maxWidth="xl">
               <Box
                 sx={{
                   display: 'flex',
-                  gap: 2,
-                  fontSize: '0.875rem',
-                  color: 'text.secondary',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                   flexWrap: 'wrap',
+                  gap: 2,
                 }}
               >
-                <Box component="span">Privacy Policy</Box>
-                <Box component="span">Terms of Service</Box>
-                <Box component="span">Support</Box>
+                <Box sx={{ fontSize: '0.875rem', color: 'text.secondary' }}>
+                  © 2024 Paylo. All rights reserved.
+                </Box>
+
+                <Box
+                  sx={{
+                    display: 'flex',
+                    gap: 2,
+                    fontSize: '0.875rem',
+                    color: 'text.secondary',
+                    flexWrap: 'wrap',
+                  }}
+                >
+                  <Box component="span">Privacy Policy</Box>
+                  <Box component="span">Terms of Service</Box>
+                  <Box component="span">Support</Box>
+                </Box>
               </Box>
-            </Box>
-          </Container>
-        </Box>
+            </Container>
+          </Box>
+        )}
       </Box>
     </Box>
   )

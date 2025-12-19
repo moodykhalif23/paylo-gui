@@ -1,5 +1,14 @@
-import React from 'react'
-import { Box, Grid, Typography, Alert } from '@mui/material'
+import React, { useState } from 'react'
+import {
+  Box,
+  Grid,
+  Typography,
+  Alert,
+  Card,
+  CardContent,
+  IconButton,
+} from '@mui/material'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 import {
   useGetMerchantAnalyticsQuery,
   useGetRecentInvoicesQuery,
@@ -8,8 +17,18 @@ import {
 import MerchantSummaryCard from './MerchantSummaryCard'
 import RecentActivityFeed from './RecentActivityFeed'
 import QuickStatsWidget from './QuickStatsWidget'
+import {
+  PieChart,
+  Pie,
+  Cell,
+  ResponsiveContainer,
+  Tooltip,
+  Legend,
+} from 'recharts'
 
 const MerchantDashboard: React.FC = () => {
+  const [showValues, setShowValues] = useState(true)
+
   // Fetch analytics data for the last 30 days by default
   const {
     data: analytics,
@@ -38,14 +57,54 @@ const MerchantDashboard: React.FC = () => {
   const isLoading =
     analyticsLoading || recentInvoicesLoading || pendingInvoicesLoading
 
+  // Prepare pie chart data for revenue by blockchain
+  const revenueChartData =
+    analytics?.revenueByBlockchain.map(item => ({
+      name: item.blockchain.toUpperCase(),
+      value: item.revenueUSD,
+      color: getBlockchainColor(item.blockchain),
+    })) || []
+
+  const getBlockchainColor = (blockchain: string) => {
+    switch (blockchain.toLowerCase()) {
+      case 'bitcoin':
+        return '#f7931a'
+      case 'ethereum':
+        return '#627eea'
+      case 'solana':
+        return '#9945ff'
+      default:
+        return '#666'
+    }
+  }
+
+  const formatUSD = (value: number) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    }).format(value)
+  }
+
   return (
     <Box sx={{ p: 3 }}>
-      <Typography variant="h4" gutterBottom>
-        Merchant Dashboard
-      </Typography>
-      <Typography variant="body1" color="text.secondary" gutterBottom>
-        Monitor your business performance and recent activity
-      </Typography>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        mb={3}
+      >
+        <Box>
+          <Typography variant="h4" gutterBottom>
+            Merchant Dashboard
+          </Typography>
+          <Typography variant="body1" color="text.secondary">
+            Monitor your business performance and recent activity
+          </Typography>
+        </Box>
+        <IconButton onClick={() => setShowValues(!showValues)} size="small">
+          {showValues ? <Visibility /> : <VisibilityOff />}
+        </IconButton>
+      </Box>
 
       {hasError && (
         <Alert severity="error" sx={{ mb: 3 }}>
@@ -59,8 +118,48 @@ const MerchantDashboard: React.FC = () => {
           <MerchantSummaryCard
             analytics={analytics}
             isLoading={analyticsLoading}
+            showValues={showValues}
           />
         </Grid>
+
+        {/* Revenue Distribution Chart */}
+        {analytics && revenueChartData.length > 0 && (
+          <Grid item xs={12} md={6}>
+            <Card>
+              <CardContent>
+                <Typography variant="h6" gutterBottom>
+                  Revenue by Blockchain
+                </Typography>
+                <Box sx={{ height: 300 }}>
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={revenueChartData}
+                        cx="50%"
+                        cy="50%"
+                        innerRadius={60}
+                        outerRadius={120}
+                        paddingAngle={2}
+                        dataKey="value"
+                      >
+                        {revenueChartData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.color} />
+                        ))}
+                      </Pie>
+                      <Tooltip
+                        formatter={(value: number) => [
+                          showValues ? formatUSD(value) : '****',
+                          'Revenue',
+                        ]}
+                      />
+                      <Legend />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </Box>
+              </CardContent>
+            </Card>
+          </Grid>
+        )}
 
         {/* Quick Stats Widget */}
         <Grid item xs={12} md={6}>
@@ -68,11 +167,12 @@ const MerchantDashboard: React.FC = () => {
             analytics={analytics}
             pendingInvoices={pendingInvoices}
             isLoading={isLoading}
+            showValues={showValues}
           />
         </Grid>
 
         {/* Recent Activity Feed */}
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12}>
           <RecentActivityFeed
             recentInvoices={recentInvoices}
             isLoading={recentInvoicesLoading}
