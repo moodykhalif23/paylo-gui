@@ -51,7 +51,7 @@ const LandingPage: React.FC = () => {
       name: 'Bitcoin',
       symbol: 'BTC',
       logo: '/bitcoin-btc-logo.svg',
-      color: '#f7931e',
+      color: '#f7931a',
     },
     {
       name: 'Ethereum',
@@ -67,9 +67,9 @@ const LandingPage: React.FC = () => {
     },
     {
       name: 'Tether',
-      symbol: 'usdt',
+      symbol: 'USDT',
       logo: '/tether-usdt-logo.svg',
-      color: '#2f98c9ff',
+      color: '#26a17b',
     },
   ]
 
@@ -130,9 +130,8 @@ const LandingPage: React.FC = () => {
           </Button>
         </Box>
 
-        {/* Supported Currencies */}
+        {/* Quick Currency Preview */}
         <Box
-          id="currencies"
           sx={{
             display: 'flex',
             justifyContent: 'center',
@@ -221,6 +220,141 @@ const LandingPage: React.FC = () => {
             </Grid>
           ))}
         </Grid>
+      </Box>
+
+      {/* Supported Currencies Section */}
+      <Box id="currencies" sx={{ mb: 8 }}>
+        <Typography
+          variant="h3"
+          component="h2"
+          textAlign="center"
+          sx={{ mb: 2, fontWeight: 600 }}
+        >
+          Supported Cryptocurrencies
+        </Typography>
+        <Typography
+          variant="body1"
+          textAlign="center"
+          color="text.secondary"
+          sx={{ mb: 6, maxWidth: 600, mx: 'auto' }}
+        >
+          Trade and transact with the most popular cryptocurrencies across
+          multiple blockchain networks
+        </Typography>
+
+        <Grid container spacing={3} justifyContent="center">
+          {supportedCurrencies.map(currency => (
+            <Grid item xs={12} sm={6} md={3} key={currency.symbol}>
+              <Card
+                sx={{
+                  height: '100%',
+                  textAlign: 'center',
+                  transition: 'all 0.3s ease-in-out',
+                  border: '2px solid transparent',
+                  '&:hover': {
+                    transform: 'translateY(-8px)',
+                    borderColor: currency.color,
+                    boxShadow: `0 8px 25px ${currency.color}20`,
+                  },
+                }}
+              >
+                <CardContent sx={{ p: 4 }}>
+                  <Box
+                    sx={{
+                      mb: 3,
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      width: 80,
+                      height: 80,
+                      mx: 'auto',
+                      borderRadius: '50%',
+                      bgcolor: `${currency.color}10`,
+                      border: `2px solid ${currency.color}30`,
+                    }}
+                  >
+                    <Box
+                      component="img"
+                      src={currency.logo}
+                      alt={`${currency.name} logo`}
+                      sx={{
+                        width: 48,
+                        height: 48,
+                      }}
+                    />
+                  </Box>
+
+                  <Typography
+                    variant="h5"
+                    component="h3"
+                    gutterBottom
+                    fontWeight={600}
+                    sx={{ color: currency.color }}
+                  >
+                    {currency.name}
+                  </Typography>
+
+                  <Typography
+                    variant="h6"
+                    color="text.secondary"
+                    sx={{ mb: 2, fontFamily: 'monospace' }}
+                  >
+                    {currency.symbol.toUpperCase()}
+                  </Typography>
+
+                  <Box sx={{ mt: 3 }}>
+                    <Typography variant="body2" color="text.secondary">
+                      {currency.name === 'Bitcoin' &&
+                        'The original cryptocurrency with the highest security and adoption'}
+                      {currency.name === 'Ethereum' &&
+                        'Smart contract platform enabling DeFi and NFT transactions'}
+                      {currency.name === 'Solana' &&
+                        'High-speed blockchain with low transaction fees'}
+                      {currency.name === 'Tether' &&
+                        'Stable cryptocurrency pegged to the US Dollar'}
+                    </Typography>
+                  </Box>
+
+                  <Box
+                    sx={{
+                      mt: 3,
+                      p: 2,
+                      bgcolor: 'action.hover',
+                      borderRadius: 2,
+                    }}
+                  >
+                    <Typography variant="caption" color="text.secondary">
+                      Network:{' '}
+                      {currency.name === 'Tether'
+                        ? 'Ethereum (ERC-20)'
+                        : currency.name}
+                    </Typography>
+                  </Box>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+
+        {/* Additional Info */}
+        <Box
+          sx={{
+            mt: 6,
+            p: 4,
+            bgcolor: 'primary.main',
+            color: 'primary.contrastText',
+            borderRadius: 3,
+            textAlign: 'center',
+          }}
+        >
+          <Typography variant="h6" gutterBottom fontWeight={600}>
+            More Cryptocurrencies Coming Soon
+          </Typography>
+          <Typography variant="body2" sx={{ opacity: 0.9 }}>
+            We're continuously expanding our supported cryptocurrencies. Request
+            support for your favorite crypto by contacting our team.
+          </Typography>
+        </Box>
       </Box>
 
       {/* User Types Section */}
