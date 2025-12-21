@@ -81,6 +81,8 @@ const LandingPage: React.FC = () => {
 
   const fullBleedSx = {
     width: '100vw',
+    maxWidth: '100vw',
+    boxSizing: 'border-box',
     position: 'relative',
     left: '50%',
     right: '50%',
@@ -94,19 +96,25 @@ const LandingPage: React.FC = () => {
   }
 
   const sectionWrapperSx = {
-    p: { xs: 3, md: 5 },
-    borderRadius: { xs: 0, md: 4 },
-    border: '1px solid rgba(255,255,255,0.08)',
-    backgroundColor: 'transparent',
-    backdropFilter: 'none',
-    color: brandWhite,
-    maxWidth: '1200px',
+    px: { xs: 2, md: 6 },
+    py: { xs: 5, md: 7 },
     width: '100%',
-    mx: 'auto',
+    boxSizing: 'border-box',
+    color: brandWhite,
+    borderTop: '1px solid rgba(255,255,255,0.08)',
+    borderBottom: '1px solid rgba(255,255,255,0.08)',
+    backgroundColor: heroBg,
   }
 
   return (
-    <Box sx={{ color: 'inherit', backgroundColor: heroBg, minHeight: '100vh' }}>
+    <Box
+      sx={{
+        color: 'inherit',
+        backgroundColor: heroBg,
+        minHeight: '100vh',
+        overflowX: 'hidden',
+      }}
+    >
       {/* Hero Section */}
       <Box
         sx={{
@@ -568,14 +576,13 @@ const LandingPage: React.FC = () => {
       <Box sx={{ ...fullBleedSx, mb: 8 }}>
         <Box
           sx={{
-            p: 4,
+            px: { xs: 2, md: 6 },
+            py: { xs: 4, md: 6 },
             bgcolor: 'rgba(255,255,255,0.05)',
             border: '1px solid rgba(255,255,255,0.08)',
-            borderRadius: 2,
+            borderRadius: 0,
             textAlign: 'center',
             color: brandWhite,
-            maxWidth: '900px',
-            mx: 'auto',
           }}
         >
           <Box

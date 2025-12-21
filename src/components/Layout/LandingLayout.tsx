@@ -16,6 +16,7 @@ const LandingLayout: React.FC = () => {
         minHeight: '100vh',
         bgcolor: '#07180d',
         color: 'grey.100',
+        overflowX: 'hidden',
         // Apply accessibility classes
         '&.high-contrast': {
           filter: 'contrast(150%)',
@@ -52,6 +53,7 @@ const LandingLayout: React.FC = () => {
           flexDirection: 'column',
           width: '100%',
           color: 'inherit',
+          bgcolor: '#07180d',
           '&:focus': {
             outline: 'none',
           },
@@ -63,9 +65,10 @@ const LandingLayout: React.FC = () => {
             display: 'flex',
             flexDirection: 'column',
             py: { xs: 2, sm: 4, md: 6 },
-            px: { xs: 2, sm: 3 },
+            px: 0,
             color: 'inherit',
             width: '100%',
+            bgcolor: '#07180d',
           }}
         >
           <Outlet />
