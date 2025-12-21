@@ -22,6 +22,12 @@ import {
 } from '@mui/icons-material'
 import { Link as RouterLink } from 'react-router-dom'
 
+const heroBg = 'rgba(7, 24, 13, 0.92)'
+const textOnHero = '#f5fff5'
+const mutedText = 'rgba(255,255,255,0.75)'
+const faintText = 'rgba(255,255,255,0.5)'
+const borderTone = 'rgba(255,255,255,0.08)'
+
 const LandingFooter: React.FC = () => {
   const currentYear = new Date().getFullYear()
 
@@ -73,11 +79,12 @@ const LandingFooter: React.FC = () => {
     <Box
       component="footer"
       sx={{
-        bgcolor: 'grey.900',
-        color: 'white',
+        bgcolor: heroBg,
+        color: textOnHero,
         pt: 6,
         pb: 3,
-        mt: 8,
+        mt: 0,
+        borderTop: `1px solid ${borderTone}`,
       }}
     >
       <Container maxWidth="lg">
@@ -91,15 +98,12 @@ const LandingFooter: React.FC = () => {
               sx={{
                 fontWeight: 700,
                 mb: 2,
-                background: 'linear-gradient(45deg, #5ba663 30%, #7dcd85 90%)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
+                color: textOnHero,
               }}
             >
               Paylo
             </Typography>
-            <Typography variant="body2" sx={{ mb: 3, color: 'grey.300' }}>
+            <Typography variant="body2" sx={{ mb: 3, color: mutedText }}>
               The secure and accessible cryptocurrency payment gateway for
               Africa. Empowering businesses and individuals with fast, secure,
               and compliant blockchain transactions.
@@ -109,19 +113,19 @@ const LandingFooter: React.FC = () => {
             <Stack spacing={1} sx={{ mb: 3 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <Security sx={{ fontSize: 16, color: 'primary.main' }} />
-                <Typography variant="caption" color="grey.300">
+                <Typography variant="caption" color={mutedText}>
                   Bank-grade security
                 </Typography>
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <Speed sx={{ fontSize: 16, color: 'primary.main' }} />
-                <Typography variant="caption" color="grey.300">
+                <Typography variant="caption" color={mutedText}>
                   Lightning-fast transactions
                 </Typography>
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <Accessibility sx={{ fontSize: 16, color: 'primary.main' }} />
-                <Typography variant="caption" color="grey.300">
+                <Typography variant="caption" color={mutedText}>
                   WCAG 2.1 compliant
                 </Typography>
               </Box>
@@ -130,20 +134,20 @@ const LandingFooter: React.FC = () => {
             {/* Contact Info */}
             <Stack spacing={1}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <Email sx={{ fontSize: 16, color: 'grey.400' }} />
-                <Typography variant="caption" color="grey.300">
+                <Email sx={{ fontSize: 16, color: faintText }} />
+                <Typography variant="caption" color={mutedText}>
                   support@paylo.africa
                 </Typography>
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <Phone sx={{ fontSize: 16, color: 'grey.400' }} />
-                <Typography variant="caption" color="grey.300">
+                <Phone sx={{ fontSize: 16, color: faintText }} />
+                <Typography variant="caption" color={mutedText}>
                   +234 (0) 800 PAYLO-1
                 </Typography>
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <LocationOn sx={{ fontSize: 16, color: 'grey.400' }} />
-                <Typography variant="caption" color="grey.300">
+                <LocationOn sx={{ fontSize: 16, color: faintText }} />
+                <Typography variant="caption" color={mutedText}>
                   Lagos, Nigeria
                 </Typography>
               </Box>
@@ -167,7 +171,7 @@ const LandingFooter: React.FC = () => {
                       : undefined
                   }
                   sx={{
-                    color: 'grey.300',
+                    color: mutedText,
                     textDecoration: 'none',
                     fontSize: '0.875rem',
                     textAlign: 'left',
@@ -203,7 +207,7 @@ const LandingFooter: React.FC = () => {
                   key={link.label}
                   href={link.href}
                   sx={{
-                    color: 'grey.300',
+                    color: mutedText,
                     textDecoration: 'none',
                     fontSize: '0.875rem',
                     '&:hover': {
@@ -234,7 +238,7 @@ const LandingFooter: React.FC = () => {
                   key={link.label}
                   href={link.href}
                   sx={{
-                    color: 'grey.300',
+                    color: mutedText,
                     textDecoration: 'none',
                     fontSize: '0.875rem',
                     '&:hover': {
@@ -265,7 +269,7 @@ const LandingFooter: React.FC = () => {
                   key={link.label}
                   href={link.href}
                   sx={{
-                    color: 'grey.300',
+                    color: mutedText,
                     textDecoration: 'none',
                     fontSize: '0.875rem',
                     '&:hover': {
@@ -287,7 +291,7 @@ const LandingFooter: React.FC = () => {
         </Grid>
 
         {/* Divider */}
-        <Divider sx={{ my: 4, borderColor: 'grey.700' }} />
+        <Divider sx={{ my: 4, borderColor: borderTone }} />
 
         {/* Bottom Footer */}
         <Box
@@ -300,7 +304,7 @@ const LandingFooter: React.FC = () => {
           }}
         >
           {/* Copyright */}
-          <Typography variant="body2" color="grey.400">
+          <Typography variant="body2" color={mutedText}>
             © {currentYear} Paylo. All rights reserved. | Licensed and
             regulated cryptocurrency payment gateway.
           </Typography>
@@ -315,7 +319,7 @@ const LandingFooter: React.FC = () => {
                 rel="noopener noreferrer"
                 aria-label={social.label}
                 sx={{
-                  color: 'grey.400',
+                  color: mutedText,
                   '&:hover': {
                     color: 'primary.main',
                     bgcolor: 'rgba(91, 166, 99, 0.1)',
@@ -335,7 +339,7 @@ const LandingFooter: React.FC = () => {
 
         {/* Compliance Notice */}
         <Box sx={{ mt: 3, textAlign: 'center' }}>
-          <Typography variant="caption" color="grey.500">
+          <Typography variant="caption" color={faintText}>
             Paylo is committed to regulatory compliance and operates under
             applicable cryptocurrency and financial services regulations. All
             transactions are monitored for compliance with anti-money laundering

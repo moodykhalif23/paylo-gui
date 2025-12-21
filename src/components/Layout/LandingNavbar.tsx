@@ -16,6 +16,9 @@ import {
 import { Menu as MenuIcon, Close as CloseIcon } from '@mui/icons-material'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 
+const heroBg = 'rgba(7, 24, 13, 0.92)'
+const navTextColor = '#f5fff5'
+
 const LandingNavbar: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false)
   const theme = useTheme()
@@ -93,9 +96,10 @@ const LandingNavbar: React.FC = () => {
         position="sticky"
         elevation={0}
         sx={{
-          bgcolor: 'transparent !important',
+          bgcolor: `${heroBg} !important`,
           borderBottom: 'none !important',
           boxShadow: 'none !important',
+          color: `${navTextColor} !important`,
           '&::before': {
             display: 'none',
           },
@@ -104,7 +108,13 @@ const LandingNavbar: React.FC = () => {
           },
         }}
       >
-        <Toolbar sx={{ justifyContent: 'space-between' }}>
+        <Toolbar
+          sx={{
+            justifyContent: 'space-between',
+            color: navTextColor,
+            px: { xs: 2, md: 4 },
+          }}
+        >
           {/* Logo */}
           <Typography
             variant="h6"
@@ -113,7 +123,7 @@ const LandingNavbar: React.FC = () => {
             sx={{
               fontWeight: 700,
               textDecoration: 'none',
-              color: 'primary.main',
+              color: navTextColor,
               '&:focus-visible': {
                 outline: '2px solid',
                 outlineColor: 'primary.main',
@@ -133,11 +143,11 @@ const LandingNavbar: React.FC = () => {
                   key={item.label}
                   onClick={item.action}
                   sx={{
-                    color: 'text.primary',
+                    color: navTextColor,
                     textTransform: 'none',
                     fontWeight: 500,
                     '&:hover': {
-                      bgcolor: 'action.hover',
+                      bgcolor: 'rgba(255,255,255,0.08)',
                     },
                     '&:focus-visible': {
                       outline: '2px solid',
@@ -162,7 +172,10 @@ const LandingNavbar: React.FC = () => {
                   variant="text"
                   sx={{
                     textTransform: 'none',
-                    color: 'text.primary',
+                    color: navTextColor,
+                    '&:hover': {
+                      bgcolor: 'rgba(255,255,255,0.08)',
+                    },
                     '&:focus-visible': {
                       outline: '2px solid',
                       outlineColor: 'primary.main',
@@ -179,6 +192,11 @@ const LandingNavbar: React.FC = () => {
                   sx={{
                     textTransform: 'none',
                     borderRadius: 2,
+                    bgcolor: '#7dcd85',
+                    color: '#07180d',
+                    '&:hover': {
+                      bgcolor: '#6ab573',
+                    },
                     '&:focus-visible': {
                       outline: '2px solid',
                       outlineColor: 'primary.main',
@@ -199,7 +217,7 @@ const LandingNavbar: React.FC = () => {
                 edge="start"
                 onClick={handleDrawerToggle}
                 sx={{
-                  color: 'text.primary',
+                  color: navTextColor,
                   '&:focus-visible': {
                     outline: '2px solid',
                     outlineColor: 'primary.main',
@@ -228,6 +246,8 @@ const LandingNavbar: React.FC = () => {
           '& .MuiDrawer-paper': {
             boxSizing: 'border-box',
             width: 250,
+            backgroundColor: heroBg,
+            color: navTextColor,
           },
         }}
       >
