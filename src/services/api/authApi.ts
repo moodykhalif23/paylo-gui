@@ -61,7 +61,7 @@ export class AuthApi {
   static async login(
     credentials: LoginRequest
   ): Promise<ApiResponse<AuthResponse>> {
-    return api.post<AuthResponse>('/auth/login', credentials)
+    return api.post<AuthResponse>('/api/auth/login', credentials)
   }
 
   /**
@@ -70,93 +70,126 @@ export class AuthApi {
   static async register(
     userData: RegisterRequest
   ): Promise<ApiResponse<AuthResponse>> {
-    return api.post<AuthResponse>('/auth/register', userData)
+    return api.post<AuthResponse>('/api/auth/register', userData)
   }
 
   /**
    * Get current user profile
    */
   static async getCurrentUser(): Promise<ApiResponse<User>> {
-    return api.get<User>('/auth/me')
+    return api.get<User>('/api/auth/me')
   }
 
   /**
    * Refresh access token
+   * NOTE: Not supported by backend (JWT-only). Calling will reject.
    */
   static async refreshToken(
-    request: RefreshTokenRequest
+    _request: RefreshTokenRequest
   ): Promise<ApiResponse<RefreshTokenResponse>> {
-    return api.post<RefreshTokenResponse>('/auth/refresh', request)
+    return Promise.reject({
+      message: 'Refresh token flow not supported by backend',
+      status: 400,
+    })
   }
 
   /**
    * Logout user
+   * NOTE: Backend does not expose logout; handled client-side.
    */
-  static async logout(request: LogoutRequest): Promise<ApiResponse<void>> {
-    return api.post<void>('/auth/logout', request)
+  static async logout(_request: LogoutRequest): Promise<ApiResponse<void>> {
+    return Promise.resolve({
+      success: true,
+      data: undefined,
+      message: 'Logged out locally',
+    })
   }
 
   /**
    * Change user password
+   * NOTE: Not implemented on backend.
    */
   static async changePassword(
-    request: ChangePasswordRequest
+    _request: ChangePasswordRequest
   ): Promise<ApiResponse<void>> {
-    return api.post<void>('/auth/change-password', request)
+    return Promise.reject({
+      message: 'Change password not supported by backend',
+      status: 400,
+    })
   }
 
   /**
    * Request password reset
+   * NOTE: Not implemented on backend.
    */
   static async forgotPassword(
-    request: ForgotPasswordRequest
+    _request: ForgotPasswordRequest
   ): Promise<ApiResponse<void>> {
-    return api.post<void>('/auth/forgot-password', request)
+    return Promise.reject({
+      message: 'Password reset not supported by backend',
+      status: 400,
+    })
   }
 
   /**
    * Reset password with token
+   * NOTE: Not implemented on backend.
    */
   static async resetPassword(
-    request: ResetPasswordRequest
+    _request: ResetPasswordRequest
   ): Promise<ApiResponse<void>> {
-    return api.post<void>('/auth/reset-password', request)
+    return Promise.reject({
+      message: 'Password reset not supported by backend',
+      status: 400,
+    })
   }
 
   /**
    * Verify email address
+   * NOTE: Not implemented on backend.
    */
-  static async verifyEmail(token: string): Promise<ApiResponse<void>> {
-    return api.post<void>('/auth/verify-email', { token })
+  static async verifyEmail(_token: string): Promise<ApiResponse<void>> {
+    return Promise.reject({
+      message: 'Email verification not supported by backend',
+      status: 400,
+    })
   }
 
   /**
    * Resend email verification
+   * NOTE: Not implemented on backend.
    */
-  static async resendVerification(email: string): Promise<ApiResponse<void>> {
-    return api.post<void>('/auth/resend-verification', { email })
+  static async resendVerification(_email: string): Promise<ApiResponse<void>> {
+    return Promise.reject({
+      message: 'Email verification not supported by backend',
+      status: 400,
+    })
   }
 
   /**
    * Check if email is available for registration
+   * NOTE: Not implemented on backend.
    */
   static async checkEmailAvailability(
-    email: string
+    _email: string
   ): Promise<ApiResponse<{ available: boolean }>> {
-    return api.get<{ available: boolean }>(
-      `/auth/check-email?email=${encodeURIComponent(email)}`
-    )
+    return Promise.reject({
+      message: 'Email availability check not supported by backend',
+      status: 400,
+    })
   }
 
   /**
    * Validate password reset token
+   * NOTE: Not implemented on backend.
    */
   static async validateResetToken(
-    token: string
+    _token: string
   ): Promise<ApiResponse<{ valid: boolean }>> {
-    return api.get<{ valid: boolean }>(
-      `/auth/validate-reset-token?token=${encodeURIComponent(token)}`
-    )
+    return Promise.reject({
+      message: 'Password reset not supported by backend',
+      status: 400,
+    })
   }
 }
 

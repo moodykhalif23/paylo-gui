@@ -259,15 +259,15 @@ class ApiIntegrationService {
 
   // Authentication endpoints
   async login(credentials: LoginCredentials): Promise<AuthResponse> {
-    return this.post('/auth/login', credentials)
+    return this.post('/api/auth/login', credentials)
   }
 
   async register(userData: RegisterData): Promise<AuthResponse> {
-    return this.post('/auth/register', userData)
+    return this.post('/api/auth/register', userData)
   }
 
   async logout(): Promise<void> {
-    return this.post('/auth/logout')
+    return this.post('/api/auth/logout')
   }
 
   // P2P endpoints

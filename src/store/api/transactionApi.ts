@@ -110,16 +110,22 @@ export const transactionApi = baseApi.injectEndpoints({
         })
         return `/transactions?${params.toString()}`
       },
-      transformResponse: (response: ApiResponse<PaginatedTransactions>) =>
-        response.data!,
+      transformResponse: (
+        response: ApiResponse<PaginatedTransactions> | PaginatedTransactions
+      ) =>
+        (response as ApiResponse<PaginatedTransactions>).data ||
+        (response as PaginatedTransactions),
       providesTags: ['Transaction'],
     }),
 
     // Get transaction by ID
     getTransactionById: builder.query<TransactionDetails, string>({
-      query: transactionId => `/transactions/${transactionId}`,
-      transformResponse: (response: ApiResponse<TransactionDetails>) =>
-        response.data!,
+      query: transactionId => `/api/v1/payments/status/${transactionId}`,
+      transformResponse: (
+        response: ApiResponse<TransactionDetails> | TransactionDetails
+      ) =>
+        (response as ApiResponse<TransactionDetails>).data ||
+        (response as TransactionDetails),
       providesTags: (_result, _error, transactionId) => [
         { type: 'Transaction', id: transactionId },
       ],
@@ -131,11 +137,13 @@ export const transactionApi = baseApi.injectEndpoints({
       CreateP2PTransactionRequest
     >({
       query: data => ({
-        url: '/transactions/p2p',
+        url: '/api/v1/payments/p2p',
         method: 'POST',
         body: data,
       }),
-      transformResponse: (response: ApiResponse<Transaction>) => response.data!,
+      transformResponse: (response: ApiResponse<Transaction> | Transaction) =>
+        (response as ApiResponse<Transaction>).data ||
+        (response as Transaction),
       invalidatesTags: ['Transaction', 'Wallet'],
     }),
 
@@ -150,7 +158,7 @@ export const transactionApi = baseApi.injectEndpoints({
       }
     >({
       query: data => ({
-        url: '/transactions/estimate-fee',
+        url: '/api/v1/payments/fees/estimate',
         method: 'POST',
         body: data,
       }),
@@ -234,7 +242,7 @@ export const transactionApi = baseApi.injectEndpoints({
 
     // Get pending transactions
     getPendingTransactions: builder.query<Transaction[], void>({
-      query: () => '/transactions/pending',
+      query: () => '/api/transactions?status=pending',
       transformResponse: (response: ApiResponse<Transaction[]>) =>
         response.data!,
       providesTags: ['Transaction'],
@@ -249,9 +257,12 @@ export const transactionApi = baseApi.injectEndpoints({
       }
     >({
       query: ({ txHash, blockchain }) =>
-        `/transactions/by-hash/${txHash}?blockchain=${blockchain}`,
-      transformResponse: (response: ApiResponse<TransactionDetails>) =>
-        response.data!,
+        `/api/transactions?hash=${txHash}&blockchain=${blockchain}`,
+      transformResponse: (
+        response: ApiResponse<TransactionDetails> | TransactionDetails
+      ) =>
+        (response as ApiResponse<TransactionDetails>).data ||
+        (response as TransactionDetails),
       providesTags: (_result, _error, { txHash }) => [
         { type: 'Transaction', id: txHash },
       ],

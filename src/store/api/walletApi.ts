@@ -49,8 +49,9 @@ export const walletApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     // Get all user wallets
     getUserWallets: builder.query<Wallet[], void>({
-      query: () => '/wallets',
-      transformResponse: (response: ApiResponse<Wallet[]>) => response.data!,
+      query: () => '/api/wallets',
+      transformResponse: (response: ApiResponse<Wallet[]> | Wallet[]) =>
+        (response as ApiResponse<Wallet[]>).data || (response as Wallet[]),
       providesTags: ['Wallet'],
     }),
 
@@ -66,11 +67,16 @@ export const walletApi = baseApi.injectEndpoints({
     // Create new wallet
     createWallet: builder.mutation<Wallet, CreateWalletRequest>({
       query: data => ({
-        url: '/wallets',
+        // Backend supports address generation at /api/v1/wallets/address
+        url: '/api/v1/wallets/address',
         method: 'POST',
-        body: data,
+        body: { blockchain: data.blockchain },
       }),
-      transformResponse: (response: ApiResponse<Wallet>) => response.data!,
+      transformResponse: (
+        response: ApiResponse<Wallet> | { address: Wallet }
+      ) =>
+        (response as ApiResponse<Wallet>).data ||
+        (response as { address: Wallet }).address,
       invalidatesTags: ['Wallet'],
     }),
 
@@ -80,9 +86,12 @@ export const walletApi = baseApi.injectEndpoints({
       { address: string; blockchain: BlockchainType }
     >({
       query: ({ address, blockchain }) =>
-        `/wallets/balance?address=${address}&blockchain=${blockchain}`,
-      transformResponse: (response: ApiResponse<WalletBalance>) =>
-        response.data!,
+        `/api/v1/wallets/balance/${address}?blockchain=${blockchain}`,
+      transformResponse: (
+        response: ApiResponse<WalletBalance> | WalletBalance
+      ) =>
+        (response as ApiResponse<WalletBalance>).data ||
+        (response as WalletBalance),
       providesTags: (_result, _error, { address }) => [
         { type: 'Wallet', id: address },
       ],
@@ -91,7 +100,7 @@ export const walletApi = baseApi.injectEndpoints({
     // Get wallet balances for multiple addresses
     getMultipleWalletBalances: builder.query<WalletBalance[], string[]>({
       query: addresses => ({
-        url: '/wallets/balances',
+        url: '/api/v1/wallets/balances',
         method: 'POST',
         body: { addresses },
       }),
@@ -103,19 +112,26 @@ export const walletApi = baseApi.injectEndpoints({
     // Generate new address for wallet
     generateAddress: builder.mutation<AddressInfo, GenerateAddressRequest>({
       query: data => ({
-        url: '/wallets/generate-address',
+        url: '/api/v1/wallets/address',
         method: 'POST',
-        body: data,
+        body: { blockchain: data.blockchain },
       }),
-      transformResponse: (response: ApiResponse<AddressInfo>) => response.data!,
+      transformResponse: (
+        response: ApiResponse<AddressInfo> | { address: AddressInfo }
+      ) =>
+        (response as ApiResponse<AddressInfo>).data ||
+        (response as { address: AddressInfo }).address,
       invalidatesTags: ['Wallet'],
     }),
 
     // Get wallet addresses
     getWalletAddresses: builder.query<AddressInfo[], string>({
-      query: walletId => `/wallets/${walletId}/addresses`,
-      transformResponse: (response: ApiResponse<AddressInfo[]>) =>
-        response.data!,
+      query: walletId => `/api/wallets/${walletId}/addresses`,
+      transformResponse: (
+        response: ApiResponse<AddressInfo[]> | AddressInfo[]
+      ) =>
+        (response as ApiResponse<AddressInfo[]>).data ||
+        (response as AddressInfo[]),
       providesTags: (_result, _error, walletId) => [
         { type: 'Wallet', id: walletId },
       ],
@@ -123,9 +139,12 @@ export const walletApi = baseApi.injectEndpoints({
 
     // Get wallet summary
     getWalletSummary: builder.query<WalletSummary, void>({
-      query: () => '/wallets/summary',
-      transformResponse: (response: ApiResponse<WalletSummary>) =>
-        response.data!,
+      query: () => '/api/wallets/summary',
+      transformResponse: (
+        response: ApiResponse<WalletSummary> | WalletSummary
+      ) =>
+        (response as ApiResponse<WalletSummary>).data ||
+        (response as WalletSummary),
       providesTags: ['Wallet'],
     }),
 

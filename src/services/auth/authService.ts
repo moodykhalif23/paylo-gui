@@ -23,8 +23,10 @@ export class AuthService {
   async login(credentials: LoginRequest): Promise<AuthResponse> {
     const response = await AuthApi.login(credentials)
 
-    // Handle both wrapped and direct response formats
-    const data = (response as any).success ? (response as any).data : response
+    const data =
+      'success' in response
+        ? (response as ApiResponse<AuthResponse>).data
+        : (response as AuthResponse)
 
     if (data && (data as AuthResponse).accessToken) {
       const authData = data as AuthResponse
@@ -48,8 +50,10 @@ export class AuthService {
   async register(userData: RegisterRequest): Promise<AuthResponse> {
     const response = await AuthApi.register(userData)
 
-    // Handle both wrapped and direct response formats
-    const data = (response as any).success ? (response as any).data : response
+    const data =
+      'success' in response
+        ? (response as ApiResponse<AuthResponse>).data
+        : (response as AuthResponse)
 
     if (data && (data as AuthResponse).accessToken) {
       const authData = data as AuthResponse
@@ -71,31 +75,7 @@ export class AuthService {
    * Refresh access token using refresh token
    */
   async refreshToken(): Promise<RefreshTokenResponse> {
-    try {
-      const refreshToken = tokenStorage.getRefreshToken()
-
-      if (!refreshToken) {
-        throw new Error('No refresh token available')
-      }
-
-      const response = await AuthApi.refreshToken({ refreshToken })
-
-      if (response.success && response.data) {
-        const { accessToken, refreshToken: newRefreshToken } = response.data
-
-        // Update stored tokens
-        tokenStorage.setAccessToken(accessToken)
-        tokenStorage.setRefreshToken(newRefreshToken)
-
-        return response.data
-      }
-
-      throw new Error(response.message || 'Token refresh failed')
-    } catch (error) {
-      // Clear tokens on refresh failure
-      this.logout()
-      throw error
-    }
+    throw new Error('Refresh token flow is not supported (JWT-only auth)')
   }
 
   /**
@@ -115,20 +95,8 @@ export class AuthService {
    * Logout user and clear tokens
    */
   async logout(): Promise<void> {
-    try {
-      const refreshToken = tokenStorage.getRefreshToken()
-
-      if (refreshToken) {
-        // Notify server about logout
-        await AuthApi.logout({ refreshToken })
-      }
-    } catch (_error) {
-      // Continue with logout even if server request fails
-      console.warn('Logout request failed:', _error)
-    } finally {
-      // Always clear local tokens
-      tokenStorage.clearTokens()
-    }
+    // Backend has no logout endpoint; just clear local state
+    tokenStorage.clearTokens()
   }
 
   /**
