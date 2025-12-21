@@ -93,8 +93,15 @@ const LandingNavbar: React.FC = () => {
         position="sticky"
         elevation={0}
         sx={{
-          bgcolor: 'transparent',
-          borderBottom: 'none',
+          bgcolor: 'transparent !important',
+          borderBottom: 'none !important',
+          boxShadow: 'none !important',
+          '&::before': {
+            display: 'none',
+          },
+          '&::after': {
+            display: 'none',
+          },
         }}
       >
         <Toolbar sx={{ justifyContent: 'space-between' }}>
