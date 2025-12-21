@@ -25,6 +25,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
 
   return (
     <Box
+      className="auth-layout"
       sx={{
         minHeight: '100vh',
         display: 'flex',
@@ -32,6 +33,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
         justifyContent: 'center',
         bgcolor: 'background.default',
         py: 4,
+        px: 2,
       }}
     >
       <Container maxWidth="sm">

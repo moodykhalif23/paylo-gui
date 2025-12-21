@@ -109,7 +109,13 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
   return (
     <Box sx={{ p: 4, maxWidth: 500, mx: 'auto' }}>
       <Box component="form" onSubmit={formik.handleSubmit} noValidate>
-        <Typography variant="h4" component="h1" gutterBottom align="center">
+        <Typography
+          variant="h4"
+          component="h1"
+          gutterBottom
+          align="center"
+          sx={{ color: 'text.primary' }}
+        >
           Create Account
         </Typography>
 

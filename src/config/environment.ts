@@ -1,6 +1,21 @@
+const DEFAULT_API_BASE_URL = 'http://localhost:8080'
+
+const removeTrailingSlashes = (url: string) => url.replace(/\/+$/, '')
+const stripApiSuffix = (url: string) => url.replace(/\/api$/i, '')
+
+const rawApiBaseUrl =
+  (import.meta.env.VITE_API_BASE_URL &&
+    import.meta.env.VITE_API_BASE_URL.trim()) ||
+  DEFAULT_API_BASE_URL
+
+const normalizedApiBaseUrl = removeTrailingSlashes(rawApiBaseUrl)
+const sanitizedApiBaseUrl = stripApiSuffix(normalizedApiBaseUrl)
+const resolvedApiBaseUrl = sanitizedApiBaseUrl || DEFAULT_API_BASE_URL
+
 export const config = {
   api: {
-    baseUrl: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080',
+    baseUrl: resolvedApiBaseUrl,
+    rawBaseUrl: normalizedApiBaseUrl,
     wsUrl: import.meta.env.VITE_WS_BASE_URL || 'ws://localhost:8080/ws',
   },
   app: {
