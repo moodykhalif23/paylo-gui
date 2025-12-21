@@ -1,4 +1,4 @@
-import { lazy, ComponentType } from 'react'
+import { lazy, ComponentType, ComponentProps } from 'react'
 import { preloadComponent } from './performance'
 
 interface NetworkInformation {
@@ -14,7 +14,7 @@ interface NetworkInformation {
 export const createLazyComponent = <T extends ComponentType<unknown>>(
   importFunc: () => Promise<{ default: T }>,
   preload: boolean = false
-): ComponentType<React.ComponentProps<T>> => {
+): ComponentType<ComponentProps<T>> => {
   const LazyComponent = lazy(importFunc)
 
   // Preload component if requested
@@ -54,13 +54,13 @@ export const createRouteComponent = <T extends ComponentType<unknown>>(
     // This would be handled by the navigation component
     // Store the import function for later use
     ;(
-      LazyComponent as ComponentType<React.ComponentProps<T>> & {
+      LazyComponent as ComponentType<ComponentProps<T>> & {
         __preloadFunc?: () => Promise<{ default: T }>
       }
     ).__preloadFunc = importFunc
   }
 
-  return LazyComponent as ComponentType<React.ComponentProps<T>>
+  return LazyComponent as ComponentType<ComponentProps<T>>
 }
 
 /**

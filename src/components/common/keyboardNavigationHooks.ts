@@ -11,7 +11,6 @@ export const useKeyboardNavigationContext = () => {
   return context
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const useFocusableElement = (group: string = 'default') => {
   const { registerFocusable, unregisterFocusable } =
     useKeyboardNavigationContext()

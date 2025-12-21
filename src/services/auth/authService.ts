@@ -1,5 +1,5 @@
 import { tokenStorage } from '../api/client'
-import { User } from '../../types'
+import { ApiResponse, User } from '../../types'
 import AuthApi, {
   LoginRequest,
   RegisterRequest,
@@ -41,7 +41,8 @@ export class AuthService {
       return authData
     }
 
-    throw new Error((response as any).message || 'Login failed')
+    const message = 'success' in response ? response.message : undefined
+    throw new Error(message || 'Login failed')
   }
 
   /**
@@ -68,7 +69,8 @@ export class AuthService {
       return authData
     }
 
-    throw new Error((response as any).message || 'Registration failed')
+    const message = 'success' in response ? response.message : undefined
+    throw new Error(message || 'Registration failed')
   }
 
   /**
