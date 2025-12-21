@@ -188,35 +188,50 @@ const LandingPage: React.FC = () => {
         <Grid container spacing={4}>
           {features.map((feature, index) => (
             <Grid item xs={12} md={4} key={index}>
-              <Card
+              <Box
                 sx={{
                   height: '100%',
                   textAlign: 'center',
+                  p: { xs: 3, md: 4 },
+                  borderRadius: 4,
+                  border: '1px solid rgba(91, 166, 99, 0.25)',
+                  backgroundColor: 'transparent',
+                  backdropFilter: 'blur(4px)',
                   transition: 'transform 0.2s ease-in-out',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: 2,
                   '&:hover': {
                     transform: 'translateY(-4px)',
                   },
                 }}
               >
-                <CardContent sx={{ p: 4 }}>
-                  <Box
-                    sx={{ mb: 2, display: 'flex', justifyContent: 'center' }}
-                  >
-                    {feature.icon}
-                  </Box>
-                  <Typography
-                    variant="h5"
-                    component="h3"
-                    gutterBottom
-                    fontWeight={600}
-                  >
-                    {feature.title}
-                  </Typography>
-                  <Typography variant="body1" color="text.secondary">
-                    {feature.description}
-                  </Typography>
-                </CardContent>
-              </Card>
+                <Box
+                  sx={{
+                    width: 64,
+                    height: 64,
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    border: '1px solid rgba(91, 166, 99, 0.4)',
+                  }}
+                >
+                  {feature.icon}
+                </Box>
+                <Typography
+                  variant="h5"
+                  component="h3"
+                  gutterBottom
+                  fontWeight={600}
+                >
+                  {feature.title}
+                </Typography>
+                <Typography variant="body1" color="text.secondary">
+                  {feature.description}
+                </Typography>
+              </Box>
             </Grid>
           ))}
         </Grid>

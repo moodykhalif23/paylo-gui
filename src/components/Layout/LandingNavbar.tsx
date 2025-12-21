@@ -12,6 +12,7 @@ import {
   ListItemText,
   useTheme,
   useMediaQuery,
+  useScrollTrigger,
 } from '@mui/material'
 import { Menu as MenuIcon, Close as CloseIcon } from '@mui/icons-material'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
@@ -21,6 +22,10 @@ const LandingNavbar: React.FC = () => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
   const navigate = useNavigate()
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 10,
+  })
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
@@ -93,9 +98,10 @@ const LandingNavbar: React.FC = () => {
         position="sticky"
         elevation={0}
         sx={{
-          bgcolor: 'background.paper',
+          bgcolor: trigger ? 'background.paper' : 'transparent',
           borderBottom: '1px solid',
-          borderColor: 'divider',
+          borderColor: trigger ? 'divider' : 'transparent',
+          transition: 'background-color 0.3s ease, border-color 0.3s ease',
         }}
       >
         <Toolbar sx={{ justifyContent: 'space-between' }}>
