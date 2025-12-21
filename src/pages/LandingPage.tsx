@@ -90,14 +90,14 @@ const LandingPage: React.FC = () => {
 
   const sectionWrapperSx = {
     px: { xs: 2, md: 6 },
-    py: { xs: 5, md: 7 },
+    py: { xs: 4, md: 6 },
     width: '100%',
     boxSizing: 'border-box',
     color: brandWhite,
-    borderTop: '1px solid rgba(255,255,255,0.08)',
-    borderBottom: '1px solid rgba(255,255,255,0.08)',
     backgroundColor: heroBg,
   }
+
+  const sectionDivider = '1px solid rgba(255,255,255,0.12)'
 
   return (
     <Box
@@ -112,15 +112,15 @@ const LandingPage: React.FC = () => {
       <Box
         sx={{
           ...fullBleedSx,
-          pt: { xs: 6, md: 9 },
-          pb: { xs: 6, md: 9 },
+          pt: { xs: 4, md: 6 },
+          pb: { xs: 5, md: 8 },
           mb: 0,
         }}
       >
         <Box
           sx={{
             textAlign: 'center',
-            py: { xs: 6, md: 10 },
+            py: { xs: 4, md: 6 },
             maxWidth: '1100px',
             mx: 'auto',
           }}
@@ -218,7 +218,10 @@ const LandingPage: React.FC = () => {
       </Box>
 
       {/* Features Section */}
-      <Box id="features" sx={{ ...fullBleedSx, mb: 0 }}>
+      <Box
+        id="features"
+        sx={{ ...fullBleedSx, borderTop: sectionDivider, mb: 0 }}
+      >
         <Box sx={sectionWrapperSx}>
           <Typography
             variant="h3"
@@ -284,7 +287,10 @@ const LandingPage: React.FC = () => {
       </Box>
 
       {/* Supported Currencies Section */}
-      <Box id="currencies" sx={{ ...fullBleedSx, mb: 0 }}>
+      <Box
+        id="currencies"
+        sx={{ ...fullBleedSx, borderTop: sectionDivider, mb: 0 }}
+      >
         <Box sx={sectionWrapperSx}>
           <Typography
             variant="h3"
@@ -425,7 +431,10 @@ const LandingPage: React.FC = () => {
       </Box>
 
       {/* User Types Section */}
-      <Box id="how-it-works" sx={{ ...fullBleedSx, mb: 0 }}>
+      <Box
+        id="how-it-works"
+        sx={{ ...fullBleedSx, borderTop: sectionDivider, mb: 0 }}
+      >
         <Box sx={sectionWrapperSx}>
           <Typography
             variant="h3"
@@ -566,7 +575,7 @@ const LandingPage: React.FC = () => {
       </Box>
 
       {/* Accessibility Demo CTA */}
-      <Box sx={{ ...fullBleedSx, mb: 8 }}>
+      <Box sx={{ ...fullBleedSx, borderTop: sectionDivider, mb: 8 }}>
         <Box
           sx={{
             px: { xs: 2, md: 6 },
