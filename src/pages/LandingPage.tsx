@@ -313,97 +313,95 @@ const LandingPage: React.FC = () => {
           <Grid container spacing={3} justifyContent="center">
             {supportedCurrencies.map(currency => (
               <Grid item xs={12} sm={6} md={3} key={currency.symbol}>
-                <Card
+                <Box
                   sx={{
                     height: '100%',
                     textAlign: 'center',
-                    backgroundColor: 'rgba(255,255,255,0.03)',
-                    border: '2px solid rgba(255,255,255,0.08)',
-                    transition: 'all 0.3s ease-in-out',
+                    border: '1px solid rgba(255,255,255,0.12)',
+                    borderRadius: 3,
+                    p: 4,
                     color: brandWhite,
-                    backdropFilter: 'blur(8px)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: 2,
+                    background: 'transparent',
+                    transition: 'transform 0.25s ease, border-color 0.25s ease',
                     '&:hover': {
-                      transform: 'translateY(-8px)',
+                      transform: 'translateY(-6px)',
                       borderColor: currency.color,
-                      boxShadow: `0 8px 25px ${currency.color}20`,
                     },
                   }}
                 >
-                  <CardContent sx={{ p: 4 }}>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      width: 80,
+                      height: 80,
+                      borderRadius: '50%',
+                      bgcolor: `${currency.color}10`,
+                      border: `2px solid ${currency.color}30`,
+                    }}
+                  >
                     <Box
+                      component="img"
+                      src={currency.logo}
+                      alt={`${currency.name} logo`}
                       sx={{
-                        mb: 3,
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        width: 80,
-                        height: 80,
-                        mx: 'auto',
-                        borderRadius: '50%',
-                        bgcolor: `${currency.color}10`,
-                        border: `2px solid ${currency.color}30`,
+                        width: 48,
+                        height: 48,
                       }}
-                    >
-                      <Box
-                        component="img"
-                        src={currency.logo}
-                        alt={`${currency.name} logo`}
-                        sx={{
-                          width: 48,
-                          height: 48,
-                        }}
-                      />
-                    </Box>
+                    />
+                  </Box>
 
-                    <Typography
-                      variant="h5"
-                      component="h3"
-                      gutterBottom
-                      fontWeight={600}
-                      sx={{ color: currency.color }}
-                    >
-                      {currency.name}
+                  <Typography
+                    variant="h5"
+                    component="h3"
+                    fontWeight={600}
+                    sx={{ color: currency.color }}
+                  >
+                    {currency.name}
+                  </Typography>
+
+                  <Typography
+                    variant="h6"
+                    color={softGreen}
+                    sx={{ fontFamily: 'monospace' }}
+                  >
+                    {currency.symbol.toUpperCase()}
+                  </Typography>
+
+                  <Typography variant="body2" color={brandWhite}>
+                    {currency.name === 'Bitcoin' &&
+                      'The original cryptocurrency with the highest security and adoption'}
+                    {currency.name === 'Ethereum' &&
+                      'Smart contract platform enabling DeFi and NFT transactions'}
+                    {currency.name === 'Solana' &&
+                      'High-speed blockchain with low transaction fees'}
+                    {currency.name === 'Tether' &&
+                      'Stable cryptocurrency pegged to the US Dollar'}
+                  </Typography>
+
+                  <Box
+                    sx={{
+                      mt: 'auto',
+                      p: 2,
+                      bgcolor: 'rgba(255,255,255,0.04)',
+                      border: '1px solid rgba(255,255,255,0.08)',
+                      borderRadius: 2,
+                      width: '100%',
+                    }}
+                  >
+                    <Typography variant="caption" color={softGreen}>
+                      Network:{' '}
+                      {currency.name === 'Tether'
+                        ? 'Ethereum (ERC-20)'
+                        : currency.name}
                     </Typography>
-
-                    <Typography
-                      variant="h6"
-                      color={softGreen}
-                      sx={{ mb: 2, fontFamily: 'monospace' }}
-                    >
-                      {currency.symbol.toUpperCase()}
-                    </Typography>
-
-                    <Box sx={{ mt: 3 }}>
-                      <Typography variant="body2" color={brandWhite}>
-                        {currency.name === 'Bitcoin' &&
-                          'The original cryptocurrency with the highest security and adoption'}
-                        {currency.name === 'Ethereum' &&
-                          'Smart contract platform enabling DeFi and NFT transactions'}
-                        {currency.name === 'Solana' &&
-                          'High-speed blockchain with low transaction fees'}
-                        {currency.name === 'Tether' &&
-                          'Stable cryptocurrency pegged to the US Dollar'}
-                      </Typography>
-                    </Box>
-
-                    <Box
-                      sx={{
-                        mt: 3,
-                        p: 2,
-                        bgcolor: 'rgba(255,255,255,0.04)',
-                        border: '1px solid rgba(255,255,255,0.08)',
-                        borderRadius: 2,
-                      }}
-                    >
-                      <Typography variant="caption" color={softGreen}>
-                        Network:{' '}
-                        {currency.name === 'Tether'
-                          ? 'Ethereum (ERC-20)'
-                          : currency.name}
-                      </Typography>
-                    </Box>
-                  </CardContent>
-                </Card>
+                  </Box>
+                </Box>
               </Grid>
             ))}
           </Grid>
