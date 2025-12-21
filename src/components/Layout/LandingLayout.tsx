@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Container } from '@mui/material'
+import { Box } from '@mui/material'
 import { Outlet } from 'react-router-dom'
 import { useAccessibility } from '../../contexts/AccessibilityContext'
 import LandingNavbar from './LandingNavbar'
@@ -59,8 +59,7 @@ const LandingLayout: React.FC = () => {
           },
         }}
       >
-        <Container
-          maxWidth="lg"
+        <Box
           sx={{
             flex: 1,
             display: 'flex',
@@ -68,10 +67,11 @@ const LandingLayout: React.FC = () => {
             py: { xs: 2, sm: 4, md: 6 },
             px: { xs: 2, sm: 3 },
             color: 'inherit',
+            width: '100%',
           }}
         >
           <Outlet />
-        </Container>
+        </Box>
       </Box>
 
       {/* Footer - only on landing pages */}
