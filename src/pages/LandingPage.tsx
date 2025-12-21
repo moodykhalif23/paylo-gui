@@ -409,24 +409,31 @@ const LandingPage: React.FC = () => {
           </Grid>
 
           {/* Additional Info */}
-          <Box
+          <Stack
+            spacing={1.5}
             sx={{
               mt: 6,
-              p: 4,
-              bgcolor: 'primary.main',
-              color: 'primary.contrastText',
-              borderRadius: 3,
               textAlign: 'center',
+              color: brandWhite,
+              alignItems: 'center',
             }}
           >
-            <Typography variant="h6" gutterBottom fontWeight={600}>
+            <Typography variant="h6" fontWeight={600}>
               More Cryptocurrencies Coming Soon
             </Typography>
-            <Typography variant="body2" sx={{ opacity: 0.9 }}>
+            <Typography
+              variant="body2"
+              sx={{
+                opacity: 0.85,
+                maxWidth: 520,
+                width: '100%',
+                textAlign: 'center',
+              }}
+            >
               We're continuously expanding our supported cryptocurrencies.
               Request support for your favorite crypto by contacting our team.
             </Typography>
-          </Box>
+          </Stack>
         </Box>
       </Box>
 
