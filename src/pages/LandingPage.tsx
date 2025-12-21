@@ -1,14 +1,5 @@
 import React from 'react'
-import {
-  Typography,
-  Box,
-  Card,
-  CardContent,
-  Grid,
-  Button,
-  Stack,
-  Chip,
-} from '@mui/material'
+import { Typography, Box, Grid, Button, Stack } from '@mui/material'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import {
   Security,
@@ -444,128 +435,153 @@ const LandingPage: React.FC = () => {
 
           <Grid container spacing={4} justifyContent="center">
             <Grid item xs={12} md={5}>
-              <Card
+              <Box
                 sx={{
                   height: '100%',
-                  border: '2px solid',
-                  borderColor: 'primary.main',
-                  position: 'relative',
-                  backgroundColor: 'rgba(255,255,255,0.02)',
+                  borderRadius: 4,
+                  border: '1px solid rgba(125,205,133,0.4)',
+                  background:
+                    'linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02))',
                   color: brandWhite,
-                  backdropFilter: 'blur(6px)',
+                  backdropFilter: 'blur(10px)',
+                  p: { xs: 3, md: 4 },
+                  textAlign: 'center',
+                  position: 'relative',
+                  overflow: 'hidden',
                 }}
               >
-                <Chip
-                  label="Most Popular"
-                  color="primary"
+                <Box
+                  component="span"
                   sx={{
                     position: 'absolute',
-                    top: -12,
+                    top: 16,
                     right: 16,
-                    fontWeight: 600,
+                    fontSize: 12,
+                    fontWeight: 700,
+                    letterSpacing: 0.5,
+                    color: accentGreen,
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  Most Popular
+                </Box>
+                <Box
+                  component="img"
+                  src="/p2p.svg"
+                  alt="Peer to peer icon"
+                  sx={{
+                    width: 80,
+                    height: 80,
+                    mb: 2,
+                    mx: 'auto',
                   }}
                 />
-                <CardContent sx={{ p: 4, textAlign: 'center' }}>
-                  <Typography
-                    variant="h5"
-                    component="h3"
-                    gutterBottom
-                    fontWeight={600}
-                  >
-                    P2P User
-                  </Typography>
-                  <Typography variant="body1" color={softGreen} sx={{ mb: 3 }}>
-                    Send and receive cryptocurrency directly between wallets
-                    with real-time transaction tracking
-                  </Typography>
-                  <Stack spacing={2}>
-                    <Box sx={{ display: 'flex', alignments: 'center', gap: 1 }}>
-                      <CheckCircle color="success" fontSize="small" />
-                      <Typography variant="body2">
-                        Instant wallet creation
-                      </Typography>
-                    </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      <CheckCircle color="success" fontSize="small" />
-                      <Typography variant="body2">
-                        Real-time notifications
-                      </Typography>
-                    </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      <CheckCircle color="success" fontSize="small" />
-                      <Typography variant="body2">
-                        Transaction history
-                      </Typography>
-                    </Box>
-                  </Stack>
-                  <Box sx={{ mt: 4 }}>
-                    <Button
-                      variant="contained"
-                      onClick={() => handleGetStarted('user')}
-                      startIcon={<ArrowForward />}
-                      fullWidth
-                      size="large"
-                    >
-                      Get Started
-                    </Button>
+                <Typography
+                  variant="h5"
+                  component="h3"
+                  gutterBottom
+                  fontWeight={600}
+                >
+                  P2P User
+                </Typography>
+                <Typography variant="body1" color={softGreen} sx={{ mb: 3 }}>
+                  Send and receive cryptocurrency directly between wallets with
+                  real-time transaction tracking
+                </Typography>
+                <Stack spacing={2}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <CheckCircle color="success" fontSize="small" />
+                    <Typography variant="body2">
+                      Instant wallet creation
+                    </Typography>
                   </Box>
-                </CardContent>
-              </Card>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <CheckCircle color="success" fontSize="small" />
+                    <Typography variant="body2">
+                      Real-time notifications
+                    </Typography>
+                  </Box>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <CheckCircle color="success" fontSize="small" />
+                    <Typography variant="body2">Transaction history</Typography>
+                  </Box>
+                </Stack>
+                <Box sx={{ mt: 4 }}>
+                  <Button
+                    variant="contained"
+                    onClick={() => handleGetStarted('user')}
+                    startIcon={<ArrowForward />}
+                    fullWidth
+                    size="large"
+                  >
+                    Get Started
+                  </Button>
+                </Box>
+              </Box>
             </Grid>
 
             <Grid item xs={12} md={5}>
-              <Card
+              <Box
                 sx={{
                   height: '100%',
-                  backgroundColor: 'rgba(255,255,255,0.02)',
+                  borderRadius: 4,
+                  border: '1px solid rgba(255,255,255,0.12)',
+                  background: 'rgba(255,255,255,0.02)',
                   color: brandWhite,
-                  backdropFilter: 'blur(6px)',
+                  backdropFilter: 'blur(8px)',
+                  p: { xs: 3, md: 4 },
+                  textAlign: 'center',
                 }}
               >
-                <CardContent sx={{ p: 4, textAlign: 'center' }}>
-                  <Typography
-                    variant="h5"
-                    component="h3"
-                    gutterBottom
-                    fontWeight={600}
-                  >
-                    Merchant
-                  </Typography>
-                  <Typography variant="body1" color={softGreen} sx={{ mb: 3 }}>
-                    Accept cryptocurrency payments and manage your business with
-                    comprehensive analytics
-                  </Typography>
-                  <Stack spacing={2} sx={{ mb: 4 }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      <CheckCircle color="success" fontSize="small" />
-                      <Typography variant="body2">
-                        Payment processing
-                      </Typography>
-                    </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      <CheckCircle color="success" fontSize="small" />
-                      <Typography variant="body2">
-                        Invoice management
-                      </Typography>
-                    </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      <CheckCircle color="success" fontSize="small" />
-                      <Typography variant="body2">Revenue analytics</Typography>
-                    </Box>
-                  </Stack>
-                  <Box sx={{ mt: 4 }}>
-                    <Button
-                      variant="contained"
-                      onClick={() => handleGetStarted('merchant')}
-                      startIcon={<ArrowForward />}
-                      fullWidth
-                      size="large"
-                    >
-                      Get Started
-                    </Button>
+                <Box
+                  component="img"
+                  src="/merchant.svg"
+                  alt="Merchant dashboard icon"
+                  sx={{
+                    width: 80,
+                    height: 80,
+                    mb: 2,
+                    mx: 'auto',
+                  }}
+                />
+                <Typography
+                  variant="h5"
+                  component="h3"
+                  gutterBottom
+                  fontWeight={600}
+                >
+                  Merchant
+                </Typography>
+                <Typography variant="body1" color={softGreen} sx={{ mb: 3 }}>
+                  Accept cryptocurrency payments and manage your business with
+                  comprehensive analytics
+                </Typography>
+                <Stack spacing={2} sx={{ mb: 4 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <CheckCircle color="success" fontSize="small" />
+                    <Typography variant="body2">Payment processing</Typography>
                   </Box>
-                </CardContent>
-              </Card>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <CheckCircle color="success" fontSize="small" />
+                    <Typography variant="body2">Invoice management</Typography>
+                  </Box>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <CheckCircle color="success" fontSize="small" />
+                    <Typography variant="body2">Revenue analytics</Typography>
+                  </Box>
+                </Stack>
+                <Box sx={{ mt: 4 }}>
+                  <Button
+                    variant="contained"
+                    onClick={() => handleGetStarted('merchant')}
+                    startIcon={<ArrowForward />}
+                    fullWidth
+                    size="large"
+                  >
+                    Get Started
+                  </Button>
+                </Box>
+              </Box>
             </Grid>
           </Grid>
         </Box>
