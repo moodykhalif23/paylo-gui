@@ -438,15 +438,12 @@ const LandingPage: React.FC = () => {
               <Box
                 sx={{
                   height: '100%',
-                  borderRadius: 4,
-                  background:
-                    'linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02))',
                   color: brandWhite,
-                  backdropFilter: 'blur(10px)',
+                  backdropFilter: 'none',
                   p: { xs: 3, md: 4 },
                   textAlign: 'center',
                   position: 'relative',
-                  overflow: 'hidden',
+                  overflow: 'visible',
                 }}
               >
                 <Box
@@ -461,9 +458,7 @@ const LandingPage: React.FC = () => {
                     color: accentGreen,
                     textTransform: 'uppercase',
                   }}
-                >
-                  Most Popular
-                </Box>
+                ></Box>
                 <Box
                   component="img"
                   src="/p2p.svg"
@@ -523,10 +518,8 @@ const LandingPage: React.FC = () => {
               <Box
                 sx={{
                   height: '100%',
-                  borderRadius: 4,
-                  background: 'rgba(255,255,255,0.02)',
                   color: brandWhite,
-                  backdropFilter: 'blur(8px)',
+                  backdropFilter: 'none',
                   p: { xs: 3, md: 4 },
                   textAlign: 'center',
                 }}
