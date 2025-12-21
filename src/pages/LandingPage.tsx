@@ -112,15 +112,15 @@ const LandingPage: React.FC = () => {
       <Box
         sx={{
           ...fullBleedSx,
-          pt: { xs: 4, md: 6 },
-          pb: { xs: 5, md: 8 },
+          pt: { xs: 2.5, md: 4 },
+          pb: { xs: 4, md: 7 },
           mb: 0,
         }}
       >
         <Box
           sx={{
             textAlign: 'center',
-            py: { xs: 4, md: 6 },
+            py: { xs: 3, md: 4 },
             maxWidth: '1100px',
             mx: 'auto',
           }}
