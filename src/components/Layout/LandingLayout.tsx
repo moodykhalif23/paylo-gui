@@ -14,10 +14,8 @@ const LandingLayout: React.FC = () => {
         display: 'flex',
         flexDirection: 'column',
         minHeight: '100vh',
-        bgcolor: 'grey.900',
+        bgcolor: '#07180d',
         color: 'grey.100',
-        backgroundImage:
-          'radial-gradient(circle at 20% 20%, rgba(255,255,255,0.05), transparent 35%), radial-gradient(circle at 80% 0%, rgba(125,205,133,0.08), transparent 45%)',
         // Apply accessibility classes
         '&.high-contrast': {
           filter: 'contrast(150%)',

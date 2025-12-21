@@ -77,6 +77,8 @@ const LandingPage: React.FC = () => {
   const accentGreen = '#7dcd85'
   const softGreen = '#c8ffd8'
 
+  const heroBg = 'rgba(7, 24, 13, 0.92)'
+
   const fullBleedSx = {
     width: '100vw',
     position: 'relative',
@@ -85,7 +87,10 @@ const LandingPage: React.FC = () => {
     marginLeft: '-50vw',
     marginRight: '-50vw',
     px: { xs: 2, md: 4 },
-    backgroundColor: 'rgba(7, 24, 13, 0.92)',
+    py: { xs: 5, md: 7 },
+    backgroundColor: heroBg,
+    marginTop: 0,
+    marginBottom: 0,
   }
 
   const sectionWrapperSx = {
@@ -101,9 +106,16 @@ const LandingPage: React.FC = () => {
   }
 
   return (
-    <Box sx={{ color: 'inherit' }}>
+    <Box sx={{ color: 'inherit', backgroundColor: heroBg, minHeight: '100vh' }}>
       {/* Hero Section */}
-      <Box sx={{ ...fullBleedSx, mb: 8 }}>
+      <Box
+        sx={{
+          ...fullBleedSx,
+          pt: { xs: 6, md: 9 },
+          pb: { xs: 6, md: 9 },
+          mb: 0,
+        }}
+      >
         <Box
           sx={{
             textAlign: 'center',
@@ -205,7 +217,7 @@ const LandingPage: React.FC = () => {
       </Box>
 
       {/* Features Section */}
-      <Box id="features" sx={{ ...fullBleedSx, mb: 8 }}>
+      <Box id="features" sx={{ ...fullBleedSx, mb: 0 }}>
         <Box sx={sectionWrapperSx}>
           <Typography
             variant="h3"
@@ -271,7 +283,7 @@ const LandingPage: React.FC = () => {
       </Box>
 
       {/* Supported Currencies Section */}
-      <Box id="currencies" sx={{ ...fullBleedSx, mb: 8 }}>
+      <Box id="currencies" sx={{ ...fullBleedSx, mb: 0 }}>
         <Box sx={sectionWrapperSx}>
           <Typography
             variant="h3"
@@ -412,7 +424,7 @@ const LandingPage: React.FC = () => {
       </Box>
 
       {/* User Types Section */}
-      <Box id="how-it-works" sx={{ ...fullBleedSx, mb: 8 }}>
+      <Box id="how-it-works" sx={{ ...fullBleedSx, mb: 0 }}>
         <Box sx={sectionWrapperSx}>
           <Typography
             variant="h3"
