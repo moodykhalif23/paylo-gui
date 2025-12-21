@@ -326,11 +326,6 @@ const LandingPage: React.FC = () => {
                     alignItems: 'center',
                     gap: 2,
                     background: 'transparent',
-                    transition: 'transform 0.25s ease, border-color 0.25s ease',
-                    '&:hover': {
-                      transform: 'translateY(-6px)',
-                      borderColor: currency.color,
-                    },
                   }}
                 >
                   <Box
@@ -338,11 +333,8 @@ const LandingPage: React.FC = () => {
                       display: 'flex',
                       justifyContent: 'center',
                       alignItems: 'center',
-                      width: 80,
-                      height: 80,
-                      borderRadius: '50%',
-                      bgcolor: `${currency.color}10`,
-                      border: `2px solid ${currency.color}30`,
+                      width: 60,
+                      height: 60,
                     }}
                   >
                     <Box
