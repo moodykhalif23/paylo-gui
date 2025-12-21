@@ -11,6 +11,8 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
+  background-color: #07180d;
+  color: #f5fff5;
   font-family:
     'Roboto',
     -apple-system,
@@ -141,10 +143,6 @@ select:focus-visible {
 }
 
 /* Screen reader mode optimizations */
-.screen-reader-mode {
-  /* Ensure sufficient spacing for screen readers */
-}
-
 .screen-reader-mode * {
   line-height: 1.6 !important;
 }
@@ -239,20 +237,12 @@ body {
 }
 
 /* Enhanced focus management */
-.focus-trap {
-  /* Ensure focus stays within trapped elements */
-}
-
 .focus-trap *:focus {
   outline: 2px solid #7dcd85;
   outline-offset: 2px;
 }
 
 /* Live region styles */
-[aria-live] {
-  /* Ensure live regions are positioned for screen readers */
-}
-
 /* Table accessibility enhancements */
 table {
   border-collapse: collapse;

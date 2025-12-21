@@ -80,14 +80,7 @@ const LandingPage: React.FC = () => {
   const heroBg = 'rgba(7, 24, 13, 0.92)'
 
   const fullBleedSx = {
-    width: '100vw',
-    maxWidth: '100vw',
-    boxSizing: 'border-box',
-    position: 'relative',
-    left: '50%',
-    right: '50%',
-    marginLeft: '-50vw',
-    marginRight: '-50vw',
+    width: '100%',
     px: { xs: 2, md: 4 },
     py: { xs: 5, md: 7 },
     backgroundColor: heroBg,
