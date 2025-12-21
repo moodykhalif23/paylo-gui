@@ -439,7 +439,6 @@ const LandingPage: React.FC = () => {
                 sx={{
                   height: '100%',
                   borderRadius: 4,
-                  border: '1px solid rgba(125,205,133,0.4)',
                   background:
                     'linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02))',
                   color: brandWhite,
@@ -525,7 +524,6 @@ const LandingPage: React.FC = () => {
                 sx={{
                   height: '100%',
                   borderRadius: 4,
-                  border: '1px solid rgba(255,255,255,0.12)',
                   background: 'rgba(255,255,255,0.02)',
                   color: brandWhite,
                   backdropFilter: 'blur(8px)',
