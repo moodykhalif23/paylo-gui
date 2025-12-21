@@ -14,6 +14,10 @@ const LandingLayout: React.FC = () => {
         display: 'flex',
         flexDirection: 'column',
         minHeight: '100vh',
+        bgcolor: 'grey.900',
+        color: 'grey.100',
+        backgroundImage:
+          'radial-gradient(circle at 20% 20%, rgba(255,255,255,0.05), transparent 35%), radial-gradient(circle at 80% 0%, rgba(125,205,133,0.08), transparent 45%)',
         // Apply accessibility classes
         '&.high-contrast': {
           filter: 'contrast(150%)',
@@ -49,6 +53,7 @@ const LandingLayout: React.FC = () => {
           display: 'flex',
           flexDirection: 'column',
           width: '100%',
+          color: 'inherit',
           '&:focus': {
             outline: 'none',
           },
@@ -62,6 +67,7 @@ const LandingLayout: React.FC = () => {
             flexDirection: 'column',
             py: { xs: 2, sm: 4, md: 6 },
             px: { xs: 2, sm: 3 },
+            color: 'inherit',
           }}
         >
           <Outlet />

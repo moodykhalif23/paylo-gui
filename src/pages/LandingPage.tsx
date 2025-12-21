@@ -73,8 +73,23 @@ const LandingPage: React.FC = () => {
     },
   ]
 
+  const brandWhite = '#ffffff'
+  const accentGreen = '#7dcd85'
+  const softGreen = '#c8ffd8'
+
+  const sectionWrapperSx = {
+    mb: 8,
+    p: { xs: 3, md: 5 },
+    borderRadius: 4,
+    border: '1px solid rgba(255,255,255,0.12)',
+    backgroundColor: 'rgba(7, 24, 13, 0.85)',
+    boxShadow: '0 30px 80px rgba(0,0,0,0.45)',
+    backdropFilter: 'blur(14px)',
+    color: brandWhite,
+  }
+
   return (
-    <Box>
+    <Box sx={{ color: 'inherit' }}>
       {/* Hero Section */}
       <Box
         sx={{
@@ -104,7 +119,7 @@ const LandingPage: React.FC = () => {
           sx={{
             fontSize: { xs: '1.5rem', md: '2rem' },
             fontWeight: 400,
-            color: 'text.secondary',
+            color: brandWhite,
             mb: 4,
             maxWidth: 600,
             mx: 'auto',
@@ -165,7 +180,7 @@ const LandingPage: React.FC = () => {
                 <Typography variant="body2" fontWeight={600}>
                   {currency.name}
                 </Typography>
-                <Typography variant="caption" color="text.secondary">
+                <Typography variant="caption" color={softGreen}>
                   {currency.symbol}
                 </Typography>
               </Box>
@@ -175,12 +190,12 @@ const LandingPage: React.FC = () => {
       </Box>
 
       {/* Features Section */}
-      <Box id="features" sx={{ mb: 8 }}>
+      <Box id="features" sx={sectionWrapperSx}>
         <Typography
           variant="h3"
           component="h2"
           textAlign="center"
-          sx={{ mb: 6, fontWeight: 600 }}
+          sx={{ mb: 6, fontWeight: 600, color: accentGreen }}
         >
           Why Choose Paylo?
         </Typography>
@@ -194,9 +209,10 @@ const LandingPage: React.FC = () => {
                   textAlign: 'center',
                   p: { xs: 3, md: 4 },
                   borderRadius: 4,
-                  border: '1px solid rgba(91, 166, 99, 0.25)',
-                  backgroundColor: 'transparent',
-                  backdropFilter: 'blur(4px)',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  backgroundColor: 'rgba(255,255,255,0.02)',
+                  color: brandWhite,
+                  backdropFilter: 'blur(6px)',
                   transition: 'transform 0.2s ease-in-out',
                   display: 'flex',
                   flexDirection: 'column',
@@ -228,7 +244,7 @@ const LandingPage: React.FC = () => {
                 >
                   {feature.title}
                 </Typography>
-                <Typography variant="body1" color="text.secondary">
+                <Typography variant="body1" color={softGreen}>
                   {feature.description}
                 </Typography>
               </Box>
@@ -238,19 +254,19 @@ const LandingPage: React.FC = () => {
       </Box>
 
       {/* Supported Currencies Section */}
-      <Box id="currencies" sx={{ mb: 8 }}>
+      <Box id="currencies" sx={sectionWrapperSx}>
         <Typography
           variant="h3"
           component="h2"
           textAlign="center"
-          sx={{ mb: 2, fontWeight: 600 }}
+          sx={{ mb: 2, fontWeight: 600, color: accentGreen }}
         >
           Supported Cryptocurrencies
         </Typography>
         <Typography
           variant="body1"
           textAlign="center"
-          color="text.secondary"
+          color={softGreen}
           sx={{ mb: 6, maxWidth: 600, mx: 'auto' }}
         >
           Trade and transact with the most popular cryptocurrencies across
@@ -264,8 +280,11 @@ const LandingPage: React.FC = () => {
                 sx={{
                   height: '100%',
                   textAlign: 'center',
+                  backgroundColor: 'rgba(255,255,255,0.03)',
+                  border: '2px solid rgba(255,255,255,0.08)',
                   transition: 'all 0.3s ease-in-out',
-                  border: '2px solid transparent',
+                  color: brandWhite,
+                  backdropFilter: 'blur(8px)',
                   '&:hover': {
                     transform: 'translateY(-8px)',
                     borderColor: currency.color,
@@ -311,14 +330,14 @@ const LandingPage: React.FC = () => {
 
                   <Typography
                     variant="h6"
-                    color="text.secondary"
+                    color={softGreen}
                     sx={{ mb: 2, fontFamily: 'monospace' }}
                   >
                     {currency.symbol.toUpperCase()}
                   </Typography>
 
                   <Box sx={{ mt: 3 }}>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" color={brandWhite}>
                       {currency.name === 'Bitcoin' &&
                         'The original cryptocurrency with the highest security and adoption'}
                       {currency.name === 'Ethereum' &&
@@ -334,11 +353,12 @@ const LandingPage: React.FC = () => {
                     sx={{
                       mt: 3,
                       p: 2,
-                      bgcolor: 'action.hover',
+                      bgcolor: 'rgba(255,255,255,0.04)',
+                      border: '1px solid rgba(255,255,255,0.08)',
                       borderRadius: 2,
                     }}
                   >
-                    <Typography variant="caption" color="text.secondary">
+                    <Typography variant="caption" color={softGreen}>
                       Network:{' '}
                       {currency.name === 'Tether'
                         ? 'Ethereum (ERC-20)'
@@ -373,12 +393,12 @@ const LandingPage: React.FC = () => {
       </Box>
 
       {/* User Types Section */}
-      <Box id="how-it-works" sx={{ mb: 8 }}>
+      <Box id="how-it-works" sx={sectionWrapperSx}>
         <Typography
           variant="h3"
           component="h2"
           textAlign="center"
-          sx={{ mb: 6, fontWeight: 600 }}
+          sx={{ mb: 6, fontWeight: 600, color: accentGreen }}
         >
           Choose Your Experience
         </Typography>
@@ -391,6 +411,9 @@ const LandingPage: React.FC = () => {
                 border: '2px solid',
                 borderColor: 'primary.main',
                 position: 'relative',
+                backgroundColor: 'rgba(255,255,255,0.02)',
+                color: brandWhite,
+                backdropFilter: 'blur(6px)',
               }}
             >
               <Chip
@@ -412,11 +435,7 @@ const LandingPage: React.FC = () => {
                 >
                   P2P User
                 </Typography>
-                <Typography
-                  variant="body1"
-                  color="text.secondary"
-                  sx={{ mb: 3 }}
-                >
+                <Typography variant="body1" color={softGreen} sx={{ mb: 3 }}>
                   Send and receive cryptocurrency directly between wallets with
                   real-time transaction tracking
                 </Typography>
@@ -454,7 +473,14 @@ const LandingPage: React.FC = () => {
           </Grid>
 
           <Grid item xs={12} md={5}>
-            <Card sx={{ height: '100%' }}>
+            <Card
+              sx={{
+                height: '100%',
+                backgroundColor: 'rgba(255,255,255,0.02)',
+                color: brandWhite,
+                backdropFilter: 'blur(6px)',
+              }}
+            >
               <CardContent sx={{ p: 4, textAlign: 'center' }}>
                 <Typography
                   variant="h5"
@@ -464,11 +490,7 @@ const LandingPage: React.FC = () => {
                 >
                   Merchant
                 </Typography>
-                <Typography
-                  variant="body1"
-                  color="text.secondary"
-                  sx={{ mb: 3 }}
-                >
+                <Typography variant="body1" color={softGreen} sx={{ mb: 3 }}>
                   Accept cryptocurrency payments and manage your business with
                   comprehensive analytics
                 </Typography>
@@ -507,9 +529,11 @@ const LandingPage: React.FC = () => {
       <Box
         sx={{
           p: 4,
-          bgcolor: 'action.hover',
+          bgcolor: 'rgba(255,255,255,0.05)',
+          border: '1px solid rgba(255,255,255,0.08)',
           borderRadius: 2,
           textAlign: 'center',
+          color: brandWhite,
         }}
       >
         <Box
