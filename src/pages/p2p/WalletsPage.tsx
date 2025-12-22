@@ -42,6 +42,10 @@ const WalletsPage: React.FC = () => {
   const [newWalletLabel, setNewWalletLabel] = useState('')
   const [showBalances, setShowBalances] = useState(true)
 
+  // Theme colors
+  const accentGreen = '#7dcd85'
+  const brandWhite = '#ffffff'
+
   const {
     data: wallets = [],
     isLoading: walletsLoading,
@@ -139,14 +143,7 @@ const WalletsPage: React.FC = () => {
   }
 
   return (
-    <Box
-      sx={{
-        p: { xs: 2, sm: 3 },
-        width: '100%',
-        maxWidth: '100%',
-        overflow: 'hidden',
-      }}
-    >
+    <Box sx={{ color: brandWhite, width: '100%', maxWidth: '100%' }}>
       {/* Header */}
       <Box
         display="flex"
@@ -157,7 +154,7 @@ const WalletsPage: React.FC = () => {
         mb={3}
       >
         <Box>
-          <Typography variant="h4" gutterBottom>
+          <Typography variant="h4" gutterBottom sx={{ color: accentGreen }}>
             My Wallets
           </Typography>
           <Typography variant="body1" color="text.secondary">

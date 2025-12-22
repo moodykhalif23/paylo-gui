@@ -25,6 +25,11 @@ import {
 import { Link } from 'react-router-dom'
 
 const AdminDashboard: React.FC = () => {
+  // Landing page colors
+  const accentGreen = '#7dcd85'
+  const softGreen = '#c8ffd8'
+  const brandWhite = '#ffffff'
+
   const {
     data: systemHealth,
     isLoading: healthLoading,
@@ -73,7 +78,7 @@ const AdminDashboard: React.FC = () => {
 
   if (healthError || statsError) {
     return (
-      <Box sx={{ p: 3 }}>
+      <Box sx={{ color: brandWhite }}>
         <Alert severity="error">
           Failed to load dashboard data. Please check your connection and try
           again.
@@ -83,25 +88,34 @@ const AdminDashboard: React.FC = () => {
   }
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Box sx={{ color: brandWhite }}>
       {/* Header */}
-      <Box mb={4}>
-        <Typography variant="h4" gutterBottom>
+      <Box mb={3}>
+        <Typography variant="h4" gutterBottom sx={{ color: accentGreen }}>
           Admin Dashboard
         </Typography>
-        <Typography variant="body1" color="text.secondary">
+        <Typography variant="body1" sx={{ color: softGreen }}>
           System overview and administrative controls
         </Typography>
       </Box>
 
       {/* System Status Overview */}
-      <Grid container spacing={3} mb={4}>
+      <Grid container spacing={3} mb={3}>
         <Grid item xs={12} sm={6} md={3}>
-          <Card>
+          <Card
+            sx={{
+              backgroundColor: 'rgba(255,255,255,0.05)',
+              border: '1px solid rgba(255,255,255,0.08)',
+              backdropFilter: 'blur(6px)',
+              color: brandWhite,
+            }}
+          >
             <CardContent>
               <Box display="flex" alignItems="center" gap={2} mb={2}>
-                <DashboardIcon color="primary" />
-                <Typography variant="h6">System Status</Typography>
+                <DashboardIcon sx={{ color: accentGreen }} />
+                <Typography variant="h6" sx={{ color: accentGreen }}>
+                  System Status
+                </Typography>
               </Box>
               {healthLoading ? (
                 <LinearProgress />
@@ -112,87 +126,122 @@ const AdminDashboard: React.FC = () => {
                     color={getStatusColor(systemHealth.status)}
                     sx={{ mb: 1 }}
                   />
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: softGreen }}>
                     Uptime: {Math.floor(systemHealth.uptime / 3600)}h
                   </Typography>
                 </Box>
               ) : (
-                <Typography color="error">Unable to load</Typography>
+                <Typography sx={{ color: softGreen }}>
+                  Unable to load
+                </Typography>
               )}
             </CardContent>
           </Card>
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <Card>
+          <Card
+            sx={{
+              backgroundColor: 'rgba(255,255,255,0.05)',
+              border: '1px solid rgba(255,255,255,0.08)',
+              backdropFilter: 'blur(6px)',
+              color: brandWhite,
+            }}
+          >
             <CardContent>
               <Box display="flex" alignItems="center" gap={2} mb={2}>
-                <PeopleIcon color="primary" />
-                <Typography variant="h6">Users</Typography>
+                <PeopleIcon sx={{ color: accentGreen }} />
+                <Typography variant="h6" sx={{ color: accentGreen }}>
+                  Users
+                </Typography>
               </Box>
               {statsLoading ? (
                 <LinearProgress />
               ) : systemStats ? (
                 <Box>
-                  <Typography variant="h4" color="primary">
+                  <Typography variant="h4" sx={{ color: accentGreen }}>
                     {formatNumber(systemStats.activeUsers)}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: softGreen }}>
                     of {formatNumber(systemStats.totalUsers)} total
                   </Typography>
                 </Box>
               ) : (
-                <Typography color="error">Unable to load</Typography>
+                <Typography sx={{ color: softGreen }}>
+                  Unable to load
+                </Typography>
               )}
             </CardContent>
           </Card>
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <Card>
+          <Card
+            sx={{
+              backgroundColor: 'rgba(255,255,255,0.05)',
+              border: '1px solid rgba(255,255,255,0.08)',
+              backdropFilter: 'blur(6px)',
+              color: brandWhite,
+            }}
+          >
             <CardContent>
               <Box display="flex" alignItems="center" gap={2} mb={2}>
-                <AccountBalanceIcon color="primary" />
-                <Typography variant="h6">Transactions</Typography>
+                <AccountBalanceIcon sx={{ color: accentGreen }} />
+                <Typography variant="h6" sx={{ color: accentGreen }}>
+                  Transactions
+                </Typography>
               </Box>
               {statsLoading ? (
                 <LinearProgress />
               ) : systemStats ? (
                 <Box>
-                  <Typography variant="h4" color="primary">
+                  <Typography variant="h4" sx={{ color: accentGreen }}>
                     {formatNumber(systemStats.totalTransactions)}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: softGreen }}>
                     {formatCurrency(systemStats.totalVolumeUSD)} volume
                   </Typography>
                 </Box>
               ) : (
-                <Typography color="error">Unable to load</Typography>
+                <Typography sx={{ color: softGreen }}>
+                  Unable to load
+                </Typography>
               )}
             </CardContent>
           </Card>
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <Card>
+          <Card
+            sx={{
+              backgroundColor: 'rgba(255,255,255,0.05)',
+              border: '1px solid rgba(255,255,255,0.08)',
+              backdropFilter: 'blur(6px)',
+              color: brandWhite,
+            }}
+          >
             <CardContent>
               <Box display="flex" alignItems="center" gap={2} mb={2}>
-                <SecurityIcon color="primary" />
-                <Typography variant="h6">Security</Typography>
+                <SecurityIcon sx={{ color: accentGreen }} />
+                <Typography variant="h6" sx={{ color: accentGreen }}>
+                  Security
+                </Typography>
               </Box>
               {statsLoading ? (
                 <LinearProgress />
               ) : systemStats ? (
                 <Box>
-                  <Typography variant="h4" color="success">
+                  <Typography variant="h4" sx={{ color: accentGreen }}>
                     {(100 - systemStats.errorRate).toFixed(1)}%
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: softGreen }}>
                     Success rate
                   </Typography>
                 </Box>
               ) : (
-                <Typography color="error">Unable to load</Typography>
+                <Typography sx={{ color: softGreen }}>
+                  Unable to load
+                </Typography>
               )}
             </CardContent>
           </Card>
@@ -200,11 +249,18 @@ const AdminDashboard: React.FC = () => {
       </Grid>
 
       {/* Quick Actions */}
-      <Grid container spacing={3} mb={4}>
+      <Grid container spacing={3} mb={3}>
         <Grid item xs={12} md={8}>
-          <Card>
+          <Card
+            sx={{
+              backgroundColor: 'rgba(255,255,255,0.05)',
+              border: '1px solid rgba(255,255,255,0.08)',
+              backdropFilter: 'blur(6px)',
+              color: brandWhite,
+            }}
+          >
             <CardContent>
-              <Typography variant="h6" gutterBottom>
+              <Typography variant="h6" gutterBottom sx={{ color: accentGreen }}>
                 Quick Actions
               </Typography>
               <Grid container spacing={2}>
@@ -276,9 +332,16 @@ const AdminDashboard: React.FC = () => {
         </Grid>
 
         <Grid item xs={12} md={4}>
-          <Card>
+          <Card
+            sx={{
+              backgroundColor: 'rgba(255,255,255,0.05)',
+              border: '1px solid rgba(255,255,255,0.08)',
+              backdropFilter: 'blur(6px)',
+              color: brandWhite,
+            }}
+          >
             <CardContent>
-              <Typography variant="h6" gutterBottom>
+              <Typography variant="h6" gutterBottom sx={{ color: accentGreen }}>
                 System Performance
               </Typography>
               {systemHealth?.metrics ? (
@@ -286,7 +349,7 @@ const AdminDashboard: React.FC = () => {
                   <Box mb={2}>
                     <Typography
                       variant="body2"
-                      color="text.secondary"
+                      sx={{ color: softGreen }}
                       gutterBottom
                     >
                       System Load: {systemHealth.metrics.systemLoad}%
@@ -304,7 +367,7 @@ const AdminDashboard: React.FC = () => {
                   <Box mb={2}>
                     <Typography
                       variant="body2"
-                      color="text.secondary"
+                      sx={{ color: softGreen }}
                       gutterBottom
                     >
                       Memory Usage: {systemHealth.metrics.memoryUsage}%

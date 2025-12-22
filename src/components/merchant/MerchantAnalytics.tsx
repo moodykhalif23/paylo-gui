@@ -50,6 +50,11 @@ const MerchantAnalytics: React.FC = () => {
     groupBy: 'day',
   })
 
+  // Theme colors
+  const accentGreen = '#7dcd85'
+  const softGreen = '#c8ffd8'
+  const brandWhite = '#ffffff'
+
   // Fetch analytics data based on current filters
   const {
     data: analytics,
@@ -75,12 +80,12 @@ const MerchantAnalytics: React.FC = () => {
   }
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Box sx={{ color: brandWhite }}>
       <Box mb={3}>
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h4" gutterBottom sx={{ color: accentGreen }}>
           Analytics Dashboard
         </Typography>
-        <Typography variant="body1" color="text.secondary">
+        <Typography variant="body1" sx={{ color: softGreen }}>
           Comprehensive insights into your merchant performance and revenue
           trends
         </Typography>
@@ -108,12 +113,25 @@ const MerchantAnalytics: React.FC = () => {
 
         {/* Analytics Tabs */}
         <Grid item xs={12}>
-          <Paper sx={{ width: '100%' }}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Paper
+            sx={{
+              width: '100%',
+              backgroundColor: 'rgba(255,255,255,0.05)',
+              border: '1px solid rgba(255,255,255,0.08)',
+              backdropFilter: 'blur(6px)',
+              color: brandWhite,
+            }}
+          >
+            <Box sx={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
               <Tabs
                 value={activeTab}
                 onChange={handleTabChange}
                 aria-label="analytics tabs"
+                sx={{
+                  '& .MuiTab-root': { color: brandWhite },
+                  '& .Mui-selected': { color: accentGreen },
+                  '& .MuiTabs-indicator': { backgroundColor: accentGreen },
+                }}
               >
                 <Tab
                   icon={<TrendingUp />}

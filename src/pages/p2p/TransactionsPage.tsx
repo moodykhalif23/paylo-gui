@@ -24,6 +24,11 @@ const TransactionsPage: React.FC = () => {
     useState<Transaction | null>(null)
   const [detailModalOpen, setDetailModalOpen] = useState(false)
 
+  // Theme colors
+  const accentGreen = '#7dcd85'
+  const softGreen = '#c8ffd8'
+  const brandWhite = '#ffffff'
+
   const {
     data: transactionsData,
     isLoading,
@@ -89,7 +94,7 @@ const TransactionsPage: React.FC = () => {
   }, [refetch])
 
   return (
-    <Box sx={{ p: { xs: 2, sm: 3 } }}>
+    <Box sx={{ color: brandWhite }}>
       <Box
         sx={{
           display: 'flex',
@@ -101,13 +106,12 @@ const TransactionsPage: React.FC = () => {
         }}
       >
         <Box>
-          <Typography variant="h4" gutterBottom>
+          <Typography variant="h4" gutterBottom sx={{ color: accentGreen }}>
             Transaction History
           </Typography>
           <Typography
             variant="body2"
-            color="text.secondary"
-            sx={{ display: { xs: 'block', sm: 'none' } }}
+            sx={{ display: { xs: 'block', sm: 'none' }, color: softGreen }}
           >
             View and manage your transaction history
           </Typography>

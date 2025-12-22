@@ -249,11 +249,15 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
             sx={{
               pl: 2 + depth * 2,
               minHeight: 48,
+              color: '#ffffff',
+              '&:hover': {
+                backgroundColor: 'rgba(124, 205, 133, 0.1)',
+              },
               '&.Mui-selected': {
-                backgroundColor: theme.palette.primary.main + '20',
-                borderRight: `3px solid ${theme.palette.primary.main}`,
+                backgroundColor: 'rgba(124, 205, 133, 0.15)',
+                borderRight: '3px solid #7dcd85',
                 '&:hover': {
-                  backgroundColor: theme.palette.primary.main + '30',
+                  backgroundColor: 'rgba(124, 205, 133, 0.2)',
                 },
               },
             }}
@@ -261,7 +265,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
             <ListItemIcon
               sx={{
                 minWidth: 40,
-                color: isActive ? theme.palette.primary.main : 'inherit',
+                color: isActive ? '#7dcd85' : '#ffffff',
               }}
             >
               {item.icon}
@@ -271,7 +275,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
               primaryTypographyProps={{
                 fontSize: '0.875rem',
                 fontWeight: isActive ? 600 : 400,
-                color: isActive ? theme.palette.primary.main : 'inherit',
+                color: isActive ? '#7dcd85' : '#ffffff',
               }}
             />
             {hasChildren && (isExpanded ? <ExpandLess /> : <ExpandMore />)}
@@ -305,17 +309,31 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
   }
 
   const drawerContent = (
-    <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <Box
+      sx={{
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        background:
+          'linear-gradient(135deg, rgba(7, 24, 13, 0.92) 0%, rgba(7, 24, 13, 0.95) 100%)',
+        color: '#ffffff',
+      }}
+    >
       {/* Toolbar spacer */}
       <Box sx={{ height: theme.mixins.toolbar.minHeight }} />
 
       {/* Role indicator */}
       {user && (
-        <Box sx={{ px: 2, py: 2, borderBottom: 1, borderColor: 'divider' }}>
+        <Box
+          sx={{
+            px: 2,
+            py: 2,
+            borderBottom: '1px solid rgba(255,255,255,0.08)',
+          }}
+        >
           <Typography
             variant="subtitle2"
-            color="text.secondary"
-            sx={{ fontSize: '0.75rem' }}
+            sx={{ fontSize: '0.75rem', color: '#c8ffd8' }}
           >
             {getRoleTitle(user.role)}
           </Typography>
@@ -332,10 +350,10 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
       </Box>
 
       {/* Footer */}
-      <Box sx={{ p: 2, borderTop: 1, borderColor: 'divider' }}>
+      <Box sx={{ p: 2, borderTop: '1px solid rgba(255,255,255,0.08)' }}>
         <Typography
           variant="caption"
-          color="text.secondary"
+          sx={{ color: '#c8ffd8' }}
           align="center"
           display="block"
         >

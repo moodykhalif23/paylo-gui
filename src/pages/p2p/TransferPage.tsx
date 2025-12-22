@@ -20,6 +20,11 @@ const TransferPage: React.FC = () => {
   const [successMessage, setSuccessMessage] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
 
+  // Theme colors
+  const accentGreen = '#7dcd85'
+  const softGreen = '#c8ffd8'
+  const brandWhite = '#ffffff'
+
   const { data: wallets = [] } = useGetUserWalletsQuery()
   const { data: feeData } = useGetTransactionFeesQuery(
     transferData?.blockchain || 'bitcoin',
@@ -87,11 +92,11 @@ const TransferPage: React.FC = () => {
 
   return (
     <Container maxWidth="md">
-      <Box sx={{ py: 3 }}>
-        <Typography variant="h4" gutterBottom>
+      <Box sx={{ py: 3, color: brandWhite }}>
+        <Typography variant="h4" gutterBottom sx={{ color: accentGreen }}>
           Send Payment
         </Typography>
-        <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+        <Typography variant="body1" sx={{ mb: 4, color: softGreen }}>
           Send cryptocurrency to any wallet address across Bitcoin, Ethereum,
           Solana, and USDT networks.
         </Typography>

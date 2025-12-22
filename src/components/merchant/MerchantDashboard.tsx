@@ -29,6 +29,11 @@ import {
 const MerchantDashboard: React.FC = () => {
   const [showValues, setShowValues] = useState(true)
 
+  // Landing page colors
+  const accentGreen = '#7dcd85'
+  const softGreen = '#c8ffd8'
+  const brandWhite = '#ffffff'
+
   // Fetch analytics data for the last 30 days by default
   const {
     data: analytics,
@@ -86,7 +91,7 @@ const MerchantDashboard: React.FC = () => {
   }
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Box sx={{ color: brandWhite }}>
       <Box
         display="flex"
         justifyContent="space-between"
@@ -94,15 +99,19 @@ const MerchantDashboard: React.FC = () => {
         mb={3}
       >
         <Box>
-          <Typography variant="h4" gutterBottom>
+          <Typography variant="h4" gutterBottom sx={{ color: accentGreen }}>
             <Home sx={{ mr: 1, verticalAlign: 'middle' }} />
             Merchant Dashboard
           </Typography>
-          <Typography variant="body1" color="text.secondary">
+          <Typography variant="body1" sx={{ color: softGreen }}>
             Monitor your business performance and recent activity
           </Typography>
         </Box>
-        <IconButton onClick={() => setShowValues(!showValues)} size="small">
+        <IconButton
+          onClick={() => setShowValues(!showValues)}
+          size="small"
+          sx={{ color: brandWhite }}
+        >
           {showValues ? <Visibility /> : <VisibilityOff />}
         </IconButton>
       </Box>
@@ -125,9 +134,16 @@ const MerchantDashboard: React.FC = () => {
 
         {/* Revenue Distribution Chart */}
         <Grid item xs={12} md={6}>
-          <Card>
+          <Card
+            sx={{
+              backgroundColor: 'rgba(255,255,255,0.05)',
+              border: '1px solid rgba(255,255,255,0.08)',
+              backdropFilter: 'blur(6px)',
+              color: brandWhite,
+            }}
+          >
             <CardContent>
-              <Typography variant="h6" gutterBottom>
+              <Typography variant="h6" gutterBottom sx={{ color: accentGreen }}>
                 Revenue by Blockchain
               </Typography>
               {analytics && revenueChartData.length > 0 ? (
@@ -164,7 +180,7 @@ const MerchantDashboard: React.FC = () => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: 'text.secondary',
+                    color: softGreen,
                   }}
                 >
                   <Typography variant="body2">

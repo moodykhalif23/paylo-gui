@@ -9,24 +9,28 @@ import Sidebar from './Sidebar'
 const MainLayout: React.FC = () => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
+  const isLargeScreen = useMediaQuery(theme.breakpoints.up('lg'))
   const { isAuthenticated } = useAppSelector(state => state.auth)
 
   // Hide footer on all authenticated pages (MainLayout is only used for authenticated pages)
   const isAuthenticatedPage = isAuthenticated
 
+  // Sidebar always open on large screens, controlled on mobile/tablet
   const [sidebarOpen, setSidebarOpen] = useState(!isMobile)
 
   // Sidebar width constant
   const sidebarWidth = 280
 
-  // Close sidebar on mobile when screen size changes
+  // Close sidebar on mobile when screen size changes, always open on large screens
   useEffect(() => {
     if (isMobile) {
       setSidebarOpen(false)
+    } else if (isLargeScreen) {
+      setSidebarOpen(true)
     } else {
       setSidebarOpen(true)
     }
-  }, [isMobile])
+  }, [isMobile, isLargeScreen])
 
   const handleSidebarToggle = () => {
     setSidebarOpen(!sidebarOpen)
@@ -65,6 +69,9 @@ const MainLayout: React.FC = () => {
             xs: 0,
             md: isAuthenticated && sidebarOpen ? `${sidebarWidth}px` : 0,
           },
+          background: isAuthenticated
+            ? 'linear-gradient(135deg, rgba(7, 24, 13, 0.92) 0%, rgba(7, 24, 13, 0.95) 100%)'
+            : 'transparent',
           transition: theme.transitions.create(['margin-left', 'width'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
@@ -81,12 +88,12 @@ const MainLayout: React.FC = () => {
             flex: 1,
             display: 'flex',
             flexDirection: 'column',
-            py: { xs: 2, sm: 3 },
-            px: { xs: 1, sm: 2, md: isAuthenticated && sidebarOpen ? 2 : 3 },
+            py: { xs: 2, sm: 2 },
+            px: { xs: 2, sm: 2, md: 2, lg: 2 },
             width: '100%',
             maxWidth: '100%',
-            ml: { xs: 0, md: isAuthenticated && sidebarOpen ? 0 : 'auto' },
-            mr: { xs: 0, md: 'auto' },
+            ml: 'auto',
+            mr: 'auto',
           }}
         >
           {/* Breadcrumbs removed from all pages */}

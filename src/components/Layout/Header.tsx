@@ -68,14 +68,16 @@ const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
       position="fixed"
       sx={{
         zIndex: theme.zIndex.drawer + 1,
-        backgroundColor: theme.palette.primary.main,
+        background:
+          'linear-gradient(135deg, rgba(7, 24, 13, 0.92) 0%, rgba(7, 24, 13, 0.95) 100%)',
         width: '100%',
         left: 0,
         right: 0,
+        borderBottom: '1px solid rgba(255,255,255,0.08)',
       }}
     >
       <Toolbar>
-        {/* Menu toggle button - only show on mobile or when sidebar is closed */}
+        {/* Menu toggle button - only show on mobile */}
         <IconButton
           color="inherit"
           aria-label="toggle sidebar"
@@ -83,7 +85,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
           edge="start"
           sx={{
             mr: 2,
-            display: { xs: 'block', md: 'none' },
+            display: { xs: 'block', md: 'block', lg: 'none' },
           }}
         >
           <MenuIcon />

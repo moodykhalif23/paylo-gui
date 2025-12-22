@@ -50,6 +50,11 @@ const InvoiceManagement: React.FC = () => {
   const [selectedInvoice, setSelectedInvoice] = useState<Invoice | null>(null)
   const [invoiceDetailDialogOpen, setInvoiceDetailDialogOpen] = useState(false)
 
+  // Theme colors
+  const accentGreen = '#7dcd85'
+  const softGreen = '#c8ffd8'
+  const brandWhite = '#ffffff'
+
   const handleTabChange = (_: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue)
   }
@@ -71,7 +76,7 @@ const InvoiceManagement: React.FC = () => {
   }
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Box sx={{ color: brandWhite }}>
       <Box
         display="flex"
         justifyContent="space-between"
@@ -79,21 +84,34 @@ const InvoiceManagement: React.FC = () => {
         mb={3}
       >
         <Box>
-          <Typography variant="h4" gutterBottom>
+          <Typography variant="h4" gutterBottom sx={{ color: accentGreen }}>
             Invoice Management
           </Typography>
-          <Typography variant="body1" color="text.secondary">
+          <Typography variant="body1" sx={{ color: softGreen }}>
             Create, manage, and track your payment invoices
           </Typography>
         </Box>
       </Box>
 
-      <Paper sx={{ width: '100%' }}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+      <Paper
+        sx={{
+          width: '100%',
+          backgroundColor: 'rgba(255,255,255,0.05)',
+          border: '1px solid rgba(255,255,255,0.08)',
+          backdropFilter: 'blur(6px)',
+          color: brandWhite,
+        }}
+      >
+        <Box sx={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
           <Tabs
             value={activeTab}
             onChange={handleTabChange}
             aria-label="invoice management tabs"
+            sx={{
+              '& .MuiTab-root': { color: brandWhite },
+              '& .Mui-selected': { color: accentGreen },
+              '& .MuiTabs-indicator': { backgroundColor: accentGreen },
+            }}
           >
             <Tab
               icon={<Receipt />}

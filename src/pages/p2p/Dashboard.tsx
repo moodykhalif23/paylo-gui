@@ -54,6 +54,11 @@ const P2PDashboard: React.FC = () => {
   const [newWalletLabel, setNewWalletLabel] = useState('')
   const [showBalances, setShowBalances] = useState(true)
 
+  // Landing page colors
+  const accentGreen = '#7dcd85'
+  const softGreen = '#c8ffd8'
+  const brandWhite = '#ffffff'
+
   const {
     data: wallets = [],
     isLoading: walletsLoading,
@@ -182,7 +187,7 @@ const P2PDashboard: React.FC = () => {
   }
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Box sx={{ color: brandWhite }}>
       {/* Header */}
       <Box
         display="flex"
@@ -191,10 +196,10 @@ const P2PDashboard: React.FC = () => {
         mb={3}
       >
         <Box>
-          <Typography variant="h4" gutterBottom>
+          <Typography variant="h4" gutterBottom sx={{ color: accentGreen }}>
             P2P Wallet Dashboard
           </Typography>
-          <Typography variant="body1" color="text.secondary">
+          <Typography variant="body1" sx={{ color: softGreen }}>
             Manage your cryptocurrency wallets and addresses
           </Typography>
         </Box>
@@ -220,7 +225,14 @@ const P2PDashboard: React.FC = () => {
       <Grid container spacing={3} sx={{ mb: 3 }}>
         {/* Portfolio Overview Card */}
         <Grid item xs={12} lg={8}>
-          <Card>
+          <Card
+            sx={{
+              backgroundColor: 'rgba(255,255,255,0.05)',
+              border: '1px solid rgba(255,255,255,0.08)',
+              backdropFilter: 'blur(6px)',
+              color: brandWhite,
+            }}
+          >
             <CardContent>
               <Box
                 display="flex"
@@ -228,13 +240,14 @@ const P2PDashboard: React.FC = () => {
                 alignItems="center"
                 mb={2}
               >
-                <Typography variant="h6">
+                <Typography variant="h6" sx={{ color: accentGreen }}>
                   <Home sx={{ mr: 1, verticalAlign: 'middle' }} />
                   Portfolio Overview
                 </Typography>
                 <IconButton
                   onClick={() => setShowBalances(!showBalances)}
                   size="small"
+                  sx={{ color: brandWhite }}
                 >
                   {showBalances ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
@@ -246,14 +259,13 @@ const P2PDashboard: React.FC = () => {
                     <Box textAlign="center">
                       <Typography
                         variant="h4"
-                        color="primary"
-                        fontWeight="bold"
+                        sx={{ color: accentGreen, fontWeight: 'bold' }}
                       >
                         {showBalances
                           ? formatUSD(walletSummary.totalBalanceUSD)
                           : '****'}
                       </Typography>
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: softGreen }}>
                         Total Balance
                       </Typography>
                     </Box>
@@ -262,12 +274,11 @@ const P2PDashboard: React.FC = () => {
                     <Box textAlign="center">
                       <Typography
                         variant="h4"
-                        color="primary"
-                        fontWeight="bold"
+                        sx={{ color: accentGreen, fontWeight: 'bold' }}
                       >
                         {walletSummary.walletCount}
                       </Typography>
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: softGreen }}>
                         Active Wallets
                       </Typography>
                     </Box>
@@ -276,12 +287,11 @@ const P2PDashboard: React.FC = () => {
                     <Box textAlign="center">
                       <Typography
                         variant="h4"
-                        color="primary"
-                        fontWeight="bold"
+                        sx={{ color: accentGreen, fontWeight: 'bold' }}
                       >
                         {walletSummary.activeAddresses}
                       </Typography>
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: softGreen }}>
                         Addresses
                       </Typography>
                     </Box>
@@ -290,12 +300,11 @@ const P2PDashboard: React.FC = () => {
                     <Box textAlign="center">
                       <Typography
                         variant="h4"
-                        color="primary"
-                        fontWeight="bold"
+                        sx={{ color: accentGreen, fontWeight: 'bold' }}
                       >
                         {walletSummary.balancesByBlockchain.length}
                       </Typography>
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: softGreen }}>
                         Blockchains
                       </Typography>
                     </Box>
@@ -322,9 +331,16 @@ const P2PDashboard: React.FC = () => {
 
         {/* Portfolio Distribution Pie Chart */}
         <Grid item xs={12} lg={4}>
-          <Card>
+          <Card
+            sx={{
+              backgroundColor: 'rgba(255,255,255,0.05)',
+              border: '1px solid rgba(255,255,255,0.08)',
+              backdropFilter: 'blur(6px)',
+              color: brandWhite,
+            }}
+          >
             <CardContent>
-              <Typography variant="h6" gutterBottom>
+              <Typography variant="h6" gutterBottom sx={{ color: accentGreen }}>
                 Portfolio Distribution
               </Typography>
               {walletSummary && pieChartData.length > 0 ? (
