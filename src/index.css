@@ -263,6 +263,7 @@ th {
 /* Sortable table headers */
 th[aria-sort] {
   cursor: pointer;
+  -webkit-user-select: none;
   user-select: none;
 }
 

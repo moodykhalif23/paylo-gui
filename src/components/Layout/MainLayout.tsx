@@ -41,7 +41,7 @@ const MainLayout: React.FC = () => {
   }
 
   return (
-    <Box sx={{ display: 'flex', minHeight: '100vh' }}>
+    <Box sx={{ display: 'flex', minHeight: '100vh', width: '100%' }}>
       {/* Header - Fixed position */}
       <Header onMenuToggle={handleSidebarToggle} />
 
@@ -58,13 +58,7 @@ const MainLayout: React.FC = () => {
           display: 'flex',
           flexDirection: 'column',
           minHeight: '100vh',
-          width: {
-            xs: '100%',
-            md:
-              isAuthenticated && sidebarOpen
-                ? `calc(100% - ${sidebarWidth}px)`
-                : '100%',
-          },
+          width: '100%',
           marginLeft: {
             xs: 0,
             md: isAuthenticated && sidebarOpen ? `${sidebarWidth}px` : 0,
@@ -72,7 +66,7 @@ const MainLayout: React.FC = () => {
           background: isAuthenticated
             ? 'linear-gradient(135deg, rgba(7, 24, 13, 0.92) 0%, rgba(7, 24, 13, 0.95) 100%)'
             : 'transparent',
-          transition: theme.transitions.create(['margin-left', 'width'], {
+          transition: theme.transitions.create(['margin-left'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
           }),

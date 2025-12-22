@@ -402,6 +402,9 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
               left: 0,
               height: '100vh',
               overflowX: 'hidden',
+              backgroundColor: 'transparent',
+              background:
+                'linear-gradient(135deg, rgba(7, 24, 13, 0.92) 0%, rgba(7, 24, 13, 0.95) 100%)',
               transition: theme.transitions.create(['transform', 'width'], {
                 easing: theme.transitions.easing.sharp,
                 duration: theme.transitions.duration.enteringScreen,
