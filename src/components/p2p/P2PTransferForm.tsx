@@ -181,11 +181,20 @@ const P2PTransferForm: React.FC<P2PTransferFormProps> = ({
   const isFormValid = formik.isValid && addressValidation?.isValid && !isLoading
 
   return (
-    <Card>
+    <Card
+      sx={{
+        backgroundColor: 'rgba(255,255,255,0.05)',
+        border: '1px solid rgba(255,255,255,0.08)',
+        backdropFilter: 'blur(6px)',
+        color: '#ffffff',
+      }}
+    >
       <CardContent>
         <Box display="flex" alignItems="center" gap={1} mb={3}>
-          <Send color="primary" />
-          <Typography variant="h6">Send Cryptocurrency</Typography>
+          <Send sx={{ color: '#7dcd85' }} />
+          <Typography variant="h6" sx={{ color: '#7dcd85', fontWeight: 600 }}>
+            Send Cryptocurrency
+          </Typography>
         </Box>
 
         <form onSubmit={formik.handleSubmit}>
