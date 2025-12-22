@@ -69,7 +69,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
       sx={{
         zIndex: theme.zIndex.drawer + 1,
         background:
-          'linear-gradient(135deg, rgba(7, 24, 13, 0.92) 0%, rgba(7, 24, 13, 0.95) 100%)',
+          'linear-gradient(135deg, rgb(7, 24, 13) 0%, rgb(7, 24, 13) 100%)',
         width: '100%',
         left: 0,
         right: 0,

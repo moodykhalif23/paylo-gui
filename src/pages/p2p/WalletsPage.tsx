@@ -567,6 +567,8 @@ const WalletsPage: React.FC = () => {
               <MenuItem value="bitcoin">Bitcoin (BTC)</MenuItem>
               <MenuItem value="ethereum">Ethereum (ETH)</MenuItem>
               <MenuItem value="solana">Solana (SOL)</MenuItem>
+              <MenuItem value="erc20">ERC20 Tokens</MenuItem>
+              <MenuItem value="trc20">TRC20 Tokens</MenuItem>
             </TextField>
 
             <TextField
