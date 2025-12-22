@@ -143,6 +143,10 @@ const P2PDashboard: React.FC = () => {
         return '#627eea'
       case 'solana':
         return '#9945ff'
+      case 'erc20':
+        return '#627eea'
+      case 'trc20':
+        return '#ff0628'
       default:
         return '#666'
     }

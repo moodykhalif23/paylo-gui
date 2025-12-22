@@ -75,6 +75,8 @@ const WalletAddressManager: React.FC<WalletAddressManagerProps> = ({
     bitcoin: { name: 'Bitcoin', symbol: 'BTC', color: '#f7931a' },
     ethereum: { name: 'Ethereum', symbol: 'ETH', color: '#627eea' },
     solana: { name: 'Solana', symbol: 'SOL', color: '#9945ff' },
+    erc20: { name: 'ERC20 Token', symbol: 'ERC20', color: '#627eea' },
+    trc20: { name: 'TRC20 Token', symbol: 'TRC20', color: '#ff0628' },
   }
 
   const config = blockchainConfig[blockchain]
@@ -325,10 +327,12 @@ const WalletAddressManager: React.FC<WalletAddressManagerProps> = ({
                 </Typography>
                 <Box
                   p={2}
-                  bgcolor="background.paper"
-                  borderRadius={1}
-                  border="1px solid"
-                  borderColor="divider"
+                  sx={{
+                    backgroundColor: 'rgba(255,255,255,0.05)',
+                    border: '1px solid rgba(255,255,255,0.08)',
+                    borderRadius: 1,
+                    backdropFilter: 'blur(6px)',
+                  }}
                 >
                   <Typography
                     variant="body2"

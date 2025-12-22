@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Typography, Box, Container, Alert, Snackbar } from '@mui/material'
+import { Typography, Box, Alert, Snackbar } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import P2PTransferForm, {
   TransferFormData,
@@ -91,66 +91,78 @@ const TransferPage: React.FC = () => {
   }
 
   return (
-    <Container maxWidth="md">
-      <Box sx={{ py: 3, color: brandWhite }}>
-        <Typography variant="h4" gutterBottom sx={{ color: accentGreen }}>
-          Send Payment
-        </Typography>
-        <Typography variant="body1" sx={{ mb: 4, color: softGreen }}>
-          Send cryptocurrency to any wallet address across Bitcoin, Ethereum,
-          Solana, and USDT networks.
-        </Typography>
+    <Box
+      sx={{
+        py: 3,
+        color: brandWhite,
+        backgroundColor: 'rgba(255,255,255,0.03)',
+        border: '1px solid rgba(255,255,255,0.08)',
+        borderRadius: 2,
+        p: 3,
+        backdropFilter: 'blur(8px)',
+      }}
+    >
+      <Typography
+        variant="h4"
+        gutterBottom
+        sx={{ color: accentGreen, fontWeight: 600 }}
+      >
+        Send Payment
+      </Typography>
+      <Typography variant="body1" sx={{ mb: 4, color: softGreen }}>
+        Send cryptocurrency to any wallet address across Bitcoin, Ethereum,
+        Solana, and USDT networks.
+      </Typography>
 
-        <P2PTransferForm
-          onSubmit={handleTransferSubmit}
+      <P2PTransferForm
+        onSubmit={handleTransferSubmit}
+        isLoading={isCreatingTransaction}
+      />
+
+      {/* Transaction Confirmation Dialog */}
+      {transferData && (
+        <TransactionConfirmationDialog
+          open={showConfirmDialog}
+          onClose={handleCloseConfirmDialog}
+          onConfirm={handleConfirmTransaction}
+          transferData={transferData}
+          selectedWallet={selectedWallet}
+          feeData={feeData}
           isLoading={isCreatingTransaction}
         />
+      )}
 
-        {/* Transaction Confirmation Dialog */}
-        {transferData && (
-          <TransactionConfirmationDialog
-            open={showConfirmDialog}
-            onClose={handleCloseConfirmDialog}
-            onConfirm={handleConfirmTransaction}
-            transferData={transferData}
-            selectedWallet={selectedWallet}
-            feeData={feeData}
-            isLoading={isCreatingTransaction}
-          />
-        )}
-
-        {/* Success/Error Messages */}
-        <Snackbar
-          open={!!successMessage}
-          autoHideDuration={6000}
+      {/* Success/Error Messages */}
+      <Snackbar
+        open={!!successMessage}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert
           onClose={handleCloseSnackbar}
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          severity="success"
+          sx={{ width: '100%' }}
         >
-          <Alert
-            onClose={handleCloseSnackbar}
-            severity="success"
-            sx={{ width: '100%' }}
-          >
-            {successMessage}
-          </Alert>
-        </Snackbar>
+          {successMessage}
+        </Alert>
+      </Snackbar>
 
-        <Snackbar
-          open={!!errorMessage}
-          autoHideDuration={6000}
+      <Snackbar
+        open={!!errorMessage}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert
           onClose={handleCloseSnackbar}
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          severity="error"
+          sx={{ width: '100%' }}
         >
-          <Alert
-            onClose={handleCloseSnackbar}
-            severity="error"
-            sx={{ width: '100%' }}
-          >
-            {errorMessage}
-          </Alert>
-        </Snackbar>
-      </Box>
-    </Container>
+          {errorMessage}
+        </Alert>
+      </Snackbar>
+    </Box>
   )
 }
 

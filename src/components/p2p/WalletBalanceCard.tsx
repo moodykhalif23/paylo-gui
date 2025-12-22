@@ -191,10 +191,12 @@ const WalletBalanceCard: React.FC<WalletBalanceCardProps> = ({
               alignItems="center"
               gap={1}
               p={1}
-              bgcolor="background.paper"
-              borderRadius={1}
-              border="1px solid"
-              borderColor="divider"
+              sx={{
+                backgroundColor: 'rgba(255,255,255,0.05)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                borderRadius: 1,
+                backdropFilter: 'blur(6px)',
+              }}
             >
               <Typography
                 variant="body2"
@@ -281,10 +283,12 @@ const WalletBalanceCard: React.FC<WalletBalanceCardProps> = ({
             </Typography>
             <Box
               p={2}
-              bgcolor="background.paper"
-              borderRadius={1}
-              border="1px solid"
-              borderColor="divider"
+              sx={{
+                backgroundColor: 'rgba(255,255,255,0.05)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                borderRadius: 1,
+                backdropFilter: 'blur(6px)',
+              }}
             >
               <Typography
                 variant="body2"

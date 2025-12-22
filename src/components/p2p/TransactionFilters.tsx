@@ -81,6 +81,8 @@ const TransactionFilters: React.FC<TransactionFiltersProps> = ({
               <MenuItem value="bitcoin">Bitcoin</MenuItem>
               <MenuItem value="ethereum">Ethereum</MenuItem>
               <MenuItem value="solana">Solana</MenuItem>
+              <MenuItem value="erc20">ERC20 Tokens</MenuItem>
+              <MenuItem value="trc20">TRC20 Tokens</MenuItem>
             </Select>
           </FormControl>
         </Grid>

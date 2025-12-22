@@ -73,6 +73,10 @@ const TransactionDetailModal: React.FC<TransactionDetailModalProps> = ({
         return '#627eea'
       case 'solana':
         return '#9945ff'
+      case 'erc20':
+        return '#627eea'
+      case 'trc20':
+        return '#ff0628'
       default:
         return '#666'
     }
@@ -86,6 +90,10 @@ const TransactionDetailModal: React.FC<TransactionDetailModalProps> = ({
         return 'ETH'
       case 'solana':
         return 'SOL'
+      case 'erc20':
+        return 'ERC20'
+      case 'trc20':
+        return 'TRC20'
       default:
         return (blockchain as string).toUpperCase()
     }
@@ -101,6 +109,10 @@ const TransactionDetailModal: React.FC<TransactionDetailModalProps> = ({
         return `https://etherscan.io/tx/${transaction.txHash}`
       case 'solana':
         return `https://explorer.solana.com/tx/${transaction.txHash}`
+      case 'erc20':
+        return `https://etherscan.io/tx/${transaction.txHash}`
+      case 'trc20':
+        return `https://tronscan.org/#/transaction/${transaction.txHash}`
       default:
         return null
     }
