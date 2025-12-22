@@ -59,17 +59,9 @@ const MainLayout: React.FC = () => {
           flexDirection: 'column',
           minHeight: '100vh',
           width: '100%',
-          marginLeft: {
-            xs: 0,
-            md: isAuthenticated && sidebarOpen ? `${sidebarWidth}px` : 0,
-          },
           background: isAuthenticated
             ? 'linear-gradient(135deg, rgba(7, 24, 13, 0.92) 0%, rgba(7, 24, 13, 0.95) 100%)'
             : 'transparent',
-          transition: theme.transitions.create(['margin-left'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-          }),
           paddingTop: 0,
         }}
       >
@@ -88,10 +80,16 @@ const MainLayout: React.FC = () => {
             width: '100%',
             ml: 0,
             mr: 0,
+            pl: {
+              xs: 2,
+              md: isAuthenticated && sidebarOpen ? `${sidebarWidth + 16}px` : 2,
+            },
+            transition: theme.transitions.create(['padding-left'], {
+              easing: theme.transitions.easing.sharp,
+              duration: theme.transitions.duration.enteringScreen,
+            }),
           }}
         >
-          {/* Breadcrumbs removed from all pages */}
-
           {/* Page content */}
           <Box sx={{ flex: 1 }}>
             <Outlet />
