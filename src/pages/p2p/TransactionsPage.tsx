@@ -103,10 +103,19 @@ const TransactionsPage: React.FC = () => {
           alignItems: { xs: 'stretch', sm: 'center' },
           gap: { xs: 2, sm: 0 },
           mb: 3,
+          backgroundColor: 'rgba(255,255,255,0.03)',
+          border: '1px solid rgba(255,255,255,0.08)',
+          borderRadius: 2,
+          p: 3,
+          backdropFilter: 'blur(8px)',
         }}
       >
         <Box>
-          <Typography variant="h4" gutterBottom sx={{ color: accentGreen }}>
+          <Typography
+            variant="h4"
+            gutterBottom
+            sx={{ color: accentGreen, fontWeight: 600 }}
+          >
             Transaction History
           </Typography>
           <Typography
@@ -128,7 +137,15 @@ const TransactionsPage: React.FC = () => {
             startIcon={<RefreshIcon />}
             onClick={handleRefresh}
             disabled={isLoading}
-            sx={{ width: { xs: '100%', sm: 'auto' } }}
+            sx={{
+              width: { xs: '100%', sm: 'auto' },
+              borderColor: 'rgba(124, 205, 133, 0.3)',
+              color: accentGreen,
+              '&:hover': {
+                borderColor: accentGreen,
+                backgroundColor: 'rgba(124, 205, 133, 0.05)',
+              },
+            }}
           >
             Refresh
           </Button>
@@ -139,7 +156,15 @@ const TransactionsPage: React.FC = () => {
             onClick={() => handleExport('csv')}
             disabled={isExporting}
             variant="outlined"
-            sx={{ width: { xs: '100%', sm: 'auto' } }}
+            sx={{
+              width: { xs: '100%', sm: 'auto' },
+              borderColor: 'rgba(124, 205, 133, 0.3)',
+              color: accentGreen,
+              '&:hover': {
+                borderColor: accentGreen,
+                backgroundColor: 'rgba(124, 205, 133, 0.05)',
+              },
+            }}
           >
             Export CSV
           </Button>
@@ -153,6 +178,12 @@ const TransactionsPage: React.FC = () => {
             sx={{
               width: { xs: '100%', sm: 'auto' },
               display: { xs: 'none', sm: 'flex' },
+              borderColor: 'rgba(124, 205, 133, 0.3)',
+              color: accentGreen,
+              '&:hover': {
+                borderColor: accentGreen,
+                backgroundColor: 'rgba(124, 205, 133, 0.05)',
+              },
             }}
           >
             Export Excel

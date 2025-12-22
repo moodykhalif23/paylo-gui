@@ -194,9 +194,20 @@ const P2PDashboard: React.FC = () => {
         justifyContent="space-between"
         alignItems="center"
         mb={3}
+        sx={{
+          backgroundColor: 'rgba(255,255,255,0.03)',
+          border: '1px solid rgba(255,255,255,0.08)',
+          borderRadius: 2,
+          p: 3,
+          backdropFilter: 'blur(8px)',
+        }}
       >
         <Box>
-          <Typography variant="h4" gutterBottom sx={{ color: accentGreen }}>
+          <Typography
+            variant="h4"
+            gutterBottom
+            sx={{ color: accentGreen, fontWeight: 600 }}
+          >
             P2P Wallet Dashboard
           </Typography>
           <Typography variant="body1" sx={{ color: softGreen }}>
@@ -208,6 +219,14 @@ const P2PDashboard: React.FC = () => {
             variant="outlined"
             startIcon={<Refresh />}
             onClick={handleRefresh}
+            sx={{
+              borderColor: 'rgba(124, 205, 133, 0.3)',
+              color: accentGreen,
+              '&:hover': {
+                borderColor: accentGreen,
+                backgroundColor: 'rgba(124, 205, 133, 0.05)',
+              },
+            }}
           >
             Refresh
           </Button>
@@ -215,6 +234,14 @@ const P2PDashboard: React.FC = () => {
             variant="contained"
             startIcon={<Add />}
             onClick={() => setCreateDialogOpen(true)}
+            sx={{
+              backgroundColor: accentGreen,
+              color: '#07180d',
+              fontWeight: 600,
+              '&:hover': {
+                backgroundColor: '#6bc074',
+              },
+            }}
           >
             Create Wallet
           </Button>
@@ -391,7 +418,15 @@ const P2PDashboard: React.FC = () => {
       </Grid>
 
       {/* Wallet Balance Cards */}
-      <Typography variant="h6" gutterBottom>
+      <Typography
+        variant="h6"
+        gutterBottom
+        sx={{
+          color: accentGreen,
+          fontWeight: 600,
+          mb: 2,
+        }}
+      >
         Your Wallets
       </Typography>
 
@@ -544,7 +579,15 @@ const P2PDashboard: React.FC = () => {
       {/* Address Manager */}
       {selectedWalletId && selectedBlockchain && (
         <Box mt={4}>
-          <Typography variant="h6" gutterBottom>
+          <Typography
+            variant="h6"
+            gutterBottom
+            sx={{
+              color: accentGreen,
+              fontWeight: 600,
+              mb: 2,
+            }}
+          >
             Address Management
           </Typography>
           <WalletAddressManager
@@ -570,7 +613,7 @@ const P2PDashboard: React.FC = () => {
           },
         }}
       >
-        <DialogTitle>Create New Wallet</DialogTitle>
+        <DialogTitle sx={{ color: '#07180d' }}>Create New Wallet</DialogTitle>
         <DialogContent>
           <Box sx={{ pt: 1 }}>
             <TextField
