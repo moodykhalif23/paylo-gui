@@ -36,7 +36,18 @@ const MainLayout: React.FC = () => {
   }
 
   return (
-    <Box sx={{ display: 'flex', minHeight: '100vh', width: '100%' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        minHeight: '100vh',
+        width: '100%',
+        background: isAuthenticated
+          ? 'linear-gradient(135deg, rgba(7, 24, 13, 0.92) 0%, rgba(7, 24, 13, 0.95) 100%)'
+          : 'transparent',
+        backgroundAttachment: 'fixed',
+        backgroundSize: 'cover',
+      }}
+    >
       {/* Header - Fixed position */}
       <Header onMenuToggle={handleSidebarToggle} />
 
@@ -54,9 +65,6 @@ const MainLayout: React.FC = () => {
           flexDirection: 'column',
           minHeight: '100vh',
           width: '100%',
-          background: isAuthenticated
-            ? 'linear-gradient(135deg, rgba(7, 24, 13, 0.92) 0%, rgba(7, 24, 13, 0.95) 100%)'
-            : 'transparent',
         }}
       >
         {/* Toolbar spacer */}
