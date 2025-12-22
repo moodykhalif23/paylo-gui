@@ -380,6 +380,9 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
               boxSizing: 'border-box',
               width: drawerWidth,
               zIndex: theme.zIndex.drawer,
+              backgroundColor: 'transparent',
+              background:
+                'linear-gradient(135deg, rgba(7, 24, 13, 0.92) 0%, rgba(7, 24, 13, 0.95) 100%)',
             },
           }}
         >

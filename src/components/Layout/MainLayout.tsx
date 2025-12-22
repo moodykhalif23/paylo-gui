@@ -70,14 +70,15 @@ const MainLayout: React.FC = () => {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
           }),
+          paddingTop: 0,
         }}
       >
         {/* Toolbar spacer */}
-        <Toolbar />
+        <Toolbar sx={{ minHeight: { xs: 56, sm: 64 } }} />
 
         {/* Content container */}
         <Container
-          maxWidth="xl"
+          maxWidth={false}
           sx={{
             flex: 1,
             display: 'flex',
@@ -85,9 +86,8 @@ const MainLayout: React.FC = () => {
             py: { xs: 2, sm: 2 },
             px: { xs: 2, sm: 2, md: 2, lg: 2 },
             width: '100%',
-            maxWidth: '100%',
-            ml: 'auto',
-            mr: 'auto',
+            ml: 0,
+            mr: 0,
           }}
         >
           {/* Breadcrumbs removed from all pages */}
