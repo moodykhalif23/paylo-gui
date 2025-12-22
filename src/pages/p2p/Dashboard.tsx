@@ -421,7 +421,14 @@ const P2PDashboard: React.FC = () => {
         <Grid container spacing={3}>
           {wallets.map(wallet => (
             <Grid item xs={12} md={6} lg={4} key={wallet.id}>
-              <Card>
+              <Card
+                sx={{
+                  backgroundColor: 'rgba(255,255,255,0.05)',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  backdropFilter: 'blur(6px)',
+                  color: brandWhite,
+                }}
+              >
                 <CardContent>
                   <Box
                     display="flex"
