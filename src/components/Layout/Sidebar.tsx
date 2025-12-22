@@ -293,19 +293,6 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
     )
   }
 
-  const getRoleTitle = (role: UserRole): string => {
-    switch (role) {
-      case 'admin':
-        return 'Administrator Panel'
-      case 'merchant':
-        return 'Merchant Dashboard'
-      case 'user':
-        return 'P2P Wallet'
-      default:
-        return 'Dashboard'
-    }
-  }
-
   const drawerContent = (
     <Box
       sx={{
@@ -319,24 +306,6 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
     >
       {/* Toolbar spacer */}
       <Box sx={{ height: theme.mixins.toolbar.minHeight }} />
-
-      {/* Role indicator */}
-      {user && (
-        <Box
-          sx={{
-            px: 2,
-            py: 2,
-            borderBottom: '1px solid rgba(255,255,255,0.08)',
-          }}
-        >
-          <Typography
-            variant="subtitle2"
-            sx={{ fontSize: '0.75rem', color: '#c8ffd8' }}
-          >
-            {getRoleTitle(user.role)}
-          </Typography>
-        </Box>
-      )}
 
       {/* Navigation items */}
       <Box sx={{ flex: 1, overflow: 'auto' }}>
