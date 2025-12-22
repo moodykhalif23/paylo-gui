@@ -25,8 +25,6 @@ import {
   ExpandLess,
   ExpandMore,
   Home,
-  Business,
-  AdminPanelSettings,
 } from '@mui/icons-material'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useAppSelector } from '../../store'
@@ -81,7 +79,7 @@ const navigationItems: NavigationItem[] = [
   {
     id: 'merchant-dashboard',
     label: 'Dashboard',
-    icon: <Business />,
+    icon: <Home />,
     path: '/merchant/dashboard',
     roles: ['merchant'],
   },
@@ -126,7 +124,7 @@ const navigationItems: NavigationItem[] = [
   {
     id: 'admin-dashboard',
     label: 'Admin Dashboard',
-    icon: <AdminPanelSettings />,
+    icon: <Home />,
     path: '/admin/dashboard',
     roles: ['admin'],
   },
