@@ -109,7 +109,7 @@ const TransactionMonitorPage: React.FC = () => {
   const totalCount = transactionsData?.pagination.totalCount || 0
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Box sx={{ p: 3, color: '#ffffff' }}>
       {/* Header */}
       <Box
         sx={{
@@ -121,7 +121,13 @@ const TransactionMonitorPage: React.FC = () => {
       >
         <Typography
           variant="h4"
-          sx={{ display: 'flex', alignItems: 'center', gap: 1 }}
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1,
+            color: '#7dcd85',
+            fontWeight: 600,
+          }}
         >
           <SecurityIcon />
           Transaction Monitor

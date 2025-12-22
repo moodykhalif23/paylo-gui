@@ -80,7 +80,7 @@ const SystemHealthPage: React.FC = () => {
   }
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Box sx={{ p: 3, color: '#ffffff' }}>
       {/* Header */}
       <Box
         display="flex"
@@ -89,11 +89,15 @@ const SystemHealthPage: React.FC = () => {
         mb={3}
       >
         <Box>
-          <Typography variant="h4" gutterBottom>
+          <Typography
+            variant="h4"
+            gutterBottom
+            sx={{ color: '#7dcd85', fontWeight: 600 }}
+          >
             System Health Monitor
           </Typography>
           <Box display="flex" alignItems="center" gap={2}>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" sx={{ color: '#c8ffd8' }}>
               Real-time system monitoring and health status
             </Typography>
             <Chip

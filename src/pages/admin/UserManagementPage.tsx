@@ -158,7 +158,7 @@ const UserManagementPage: React.FC = () => {
   }
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Box sx={{ p: 3, color: '#ffffff' }}>
       {/* Header */}
       <Box
         sx={{
@@ -169,10 +169,14 @@ const UserManagementPage: React.FC = () => {
         }}
       >
         <Box>
-          <Typography variant="h4" gutterBottom>
+          <Typography
+            variant="h4"
+            gutterBottom
+            sx={{ color: '#7dcd85', fontWeight: 600 }}
+          >
             User Management
           </Typography>
-          <Typography variant="body1" color="text.secondary">
+          <Typography variant="body1" sx={{ color: '#c8ffd8' }}>
             Manage users, roles, and monitor user activity across the platform
           </Typography>
         </Box>
@@ -180,6 +184,14 @@ const UserManagementPage: React.FC = () => {
           variant="contained"
           startIcon={<AddIcon />}
           onClick={() => setCreateDialogOpen(true)}
+          sx={{
+            backgroundColor: '#7dcd85',
+            color: '#07180d',
+            fontWeight: 600,
+            '&:hover': {
+              backgroundColor: '#6bc074',
+            },
+          }}
         >
           Create User
         </Button>

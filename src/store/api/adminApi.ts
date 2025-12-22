@@ -15,6 +15,7 @@ import {
   SystemConfiguration,
   ConfigurationValidationResult,
   ConfigurationTestResult,
+  BlockchainType,
 } from '../../types'
 
 // Admin API request/response types
@@ -256,7 +257,7 @@ export const adminApi = baseApi.injectEndpoints({
         limit?: number
         filters?: {
           status?: 'pending' | 'confirmed' | 'failed' | 'cancelled' | 'expired'
-          blockchain?: 'bitcoin' | 'ethereum' | 'solana'
+          blockchain?: BlockchainType
           type?: 'p2p' | 'merchant' | 'withdraw' | 'deposit'
           fromDate?: string
           toDate?: string
