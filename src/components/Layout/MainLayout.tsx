@@ -62,7 +62,6 @@ const MainLayout: React.FC = () => {
           background: isAuthenticated
             ? 'linear-gradient(135deg, rgba(7, 24, 13, 0.92) 0%, rgba(7, 24, 13, 0.95) 100%)'
             : 'transparent',
-          paddingTop: 0,
         }}
       >
         {/* Toolbar spacer */}
@@ -88,6 +87,7 @@ const MainLayout: React.FC = () => {
               easing: theme.transitions.easing.sharp,
               duration: theme.transitions.duration.enteringScreen,
             }),
+            minHeight: 0,
           }}
         >
           {/* Page content */}
