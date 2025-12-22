@@ -482,7 +482,7 @@ const LandingPage: React.FC = () => {
                   Send and receive cryptocurrency directly between wallets with
                   real-time transaction tracking
                 </Typography>
-                <Stack spacing={2}>
+                <Stack spacing={2} sx={{ alignItems: 'center', mb: 3 }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     <CheckCircle color="success" fontSize="small" />
                     <Typography variant="body2">
@@ -547,7 +547,7 @@ const LandingPage: React.FC = () => {
                   Accept cryptocurrency payments and manage your business with
                   comprehensive analytics
                 </Typography>
-                <Stack spacing={2} sx={{ mb: 4 }}>
+                <Stack spacing={2} sx={{ mb: 4, alignItems: 'center' }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     <CheckCircle color="success" fontSize="small" />
                     <Typography variant="body2">Payment processing</Typography>
