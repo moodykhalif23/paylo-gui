@@ -12,16 +12,11 @@ const MainLayout: React.FC = () => {
   const isLargeScreen = useMediaQuery(theme.breakpoints.up('lg'))
   const { isAuthenticated } = useAppSelector(state => state.auth)
 
-  // Hide footer on all authenticated pages (MainLayout is only used for authenticated pages)
-  const isAuthenticatedPage = isAuthenticated
-
-  // Sidebar always open on large screens, controlled on mobile/tablet
   const [sidebarOpen, setSidebarOpen] = useState(!isMobile)
 
   // Sidebar width constant
   const sidebarWidth = 280
 
-  // Close sidebar on mobile when screen size changes, always open on large screens
   useEffect(() => {
     if (isMobile) {
       setSidebarOpen(false)
@@ -95,51 +90,6 @@ const MainLayout: React.FC = () => {
             <Outlet />
           </Box>
         </Container>
-
-        {/* Footer - Hidden on all authenticated pages */}
-        {!isAuthenticatedPage && (
-          <Box
-            component="footer"
-            sx={{
-              mt: 'auto',
-              py: 2,
-              px: 3,
-              backgroundColor: theme.palette.grey[50],
-              borderTop: 1,
-              borderColor: 'divider',
-            }}
-          >
-            <Container maxWidth="xl">
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  flexWrap: 'wrap',
-                  gap: 2,
-                }}
-              >
-                <Box sx={{ fontSize: '0.875rem', color: 'text.secondary' }}>
-                  © 2024 Paylo. All rights reserved.
-                </Box>
-
-                <Box
-                  sx={{
-                    display: 'flex',
-                    gap: 2,
-                    fontSize: '0.875rem',
-                    color: 'text.secondary',
-                    flexWrap: 'wrap',
-                  }}
-                >
-                  <Box component="span">Privacy Policy</Box>
-                  <Box component="span">Terms of Service</Box>
-                  <Box component="span">Support</Box>
-                </Box>
-              </Box>
-            </Container>
-          </Box>
-        )}
       </Box>
     </Box>
   )
