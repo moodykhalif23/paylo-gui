@@ -216,12 +216,16 @@ const MerchantSettingsPage: React.FC = () => {
   }
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Typography variant="h4" gutterBottom>
+    <Box sx={{ p: 3, color: '#ffffff' }}>
+      <Typography
+        variant="h4"
+        gutterBottom
+        sx={{ color: '#7dcd85', fontWeight: 600 }}
+      >
         <SettingsIcon sx={{ mr: 1, verticalAlign: 'middle' }} />
         Merchant Settings
       </Typography>
-      <Typography variant="body1" color="text.secondary" gutterBottom>
+      <Typography variant="body1" sx={{ color: '#c8ffd8' }} gutterBottom>
         Manage your merchant profile, API keys, and webhook configurations
       </Typography>
 
@@ -255,8 +259,15 @@ const MerchantSettingsPage: React.FC = () => {
       {activeTab === 'profile' && (
         <Grid container spacing={3}>
           <Grid item xs={12} md={8}>
-            <Card>
-              <CardHeader title="Business Profile" />
+            <Card
+              sx={{
+                backgroundColor: 'rgba(255,255,255,0.05)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                backdropFilter: 'blur(6px)',
+                color: '#ffffff',
+              }}
+            >
+              <CardHeader title="Business Profile" sx={{ color: '#7dcd85' }} />
               <CardContent>
                 {profileLoading ? (
                   <CircularProgress />
@@ -310,14 +321,30 @@ const MerchantSettingsPage: React.FC = () => {
       {activeTab === 'api' && (
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Card>
+            <Card
+              sx={{
+                backgroundColor: 'rgba(255,255,255,0.05)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                backdropFilter: 'blur(6px)',
+                color: '#ffffff',
+              }}
+            >
               <CardHeader
                 title="API Keys"
+                sx={{ color: '#7dcd85' }}
                 action={
                   <Button
                     variant="contained"
                     startIcon={<AddIcon />}
                     onClick={() => setCreateApiKeyOpen(true)}
+                    sx={{
+                      backgroundColor: '#7dcd85',
+                      color: '#07180d',
+                      fontWeight: 600,
+                      '&:hover': {
+                        backgroundColor: '#6bc074',
+                      },
+                    }}
                   >
                     Create API Key
                   </Button>
@@ -435,8 +462,18 @@ const MerchantSettingsPage: React.FC = () => {
       {activeTab === 'webhooks' && (
         <Grid container spacing={3}>
           <Grid item xs={12} md={8}>
-            <Card>
-              <CardHeader title="Webhook Configuration" />
+            <Card
+              sx={{
+                backgroundColor: 'rgba(255,255,255,0.05)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                backdropFilter: 'blur(6px)',
+                color: '#ffffff',
+              }}
+            >
+              <CardHeader
+                title="Webhook Configuration"
+                sx={{ color: '#7dcd85' }}
+              />
               <CardContent>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
@@ -535,8 +572,18 @@ const MerchantSettingsPage: React.FC = () => {
             </Card>
           </Grid>
           <Grid item xs={12} md={4}>
-            <Card>
-              <CardHeader title="Webhook Information" />
+            <Card
+              sx={{
+                backgroundColor: 'rgba(255,255,255,0.05)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                backdropFilter: 'blur(6px)',
+                color: '#ffffff',
+              }}
+            >
+              <CardHeader
+                title="Webhook Information"
+                sx={{ color: '#7dcd85' }}
+              />
               <CardContent>
                 <Typography variant="body2" color="text.secondary" paragraph>
                   Webhooks allow you to receive real-time notifications about
