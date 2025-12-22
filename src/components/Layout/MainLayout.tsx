@@ -63,8 +63,9 @@ const MainLayout: React.FC = () => {
           flexGrow: 1,
           display: 'flex',
           flexDirection: 'column',
-          minHeight: '100vh',
+          height: '100vh',
           width: '100%',
+          overflow: 'hidden',
         }}
       >
         {/* Toolbar spacer */}
@@ -90,7 +91,7 @@ const MainLayout: React.FC = () => {
               easing: theme.transitions.easing.sharp,
               duration: theme.transitions.duration.enteringScreen,
             }),
-            minHeight: 0,
+            overflow: 'auto',
           }}
         >
           {/* Page content */}
