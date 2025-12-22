@@ -24,7 +24,14 @@ const MerchantSummaryCard: React.FC<MerchantSummaryCardProps> = ({
 }) => {
   if (isLoading) {
     return (
-      <Card>
+      <Card
+        sx={{
+          backgroundColor: 'rgba(255,255,255,0.05)',
+          border: '1px solid rgba(255,255,255,0.08)',
+          backdropFilter: 'blur(6px)',
+          color: '#ffffff',
+        }}
+      >
         <CardContent>
           <Grid container spacing={3}>
             {[1, 2, 3, 4].map(item => (
@@ -44,7 +51,14 @@ const MerchantSummaryCard: React.FC<MerchantSummaryCardProps> = ({
 
   if (!analytics) {
     return (
-      <Card>
+      <Card
+        sx={{
+          backgroundColor: 'rgba(255,255,255,0.05)',
+          border: '1px solid rgba(255,255,255,0.08)',
+          backdropFilter: 'blur(6px)',
+          color: '#ffffff',
+        }}
+      >
         <CardContent>
           <Typography variant="h6" color="text.secondary">
             No analytics data available
@@ -66,7 +80,14 @@ const MerchantSummaryCard: React.FC<MerchantSummaryCardProps> = ({
   }
 
   return (
-    <Card>
+    <Card
+      sx={{
+        backgroundColor: 'rgba(255,255,255,0.05)',
+        border: '1px solid rgba(255,255,255,0.08)',
+        backdropFilter: 'blur(6px)',
+        color: '#ffffff',
+      }}
+    >
       <CardContent>
         <Typography variant="h6" gutterBottom>
           Business Overview

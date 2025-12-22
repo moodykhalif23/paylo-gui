@@ -26,7 +26,14 @@ const QuickStatsWidget: React.FC<QuickStatsWidgetProps> = ({
 }) => {
   if (isLoading) {
     return (
-      <Card>
+      <Card
+        sx={{
+          backgroundColor: 'rgba(255,255,255,0.05)',
+          border: '1px solid rgba(255,255,255,0.08)',
+          backdropFilter: 'blur(6px)',
+          color: '#ffffff',
+        }}
+      >
         <CardContent>
           <Typography variant="h6" gutterBottom>
             Quick Stats
@@ -49,7 +56,14 @@ const QuickStatsWidget: React.FC<QuickStatsWidgetProps> = ({
 
   if (!analytics) {
     return (
-      <Card>
+      <Card
+        sx={{
+          backgroundColor: 'rgba(255,255,255,0.05)',
+          border: '1px solid rgba(255,255,255,0.08)',
+          backdropFilter: 'blur(6px)',
+          color: '#ffffff',
+        }}
+      >
         <CardContent>
           <Typography variant="h6" color="text.secondary">
             Quick stats unavailable
@@ -81,7 +95,14 @@ const QuickStatsWidget: React.FC<QuickStatsWidgetProps> = ({
   }))
 
   return (
-    <Card>
+    <Card
+      sx={{
+        backgroundColor: 'rgba(255,255,255,0.05)',
+        border: '1px solid rgba(255,255,255,0.08)',
+        backdropFilter: 'blur(6px)',
+        color: '#ffffff',
+      }}
+    >
       <CardContent>
         <Typography variant="h6" gutterBottom>
           Quick Stats

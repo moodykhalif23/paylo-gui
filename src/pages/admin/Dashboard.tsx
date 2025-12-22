@@ -412,7 +412,14 @@ const AdminDashboard: React.FC = () => {
       </Grid>
 
       {/* Recent Alerts */}
-      <Card>
+      <Card
+        sx={{
+          backgroundColor: 'rgba(255,255,255,0.05)',
+          border: '1px solid rgba(255,255,255,0.08)',
+          backdropFilter: 'blur(6px)',
+          color: '#ffffff',
+        }}
+      >
         <CardContent>
           <Typography variant="h6" gutterBottom>
             Recent System Alerts

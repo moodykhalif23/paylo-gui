@@ -100,7 +100,14 @@ const RecentActivityFeed: React.FC<RecentActivityFeedProps> = ({
 
   if (isLoading) {
     return (
-      <Card>
+      <Card
+        sx={{
+          backgroundColor: 'rgba(255,255,255,0.05)',
+          border: '1px solid rgba(255,255,255,0.08)',
+          backdropFilter: 'blur(6px)',
+          color: '#ffffff',
+        }}
+      >
         <CardHeader title="Recent Activity" />
         <CardContent>
           <List>
@@ -125,7 +132,14 @@ const RecentActivityFeed: React.FC<RecentActivityFeedProps> = ({
   }
 
   return (
-    <Card>
+    <Card
+      sx={{
+        backgroundColor: 'rgba(255,255,255,0.05)',
+        border: '1px solid rgba(255,255,255,0.08)',
+        backdropFilter: 'blur(6px)',
+        color: '#ffffff',
+      }}
+    >
       <CardHeader
         title="Recent Activity"
         subheader={`${recentInvoices.length} recent invoices`}

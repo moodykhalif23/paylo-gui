@@ -396,7 +396,14 @@ const P2PDashboard: React.FC = () => {
       </Typography>
 
       {wallets.length === 0 ? (
-        <Card>
+        <Card
+          sx={{
+            backgroundColor: 'rgba(255,255,255,0.05)',
+            border: '1px solid rgba(255,255,255,0.08)',
+            backdropFilter: 'blur(6px)',
+            color: brandWhite,
+          }}
+        >
           <CardContent sx={{ textAlign: 'center', py: 6 }}>
             <AccountBalanceWallet
               sx={{ fontSize: 64, color: 'text.secondary', mb: 2 }}
