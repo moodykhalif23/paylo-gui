@@ -152,12 +152,23 @@ const WalletsPage: React.FC = () => {
         flexDirection={{ xs: 'column', sm: 'row' }}
         gap={{ xs: 2, sm: 0 }}
         mb={3}
+        sx={{
+          backgroundColor: 'rgba(255,255,255,0.03)',
+          border: '1px solid rgba(255,255,255,0.08)',
+          borderRadius: 2,
+          p: 3,
+          backdropFilter: 'blur(8px)',
+        }}
       >
         <Box>
-          <Typography variant="h4" gutterBottom sx={{ color: accentGreen }}>
+          <Typography
+            variant="h4"
+            gutterBottom
+            sx={{ color: accentGreen, fontWeight: 600 }}
+          >
             My Wallets
           </Typography>
-          <Typography variant="body1" color="text.secondary">
+          <Typography variant="body1" sx={{ color: '#c8ffd8' }}>
             Manage your cryptocurrency wallets and addresses
           </Typography>
         </Box>
@@ -170,7 +181,15 @@ const WalletsPage: React.FC = () => {
             variant="outlined"
             startIcon={<RefreshIcon />}
             onClick={handleRefresh}
-            sx={{ width: { xs: '100%', sm: 'auto' } }}
+            sx={{
+              width: { xs: '100%', sm: 'auto' },
+              borderColor: 'rgba(124, 205, 133, 0.3)',
+              color: accentGreen,
+              '&:hover': {
+                borderColor: accentGreen,
+                backgroundColor: 'rgba(124, 205, 133, 0.05)',
+              },
+            }}
           >
             Refresh
           </Button>
@@ -178,7 +197,15 @@ const WalletsPage: React.FC = () => {
             variant="contained"
             startIcon={<AddIcon />}
             onClick={() => setCreateDialogOpen(true)}
-            sx={{ width: { xs: '100%', sm: 'auto' } }}
+            sx={{
+              width: { xs: '100%', sm: 'auto' },
+              backgroundColor: accentGreen,
+              color: '#07180d',
+              fontWeight: 600,
+              '&:hover': {
+                backgroundColor: '#6bc074',
+              },
+            }}
           >
             Create Wallet
           </Button>
@@ -195,7 +222,15 @@ const WalletsPage: React.FC = () => {
 
       {/* Summary Card */}
       {walletSummary && (
-        <Card sx={{ mb: 3 }}>
+        <Card
+          sx={{
+            mb: 3,
+            backgroundColor: 'rgba(255,255,255,0.05)',
+            border: '1px solid rgba(255,255,255,0.08)',
+            backdropFilter: 'blur(6px)',
+            color: brandWhite,
+          }}
+        >
           <CardContent>
             <Box
               display="flex"
@@ -203,13 +238,17 @@ const WalletsPage: React.FC = () => {
               alignItems="center"
               mb={2}
             >
-              <Typography variant="h6">
+              <Typography
+                variant="h6"
+                sx={{ color: accentGreen, fontWeight: 600 }}
+              >
                 <WalletIcon sx={{ mr: 1, verticalAlign: 'middle' }} />
                 Portfolio Summary
               </Typography>
               <IconButton
                 onClick={() => setShowBalances(!showBalances)}
                 size="small"
+                sx={{ color: brandWhite }}
               >
                 {showBalances ? <VisibilityIcon /> : <VisibilityOffIcon />}
               </IconButton>
@@ -218,42 +257,54 @@ const WalletsPage: React.FC = () => {
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6} md={3}>
                 <Box textAlign="center">
-                  <Typography variant="h4" color="primary" fontWeight="bold">
+                  <Typography
+                    variant="h4"
+                    sx={{ color: accentGreen, fontWeight: 'bold' }}
+                  >
                     {showBalances
                       ? formatUSD(walletSummary.totalBalanceUSD)
                       : '****'}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: '#c8ffd8' }}>
                     Total Balance
                   </Typography>
                 </Box>
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
                 <Box textAlign="center">
-                  <Typography variant="h4" color="primary" fontWeight="bold">
+                  <Typography
+                    variant="h4"
+                    sx={{ color: accentGreen, fontWeight: 'bold' }}
+                  >
                     {walletSummary.walletCount}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: '#c8ffd8' }}>
                     Active Wallets
                   </Typography>
                 </Box>
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
                 <Box textAlign="center">
-                  <Typography variant="h4" color="primary" fontWeight="bold">
+                  <Typography
+                    variant="h4"
+                    sx={{ color: accentGreen, fontWeight: 'bold' }}
+                  >
                     {walletSummary.activeAddresses}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: '#c8ffd8' }}>
                     Addresses
                   </Typography>
                 </Box>
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
                 <Box textAlign="center">
-                  <Typography variant="h4" color="primary" fontWeight="bold">
+                  <Typography
+                    variant="h4"
+                    sx={{ color: accentGreen, fontWeight: 'bold' }}
+                  >
                     {walletSummary.balancesByBlockchain.length}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: '#c8ffd8' }}>
                     Blockchains
                   </Typography>
                 </Box>
@@ -263,7 +314,11 @@ const WalletsPage: React.FC = () => {
             {walletSummary.balancesByBlockchain.length > 0 && (
               <>
                 <Divider sx={{ my: 2 }} />
-                <Typography variant="subtitle2" gutterBottom>
+                <Typography
+                  variant="subtitle2"
+                  gutterBottom
+                  sx={{ color: accentGreen, fontWeight: 600 }}
+                >
                   Balance by Blockchain
                 </Typography>
                 <Stack direction="row" spacing={2} flexWrap="wrap">
@@ -284,7 +339,7 @@ const WalletsPage: React.FC = () => {
                           mb: 1,
                         }}
                       />
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: '#c8ffd8' }}>
                         {showBalances ? formatUSD(balance.usdValue) : '****'}
                       </Typography>
                     </Box>
@@ -297,24 +352,47 @@ const WalletsPage: React.FC = () => {
       )}
 
       {/* Wallet Cards */}
-      <Typography variant="h6" gutterBottom>
+      <Typography
+        variant="h6"
+        gutterBottom
+        sx={{
+          color: accentGreen,
+          fontWeight: 600,
+          mb: 2,
+        }}
+      >
         Your Wallets
       </Typography>
 
       {wallets.length === 0 ? (
-        <Card>
+        <Card
+          sx={{
+            backgroundColor: 'rgba(255,255,255,0.05)',
+            border: '1px solid rgba(255,255,255,0.08)',
+            backdropFilter: 'blur(6px)',
+            color: brandWhite,
+          }}
+        >
           <CardContent sx={{ textAlign: 'center', py: 6 }}>
-            <WalletIcon sx={{ fontSize: 64, color: 'text.secondary', mb: 2 }} />
-            <Typography variant="h6" gutterBottom>
+            <WalletIcon sx={{ fontSize: 64, color: '#c8ffd8', mb: 2 }} />
+            <Typography variant="h6" gutterBottom sx={{ color: brandWhite }}>
               No Wallets Found
             </Typography>
-            <Typography variant="body2" color="text.secondary" gutterBottom>
+            <Typography variant="body2" sx={{ color: '#c8ffd8' }} gutterBottom>
               Create your first wallet to start managing cryptocurrency
             </Typography>
             <Button
               variant="contained"
               startIcon={<AddIcon />}
-              sx={{ mt: 2 }}
+              sx={{
+                mt: 2,
+                backgroundColor: accentGreen,
+                color: '#07180d',
+                fontWeight: 600,
+                '&:hover': {
+                  backgroundColor: '#6bc074',
+                },
+              }}
               onClick={() => setCreateDialogOpen(true)}
             >
               Create Wallet
@@ -325,7 +403,14 @@ const WalletsPage: React.FC = () => {
         <Grid container spacing={3}>
           {wallets.map(wallet => (
             <Grid item xs={12} md={6} lg={4} key={wallet.id}>
-              <Card>
+              <Card
+                sx={{
+                  backgroundColor: 'rgba(255,255,255,0.05)',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  backdropFilter: 'blur(6px)',
+                  color: brandWhite,
+                }}
+              >
                 <CardContent>
                   <Box
                     display="flex"
@@ -345,19 +430,29 @@ const WalletsPage: React.FC = () => {
                           mr: 1,
                         }}
                       />
-                      <Typography variant="h6">{wallet.label}</Typography>
+                      <Typography variant="h6" sx={{ color: brandWhite }}>
+                        {wallet.label}
+                      </Typography>
                     </Box>
                     <Chip
                       label={wallet.isActive ? 'Active' : 'Inactive'}
-                      color={wallet.isActive ? 'success' : 'default'}
                       size="small"
+                      sx={{
+                        backgroundColor: wallet.isActive
+                          ? 'rgba(124, 205, 133, 0.2)'
+                          : 'rgba(255,255,255,0.1)',
+                        color: wallet.isActive ? accentGreen : brandWhite,
+                        border: wallet.isActive
+                          ? '1px solid rgba(124, 205, 133, 0.3)'
+                          : '1px solid rgba(255,255,255,0.2)',
+                      }}
                     />
                   </Box>
 
                   <Box mb={2}>
                     <Typography
                       variant="body2"
-                      color="text.secondary"
+                      sx={{ color: '#c8ffd8' }}
                       gutterBottom
                     >
                       Address
@@ -370,6 +465,7 @@ const WalletsPage: React.FC = () => {
                           fontSize: '0.75rem',
                           wordBreak: 'break-all',
                           flex: 1,
+                          color: brandWhite,
                         }}
                       >
                         {wallet.address}
@@ -377,7 +473,7 @@ const WalletsPage: React.FC = () => {
                       <IconButton
                         size="small"
                         onClick={() => handleCopyAddress(wallet.address)}
-                        sx={{ ml: 1 }}
+                        sx={{ ml: 1, color: brandWhite }}
                       >
                         <CopyIcon fontSize="small" />
                       </IconButton>
@@ -387,17 +483,17 @@ const WalletsPage: React.FC = () => {
                   <Box mb={2}>
                     <Typography
                       variant="body2"
-                      color="text.secondary"
+                      sx={{ color: '#c8ffd8' }}
                       gutterBottom
                     >
                       Balance
                     </Typography>
-                    <Typography variant="h6">
+                    <Typography variant="h6" sx={{ color: brandWhite }}>
                       {showBalances
                         ? formatBalance(wallet.balance, wallet.blockchain)
                         : '****'}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{ color: '#c8ffd8' }}>
                       {showBalances ? formatUSD(wallet.usdValue) : '****'}
                     </Typography>
                   </Box>
@@ -408,6 +504,14 @@ const WalletsPage: React.FC = () => {
                       startIcon={<QrCodeIcon />}
                       variant="outlined"
                       fullWidth
+                      sx={{
+                        borderColor: 'rgba(124, 205, 133, 0.3)',
+                        color: accentGreen,
+                        '&:hover': {
+                          borderColor: accentGreen,
+                          backgroundColor: 'rgba(124, 205, 133, 0.05)',
+                        },
+                      }}
                     >
                       QR Code
                     </Button>
@@ -417,6 +521,14 @@ const WalletsPage: React.FC = () => {
                       variant="outlined"
                       fullWidth
                       onClick={() => handleCopyAddress(wallet.address)}
+                      sx={{
+                        borderColor: 'rgba(124, 205, 133, 0.3)',
+                        color: accentGreen,
+                        '&:hover': {
+                          borderColor: accentGreen,
+                          backgroundColor: 'rgba(124, 205, 133, 0.05)',
+                        },
+                      }}
                     >
                       Copy
                     </Button>
@@ -435,7 +547,7 @@ const WalletsPage: React.FC = () => {
         maxWidth="sm"
         fullWidth
       >
-        <DialogTitle>Create New Wallet</DialogTitle>
+        <DialogTitle sx={{ color: '#07180d' }}>Create New Wallet</DialogTitle>
         <DialogContent>
           <Box sx={{ pt: 1 }}>
             <TextField

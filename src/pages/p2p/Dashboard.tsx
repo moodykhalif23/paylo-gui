@@ -267,7 +267,10 @@ const P2PDashboard: React.FC = () => {
                 alignItems="center"
                 mb={2}
               >
-                <Typography variant="h6" sx={{ color: accentGreen }}>
+                <Typography
+                  variant="h6"
+                  sx={{ color: accentGreen, fontWeight: 600 }}
+                >
                   <Home sx={{ mr: 1, verticalAlign: 'middle' }} />
                   Portfolio Overview
                 </Typography>
@@ -342,7 +345,7 @@ const P2PDashboard: React.FC = () => {
                   sx={{
                     py: 4,
                     textAlign: 'center',
-                    color: 'text.secondary',
+                    color: softGreen,
                   }}
                 >
                   <Typography variant="body2">
@@ -367,7 +370,11 @@ const P2PDashboard: React.FC = () => {
             }}
           >
             <CardContent>
-              <Typography variant="h6" gutterBottom sx={{ color: accentGreen }}>
+              <Typography
+                variant="h6"
+                gutterBottom
+                sx={{ color: accentGreen, fontWeight: 600 }}
+              >
                 Portfolio Distribution
               </Typography>
               {walletSummary && pieChartData.length > 0 ? (
@@ -404,7 +411,7 @@ const P2PDashboard: React.FC = () => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: 'text.secondary',
+                    color: softGreen,
                   }}
                 >
                   <Typography variant="body2">
@@ -443,16 +450,24 @@ const P2PDashboard: React.FC = () => {
             <AccountBalanceWallet
               sx={{ fontSize: 64, color: 'text.secondary', mb: 2 }}
             />
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="h6" gutterBottom sx={{ color: brandWhite }}>
               No Wallets Found
             </Typography>
-            <Typography variant="body2" color="text.secondary" gutterBottom>
+            <Typography variant="body2" sx={{ color: softGreen }} gutterBottom>
               Create your first wallet to start managing cryptocurrency
             </Typography>
             <Button
               variant="contained"
               startIcon={<Add />}
-              sx={{ mt: 2 }}
+              sx={{
+                mt: 2,
+                backgroundColor: accentGreen,
+                color: '#07180d',
+                fontWeight: 600,
+                '&:hover': {
+                  backgroundColor: '#6bc074',
+                },
+              }}
               onClick={() => setCreateDialogOpen(true)}
             >
               Create Wallet
@@ -490,19 +505,29 @@ const P2PDashboard: React.FC = () => {
                           mr: 1,
                         }}
                       />
-                      <Typography variant="h6">{wallet.label}</Typography>
+                      <Typography variant="h6" sx={{ color: brandWhite }}>
+                        {wallet.label}
+                      </Typography>
                     </Box>
                     <Chip
                       label={wallet.isActive ? 'Active' : 'Inactive'}
-                      color={wallet.isActive ? 'success' : 'default'}
                       size="small"
+                      sx={{
+                        backgroundColor: wallet.isActive
+                          ? 'rgba(124, 205, 133, 0.2)'
+                          : 'rgba(255,255,255,0.1)',
+                        color: wallet.isActive ? accentGreen : brandWhite,
+                        border: wallet.isActive
+                          ? '1px solid rgba(124, 205, 133, 0.3)'
+                          : '1px solid rgba(255,255,255,0.2)',
+                      }}
                     />
                   </Box>
 
                   <Box mb={2}>
                     <Typography
                       variant="body2"
-                      color="text.secondary"
+                      sx={{ color: softGreen }}
                       gutterBottom
                     >
                       Address
@@ -515,6 +540,7 @@ const P2PDashboard: React.FC = () => {
                           fontSize: '0.75rem',
                           wordBreak: 'break-all',
                           flex: 1,
+                          color: brandWhite,
                         }}
                       >
                         {wallet.address}
@@ -522,7 +548,7 @@ const P2PDashboard: React.FC = () => {
                       <IconButton
                         size="small"
                         onClick={() => handleCopyAddress(wallet.address)}
-                        sx={{ ml: 1 }}
+                        sx={{ ml: 1, color: brandWhite }}
                       >
                         <ContentCopy fontSize="small" />
                       </IconButton>
@@ -532,17 +558,17 @@ const P2PDashboard: React.FC = () => {
                   <Box mb={2}>
                     <Typography
                       variant="body2"
-                      color="text.secondary"
+                      sx={{ color: softGreen }}
                       gutterBottom
                     >
                       Balance
                     </Typography>
-                    <Typography variant="h6">
+                    <Typography variant="h6" sx={{ color: brandWhite }}>
                       {showBalances
                         ? formatBalance(wallet.balance, wallet.blockchain)
                         : '****'}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{ color: softGreen }}>
                       {showBalances ? formatUSD(wallet.usdValue) : '****'}
                     </Typography>
                   </Box>
@@ -556,6 +582,14 @@ const P2PDashboard: React.FC = () => {
                       onClick={() =>
                         handleGenerateAddress(wallet.id, wallet.blockchain)
                       }
+                      sx={{
+                        borderColor: 'rgba(124, 205, 133, 0.3)',
+                        color: accentGreen,
+                        '&:hover': {
+                          borderColor: accentGreen,
+                          backgroundColor: 'rgba(124, 205, 133, 0.05)',
+                        },
+                      }}
                     >
                       QR Code
                     </Button>
@@ -565,6 +599,14 @@ const P2PDashboard: React.FC = () => {
                       variant="outlined"
                       fullWidth
                       onClick={() => handleCopyAddress(wallet.address)}
+                      sx={{
+                        borderColor: 'rgba(124, 205, 133, 0.3)',
+                        color: accentGreen,
+                        '&:hover': {
+                          borderColor: accentGreen,
+                          backgroundColor: 'rgba(124, 205, 133, 0.05)',
+                        },
+                      }}
                     >
                       Copy
                     </Button>
