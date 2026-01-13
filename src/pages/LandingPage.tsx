@@ -308,7 +308,6 @@ const LandingPage: React.FC = () => {
                   sx={{
                     height: '100%',
                     textAlign: 'center',
-                    border: '1px solid rgba(255,255,255,0.12)',
                     borderRadius: 3,
                     p: 4,
                     color: brandWhite,
