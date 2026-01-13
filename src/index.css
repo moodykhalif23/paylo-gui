@@ -466,7 +466,7 @@ a:focus {
   }
 }
 
-/* Remove Material UI ripple/active highlight overlay for a cleaner auth UI */
+/* Remove Material UI ripple/active highlight overlay*/
 .MuiButtonBase-root .MuiTouchRipple-root,
 .MuiTabs-root .MuiTabs-indicator {
   display: none !important;

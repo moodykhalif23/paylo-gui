@@ -104,7 +104,7 @@ const LandingFooter: React.FC = () => {
               Paylo
             </Typography>
             <Typography variant="body2" sx={{ mb: 3, color: mutedText }}>
-              The secure and accessible cryptocurrency payment gateway for
+              The secure and accessible cryptocurrency payment gateway in
               Africa. Empowering businesses and individuals with fast, secure,
               and compliant blockchain transactions.
             </Typography>
@@ -142,13 +142,13 @@ const LandingFooter: React.FC = () => {
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <Phone sx={{ fontSize: 16, color: faintText }} />
                 <Typography variant="caption" color={mutedText}>
-                  +234 (0) 800 PAYLO-1
+                  +2547680-470-009
                 </Typography>
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <LocationOn sx={{ fontSize: 16, color: faintText }} />
                 <Typography variant="caption" color={mutedText}>
-                  Lagos, Nigeria
+                  Nairobi, Kenya
                 </Typography>
               </Box>
             </Stack>
